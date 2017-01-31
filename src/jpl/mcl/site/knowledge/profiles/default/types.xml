@@ -6,4 +6,14 @@
     <object name='jpl.mcl.site.knowledge.organfolder' meta_type='Dexterity FTI'/>
     <object name='jpl.mcl.site.knowledge.person' meta_type='Dexterity FTI'/>
     <object name='jpl.mcl.site.knowledge.personfolder' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.institution' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.institutionfolder' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.participatingsite' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.participatingsitefolder' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.project' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.projectfolder' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.protocol' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.protocolfolder' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.publication' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.publicationfolder' meta_type='Dexterity FTI'/>
 </object>

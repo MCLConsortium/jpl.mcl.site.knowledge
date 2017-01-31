@@ -6,7 +6,7 @@
     i18n:domain='jpl.mcl.site.knowledge'
     metal:use-macro='context/main_template/macros/master'>
     <head>
-        <title>Person Folder View</title>
+        <title>Institution Folder View</title>
     </head>
     <body>
         <metal:content-core fill-slot='content-core'>
@@ -37,27 +37,39 @@
                         You are seeing this because you are logged in with management privileges.
                     </span>
                 </p>
-                <table class='listing' summary='Listing of People' i18n:attributes='summary'>
+                <table class='listing' summary='Listing of Institutions' i18n:attributes='summary'>
                     <thead>
                         <tr>
-                            <th i18n:translate='personName'>Name</th>
-                            <th i18n:translate='personPhone'>Telephone</th>
-                            <th i18n:translate='personEmail'>Email</th>
+                            <th i18n:translate='institutionName'>Name</th>
+                            <th i18n:translate='institutionAbbrName'>Abbreviation Name</th>
+                            <th i18n:translate='institutionDepartment'>Department</th>
+                            <th i18n:translate='institutionDescription'>Description</th>
+                            <th i18n:translate='institutionHomePage'>Home Page</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tal:repeat repeat='row view/contents'>
-                            <tr class='odd' tal:define='odd repeat/row/odd; person row/getObject'
+                            <tr class='odd' tal:define='odd repeat/row/odd; institution row/getObject'
                                 tal:attributes='class python:u"odd" if odd else u"even"'>
                                 <td>
                                     <a href='#' tal:attributes='href row/getURL' tal:content='row/Title'>
                                         Blow, Joe
                                     </a>
                                 </td>
-                                <td tal:content='row/phone'>+1 303 555 1212</td>
+                                <td tal:content='institution/abbreviation'>
+                                    Lorem ipsum etc.
+                                </td>
+                                <td tal:content='institution/department'>
+                                    Description
+                                </td>
                                 <td>
-                                    <a href='#' tal:attributes='href person/email' tal:content='person/email'>
-                                        duck@hadooken.com
+                                    <div tal:replace="structure institution/description">
+                                        Lorem ipsum etc.
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href='#' tal:attributes='href row/homepage' tal:content='row/homepage'>
+                                        http://some.com/page
                                     </a>
                                 </td>
                             </tr>

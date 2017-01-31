@@ -6,6 +6,14 @@
     <index name='phone' meta_type='FieldIndex'>
         <indexed_attr value='phone'/>
     </index>
+    <index name='email' meta_type='FieldIndex'>
+        <indexed_attr value='email'/>
+    </index>
+    <index name='homepage' meta_type='FieldIndex'>
+        <indexed_attr value='homepage'/>
+    </index>
     <column value='subjectURI'/>
     <column value='phone'/>
+    <column value='email'/>
+    <column value='homepage'/>
 </object>

@@ -6,7 +6,7 @@
     i18n:domain='jpl.mcl.site.knowledge'
     metal:use-macro='context/main_template/macros/master'>
     <head>
-        <title>Person Folder View</title>
+        <title>Project Folder View</title>
     </head>
     <body>
         <metal:content-core fill-slot='content-core'>
@@ -37,28 +37,26 @@
                         You are seeing this because you are logged in with management privileges.
                     </span>
                 </p>
-                <table class='listing' summary='Listing of People' i18n:attributes='summary'>
+                <table class='listing' summary='Listing of Projects' i18n:attributes='summary'>
                     <thead>
                         <tr>
-                            <th i18n:translate='personName'>Name</th>
-                            <th i18n:translate='personPhone'>Telephone</th>
-                            <th i18n:translate='personEmail'>Email</th>
+                            <th i18n:translate='projectName'>Name</th>
+                            <th i18n:translate='projectHomePage'>Description</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tal:repeat repeat='row view/contents'>
-                            <tr class='odd' tal:define='odd repeat/row/odd; person row/getObject'
+                            <tr class='odd' tal:define='odd repeat/row/odd; project row/getObject'
                                 tal:attributes='class python:u"odd" if odd else u"even"'>
                                 <td>
                                     <a href='#' tal:attributes='href row/getURL' tal:content='row/Title'>
-                                        Blow, Joe
+                                        Some Project
                                     </a>
                                 </td>
-                                <td tal:content='row/phone'>+1 303 555 1212</td>
                                 <td>
-                                    <a href='#' tal:attributes='href person/email' tal:content='person/email'>
-                                        duck@hadooken.com
-                                    </a>
+                                    <div tal:replace="structure project/description">
+                                    description
+                                    </div>
                                 </td>
                             </tr>
                         </tal:repeat>

@@ -6,6 +6,7 @@ The following describes the changes between releases.
 0.0.1 — TBD
 -----------
 
+• Created types and RDF ingest for institution, protocols, participating sites, and projects
 • Created types and RDF ingest for degrees, organs, and people
 • Create new types documentation
 

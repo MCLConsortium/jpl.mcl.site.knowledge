@@ -1,0 +1,102 @@
+<html
+    xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'
+    xmlns:tal='http://xml.zope.org/namespaces/tal'
+    xmlns:metal='http://xml.zope.org/namespaces/metal'
+    xmlns:i18n='http://xml.zope.org/namespaces/i18n'
+    i18n:domain='jpl.mcl.site.knowledge'
+    metal:use-macro='context/main_template/macros/master'>
+    <head>
+        <title>ParticipatingSite Folder View</title>
+    </head>
+    <body>
+        <metal:content-core fill-slot='content-core'>
+            <metal:content-core define-macro='content-core' tal:define='isManager view/isManager'>
+                <p tal:condition='isManager' class='discreet callout'>
+                    <label for='form-widgets-url' class='horizontal' i18n:translate='rdfURL'>
+                        RDF URL:
+                    </label>
+                    <span id='form-widgets-url' class='uri-widget uri-field'>
+                        <a href='#' tal:attributes='href context/url' tal:content='context/url'>
+                            http://somewhere.com/some/rdf/source
+                        </a>
+                    </span>
+                    <label for='form-widgets-ingestEnabled' class='horizontal'>
+                        Ingest Enabled:
+                    </label>
+                    <span id='form-widgets-ingestEnabled' class='uri-widget uri-field'>
+                        <span tal:omit-tag='' tal:condition='context/ingestEnabled' i18n:translate='ingestEnabled'>
+                            &#x2705;
+                        </span>
+                        <span tal:omit-tag='' tal:condition='not:context/ingestEnabled'
+                            i18n:translate='ingestNotEnabled'>
+                            &#x1f6ab; This folder will <em>not</em> be updated
+                        </span>
+                    </span>
+                    <br/>
+                    <span i18n:translate='youAreAManager'>
+                        You are seeing this because you are logged in with management privileges.
+                    </span>
+                </p>
+                <table class='listing' summary='Listing of ParticipatingSites' i18n:attributes='summary'>
+                    <thead>
+                        <tr>
+                            <th i18n:translate='participatingsiteName'>Name</th>
+                            <th i18n:translate='participatingsiteDescription'>Description</th>
+                            <th i18n:translate='participatingsitePI'>PI</th>
+                            <th i18n:translate='participatingsiteProject'>Project</th>
+                            <th i18n:translate='participatingsiteOrgan'>Organ</th>
+                            <th i18n:translate='participatingsiteInstitution'>Institution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tal:repeat repeat='row view/contents'>
+                            <tr class='odd' tal:define='odd repeat/row/odd; participatingsite row/getObject'
+                                tal:attributes='class python:u"odd" if odd else u"even"'>
+                                <td>
+                                    <a href='#' tal:attributes='href row/getURL' tal:content='row/Title'>
+                                        Some ParticipatingSite
+                                    </a>
+                                </td>
+                                <td tal:content='participatingsite/description'>
+                                    description
+                                </td>
+                                <td>
+                                    <tal:row repeat='pi participatingsite/pi'>
+                                        <a href='#' tal:content='pi/title'
+                                        tal:attributes='href pi/absolute_url;'>
+                                            PI
+                                        </a>
+                                    </tal:row>
+                                </td>
+                                <td>
+                                    <tal:row repeat='project participatingsite/project'>
+                                        <a href='#' tal:content='project/title'
+                                        tal:attributes='href project/absolute_url;'>
+                                            Project
+                                        </a>
+                                    </tal:row>
+                                </td>
+                                <td>
+                                    <tal:row repeat='org participatingsite/organ'>
+                                        <a href='#' tal:content='org/title'
+                                        tal:attributes='href org/absolute_url;'>
+                                            Finger
+                                        </a>
+                                    </tal:row>
+                                </td>
+                                <td>
+                                    <tal:row repeat='institution participatingsite/institution'>
+                                        <a href='#' tal:content='institution/title'
+                                        tal:attributes='href institution/absolute_url'>
+                                            Institution
+                                        </a>
+                                    </tal:row>
+                                </td>
+                            </tr>
+                        </tal:repeat>
+                    </tbody>
+                </table>
+            </metal:content-core>
+        </metal:content-core>
+    </body>
+</html>

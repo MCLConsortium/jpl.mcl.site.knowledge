@@ -87,14 +87,14 @@ And did it work?
     >>> mph.description
     u'Master Public Health'
     >>> mph.subjectURI
-    u'http://mcl.jpl.nasa.gov/ksdb/degrees/2'
+    u'https://mcl.jpl.nasa.gov/ksdb/degreeinput/?id=2'
     >>> phd = folder['phd']
     >>> phd.title
     u'PhD'
     >>> phd.description
     u'Doctor of Philosophy'
     >>> phd.subjectURI
-    u'http://mcl.jpl.nasa.gov/ksdb/degrees/1'
+    u'https://mcl.jpl.nasa.gov/ksdb/degreeinput/?id=1'
 
 Great!  Now let's see how we work in the face of alterations to data::
 
@@ -103,13 +103,13 @@ Great!  Now let's see how we work in the face of alterations to data::
     >>> browser.getControl(name='form.buttons.save').click()
     >>> browser.open(portalURL + '/@@ingestContent')
     >>> browser.contents
-    '...Ingest Complete...Objects Created (1)...Objects Updated (1)...'
+    '...Ingest Complete...Objects Created (2)...Objects Updated (1)...'
     >>> len(folder.keys())
     3
     >>> keys = folder.keys()
     >>> keys.sort()
     >>> keys
-    ['md', 'mph', 'phd']
+    ['md', 'mph', 'phd-1']
     >>> md = folder['md']
     >>> md.title
     u'MD'
@@ -250,24 +250,291 @@ Works fine!
 Projects
 ========
 
-Let's try …
+Ok, trying projects::
+
+    >>> browser.open(portalURL)
+    >>> l = browser.getLink(id='jpl-mcl-site-knowledge-projectfolder')
+    >>> l.url.endswith('++add++jpl.mcl.site.knowledge.projectfolder')
+    True
+    >>> l.click()
+    >>> browser.getControl(name='form.widgets.title').value = u'My Projects Folder'
+    >>> browser.getControl(name='form.widgets.description').value = u'Some of my favorite projects.'
+    >>> browser.getControl(name='form.widgets.url').value = u'testscheme://localhost/rdf/project'
+    >>> browser.getControl(name='form.widgets.ingestEnabled:list').value = True
+    >>> browser.getControl(name='form.buttons.save').click()
+    >>> 'my-projects-folder' in portal.keys()
+    True
+    >>> folder = portal['my-projects-folder']
+    >>> folder.title
+    u'My Projects Folder'
+    >>> folder.description
+    u'Some of my favorite projects.'
+    >>> folder.url
+    'testscheme://localhost/rdf/project'
+    >>> folder.ingestEnabled
+    True
+
+Let's ingest and see what we get::
+
+    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder']
+    >>> transaction.commit()
+    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.contents
+    '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
+    >>> len(folder.keys())
+    2
+    >>> keys = folder.keys()
+    >>> keys.sort()
+    >>> keys
+    ['consortium-for-molecular-and-cellular-characterization-of-screen-detected-lesions', 'early-detection-research-network']
+    >>> mcl = folder['consortium-for-molecular-and-cellular-characterization-of-screen-detected-lesions']
+    >>> mcl.title
+    u'Consortium for Molecular and Cellular Characterization of Screen-Detected Lesions'
+    >>> mcl.abbreviatedName
+    u'MCL'
+    >>> mcl.description
+    u'Consortium for Molecular and Cellular Characterization of Screen-Detected Lesions'
+
+That works great.
 
 
 Institutions
 ============
 
+Now let's exercise institutions::
+
+    >>> browser.open(portalURL)
+    >>> l = browser.getLink(id='jpl-mcl-site-knowledge-institutionfolder')
+    >>> l.url.endswith('++add++jpl.mcl.site.knowledge.institutionfolder')
+    True
+    >>> l.click()
+    >>> browser.getControl(name='form.widgets.title').value = u'My Institutions Folder'
+    >>> browser.getControl(name='form.widgets.description').value = u'Some of my favorite institutions.'
+    >>> browser.getControl(name='form.widgets.url').value = u'testscheme://localhost/rdf/institution'
+    >>> browser.getControl(name='form.widgets.ingestEnabled:list').value = True
+    >>> browser.getControl(name='form.buttons.save').click()
+    >>> 'my-institutions-folder' in portal.keys()
+    True
+    >>> folder = portal['my-institutions-folder']
+    >>> folder.title
+    u'My Institutions Folder'
+    >>> folder.description
+    u'Some of my favorite institutions.'
+    >>> folder.url
+    'testscheme://localhost/rdf/institution'
+    >>> folder.ingestEnabled
+    True
+
+Let's ingest and see what we get::
+
+    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder', u'my-institutions-folder']
+    >>> transaction.commit()
+    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.contents
+    '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
+    >>> len(folder.keys())
+    2
+    >>> keys = folder.keys()
+    >>> keys.sort()
+    >>> keys
+    ['jet-propulsion-laboratory', 'national-cancer-institute']
+    >>> jpl = folder['jet-propulsion-laboratory']
+    >>> jpl.title
+    u'Jet Propulsion Laboratory'
+    >>> jpl.department
+    u'Informatics Center'
+    >>> jpl.description
+    u'JPL is on the forefront of space exploration.'
+    >>> jpl.abbreviation
+    u'JPL'
+    >>> jpl.homepage
+    u'http://www.jpl.nasa.gov/'
+    >>> members = [i.title for i in jpl.members]
+    >>> members.sort()
+    >>> members
+    [u'Liu, Beverley', u'\u9234\u6728, \u5e78\u5b50']
+
+That works great.
 
 Funded Sites
 ============
 
+Great, trying funded or participating sites::
+
+    >>> browser.open(portalURL)
+    >>> l = browser.getLink(id='jpl-mcl-site-knowledge-participatingsitefolder')
+    >>> l.url.endswith('++add++jpl.mcl.site.knowledge.participatingsitefolder')
+    True
+    >>> l.click()
+    >>> browser.getControl(name='form.widgets.title').value = u'My Participating Sites Folder'
+    >>> browser.getControl(name='form.widgets.description').value = u'Some of my favorite participating sites.'
+    >>> browser.getControl(name='form.widgets.url').value = u'testscheme://localhost/rdf/participatingsite'
+    >>> browser.getControl(name='form.widgets.ingestEnabled:list').value = True
+    >>> browser.getControl(name='form.buttons.save').click()
+    >>> 'my-participating-sites-folder' in portal.keys()
+    True
+    >>> folder = portal['my-participating-sites-folder']
+    >>> folder.title
+    u'My Participating Sites Folder'
+    >>> folder.description
+    u'Some of my favorite participating sites.'
+    >>> folder.url
+    'testscheme://localhost/rdf/participatingsite'
+    >>> folder.ingestEnabled
+    True
+
+Let's ingest and see what we get::
+
+    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder', u'my-institutions-folder', u'my-participating-sites-folder']
+    >>> transaction.commit()
+    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.contents
+    '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
+    >>> len(folder.keys())
+    2
+    >>> keys = folder.keys()
+    >>> keys.sort()
+    >>> keys
+    ['dmcc', 'ic']
+    >>> ic = folder['ic']
+    >>> ic.title
+    u'IC'
+    >>> ic.description
+    u'Informatics Center'
+    >>> organs = [i.title for i in ic.organ]
+    >>> organs.sort()
+    >>> organs
+    [u'Anus', u'Spleen']
+    >>> projects = [i.title for i in ic.project]
+    >>> projects.sort()
+    >>> projects
+    [u'Consortium for Molecular and Cellular Characterization of Screen-Detected Lesions', u'Early Detection Research Network']
+    >>> staffs = [i.title for i in ic.staff]
+    >>> staffs
+    [u'\u9234\u6728, \u5e78\u5b50']
+    >>> pis = [i.title for i in ic.pi]
+    >>> pis
+    [u'Liu, Beverley']
+    >>> institutions = [i.title for i in ic.institution]
+    >>> institutions
+    [u'National Cancer Institute']
+
+That works great.
 
 Personnel
 =========
 
+This is same as person, unless this changes later, will skip for now...
 
 Protocols
 =========
 
+Yippee, going for protocols::
+
+    >>> browser.open(portalURL)
+    >>> l = browser.getLink(id='jpl-mcl-site-knowledge-protocolfolder')
+    >>> l.url.endswith('++add++jpl.mcl.site.knowledge.protocolfolder')
+    True
+    >>> l.click()
+    >>> browser.getControl(name='form.widgets.title').value = u'My Protocols Folder'
+    >>> browser.getControl(name='form.widgets.description').value = u'Some of my favorite protocols.'
+    >>> browser.getControl(name='form.widgets.url').value = u'testscheme://localhost/rdf/protocol'
+    >>> browser.getControl(name='form.widgets.ingestEnabled:list').value = True
+    >>> browser.getControl(name='form.buttons.save').click()
+    >>> 'my-protocols-folder' in portal.keys()
+    True
+    >>> folder = portal['my-protocols-folder']
+    >>> folder.title
+    u'My Protocols Folder'
+    >>> folder.description
+    u'Some of my favorite protocols.'
+    >>> folder.url
+    'testscheme://localhost/rdf/protocol'
+    >>> folder.ingestEnabled
+    True
+
+Let's ingest and see what we get::
+
+    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder', u'my-institutions-folder', u'my-participating-sites-folder', u'my-protocols-folder']
+    >>> transaction.commit()
+    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.contents
+    '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
+    >>> len(folder.keys())
+    2
+    >>> keys = folder.keys()
+    >>> keys.sort()
+    >>> keys
+    ['a-methylation-panel-for-bladder-cancer', 'ksdb-protocol']
+    >>> ksdb = folder['ksdb-protocol']
+    >>> ksdb.title
+    u'KSDB Protocol'
+    >>> ksdb.abstract
+    u'ksdb abstract'
+    >>> ksdb.irbapprovalnum
+    u'1113232323'
+    >>> organs = [i.title for i in ksdb.organ]
+    >>> organs.sort()
+    >>> organs
+    [u'Anus', u'Spleen']
+    >>> pis = [i.title for i in ksdb.pi]
+    >>> pis
+    [u'Liu, Beverley', u'\u9234\u6728, \u5e78\u5b50']
+
+That works great.
 
 Publications
 ============
+
+Finally, going for publications::
+
+    >>> browser.open(portalURL)
+    >>> l = browser.getLink(id='jpl-mcl-site-knowledge-publicationfolder')
+    >>> l.url.endswith('++add++jpl.mcl.site.knowledge.publicationfolder')
+    True
+    >>> l.click()
+    >>> browser.getControl(name='form.widgets.title').value = u'My Publications Folder'
+    >>> browser.getControl(name='form.widgets.description').value = u'Some of my favorite publications.'
+    >>> browser.getControl(name='form.widgets.url').value = u'testscheme://localhost/rdf/publication'
+    >>> browser.getControl(name='form.widgets.ingestEnabled:list').value = True
+    >>> browser.getControl(name='form.buttons.save').click()
+    >>> 'my-publications-folder' in portal.keys()
+    True
+    >>> folder = portal['my-publications-folder']
+    >>> folder.title
+    u'My Publications Folder'
+    >>> folder.description
+    u'Some of my favorite publications.'
+    >>> folder.url
+    'testscheme://localhost/rdf/publication'
+    >>> folder.ingestEnabled
+    True
+
+Let's ingest and see what we get::
+
+    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder', u'my-institutions-folder', u'my-participating-sites-folder', u'my-protocols-folder', u'my-publications-folder']
+    >>> transaction.commit()
+    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.contents
+    '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
+    >>> len(folder.keys())
+    2
+    >>> keys = folder.keys()
+    >>> keys.sort()
+    >>> keys
+    ['test-publication-1', 'test-publication-2']
+    >>> pub = folder['test-publication-1']
+    >>> pub.title
+    u'Test Publication 1'
+    >>> pub.pmid
+    u'20864512'
+    >>> pub.year
+    u'2006'
+    >>> pub.journal
+    u'Cancer Prev Res (Phil)'
+    >>> authors = pub.author
+    >>> authors.sort()
+    >>> authors
+    [u'Fang H', u'Jiang F', u'Li R', u'Stass SA.', u'Todd NW', u'Zhang H']
+
+That works great.

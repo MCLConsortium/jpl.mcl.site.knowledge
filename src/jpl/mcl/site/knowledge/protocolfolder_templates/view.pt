@@ -6,7 +6,7 @@
     i18n:domain='jpl.mcl.site.knowledge'
     metal:use-macro='context/main_template/macros/master'>
     <head>
-        <title>Person Folder View</title>
+        <title>Protocol Folder View</title>
     </head>
     <body>
         <metal:content-core fill-slot='content-core'>
@@ -37,29 +37,59 @@
                         You are seeing this because you are logged in with management privileges.
                     </span>
                 </p>
-                <table class='listing' summary='Listing of People' i18n:attributes='summary'>
+                <table class='listing' summary='Listing of Protocols' i18n:attributes='summary'>
                     <thead>
                         <tr>
-                            <th i18n:translate='personName'>Name</th>
-                            <th i18n:translate='personPhone'>Telephone</th>
-                            <th i18n:translate='personEmail'>Email</th>
+                            <th i18n:translate='protocolName'>Name</th>
+                            <th i18n:translate='protocolAbstract'>Abstract</th>
+                            <th i18n:translate='protocolOrgan'>Organs</th>
+                            <th i18n:translate='protocolPI'>PI</th>
+                            <th i18n:translate='protocolStartDate'>Start date</th>
+                            <th i18n:translate='protocolIRBApproval'>IRB Approval</th>
+                            <th i18n:translate='protocolSiteContact'>Site Contact</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tal:repeat repeat='row view/contents'>
-                            <tr class='odd' tal:define='odd repeat/row/odd; person row/getObject'
+                            <tr class='odd' tal:define='odd repeat/row/odd; protocol row/getObject'
                                 tal:attributes='class python:u"odd" if odd else u"even"'>
                                 <td>
                                     <a href='#' tal:attributes='href row/getURL' tal:content='row/Title'>
-                                        Blow, Joe
+                                        Some Protocol
                                     </a>
                                 </td>
-                                <td tal:content='row/phone'>+1 303 555 1212</td>
+
                                 <td>
-                                    <a href='#' tal:attributes='href person/email' tal:content='person/email'>
-                                        duck@hadooken.com
-                                    </a>
+                                    <div tal:replace="structure protocol/abstract">
+                                        abstract
+                                    </div>
                                 </td>
+                                <td>
+                                    <tal:row repeat='org protocol/organ'>
+                                        <a href='#' tal:content='org/title'
+                                        tal:attributes='href org/absolute_url'>
+                                            Finger
+                                        </a>
+                                    </tal:row>
+                                </td>
+                                <td>
+                                    <tal:row repeat='pi protocol/pi'>
+                                        <a href='#' tal:content='pi/title'
+                                        tal:attributes='href pi/absolute_url'>
+                                            PI
+                                        </a>
+                                    </tal:row>
+                                </td>
+                                <td tal:content='protocol/startDate'>
+                                    1/2/2100
+                                </td>
+                                <td tal:content='protocol/irbapproval'>
+                                    IRB Approval
+                                </td>
+                                <td tal:content='protocol/sitecontact'>
+                                    Site Contact
+                                </td>
+
                             </tr>
                         </tal:repeat>
                     </tbody>
