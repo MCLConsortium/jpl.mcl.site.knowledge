@@ -10,6 +10,11 @@ Features
 • Degree content type
 • Organ content type
 • Person content type
+• Project content type
+• Institution content type
+• Participating Site content type
+• Protocol content type
+• Publication content type
 
 
 Documentation
