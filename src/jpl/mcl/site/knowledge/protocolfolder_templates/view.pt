@@ -7,6 +7,12 @@
     metal:use-macro='context/main_template/macros/master'>
     <head>
         <title>Protocol Folder View</title>
+        <metal:block fill-slot='style_slot' tal:define='navroot context/@@plone_portal_state/navigation_root_url'>
+            <link rel='stylesheet' type='text/css'
+                tal:attributes='href string:${navroot}/++resource++jpl.mcl.site.knowledge/custom-mcl.css'
+            />
+        </metal:block>
+
     </head>
     <body>
         <metal:content-core fill-slot='content-core'>
@@ -15,6 +21,7 @@
                     <label for='form-widgets-url' class='horizontal' i18n:translate='rdfURL'>
                         RDF URL:
                     </label>
+
                     <span id='form-widgets-url' class='uri-widget uri-field'>
                         <a href='#' tal:attributes='href context/url' tal:content='context/url'>
                             http://somewhere.com/some/rdf/source

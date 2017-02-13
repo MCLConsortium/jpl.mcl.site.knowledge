@@ -38,6 +38,7 @@ _requirements = [
     'Products.CMFPlone',
     'rdflib',
     'z3c.relationfield',
+    'jpl.mcl.site.sciencedata'
 ]
 _classifiers = [
     'Development Status :: 2 - Pre-Alpha',

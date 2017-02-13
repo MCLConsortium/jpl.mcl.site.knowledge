@@ -20,7 +20,7 @@ _dawn = datetime(1970, 1, 1, 0, 0, 0, 0)
 class SiteIngestor(grok.View):
     u'''A "view" that orders all knoweldge folders to update the content.'''
     grok.context(INavigationRoot)
-    grok.name('ingestContent')
+    grok.name('ingestKnowledge')
     grok.require('cmf.ManagePortal')
     def update(self):
         self.request.set('disable_border', True)

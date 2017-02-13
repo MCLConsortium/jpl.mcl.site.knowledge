@@ -7,6 +7,11 @@
     metal:use-macro='context/main_template/macros/master'>
     <head>
         <title>Institution Folder View</title>
+        <metal:block fill-slot='style_slot' tal:define='navroot context/@@plone_portal_state/navigation_root_url'>
+            <link rel='stylesheet' type='text/css'
+                tal:attributes='href string:${navroot}/++resource++jpl.mcl.site.knowledge/custom-mcl.css'
+            />
+        </metal:block>
     </head>
     <body>
         <metal:content-core fill-slot='content-core'>

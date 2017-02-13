@@ -8,9 +8,17 @@ from plone.registry.interfaces import IRegistry
 from ZODB.DemoStorage import DemoStorage
 from zope.component import getUtility
 import socket, logging
+from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.WorkflowCore import WorkflowException
+from plone.app.textfield.value import RichTextValue
 
 _logger = logging.getLogger(__name__)
 
+
+_edrnHomePageDescription = u'''This is the Consortium for Molecular and Cellular Characterization of Screen-Detected Lesions.
+'''
+_edrnHomePageBodyHTML = u'''The MCL Consortium consists of independent, multi-disciplinary teams that undertake comprehensive molecular and cellular characterizations of tumor tissue, cell, and microenvironment components to distinguish screen-detected early lesions from interval and symptom-detected cancers.
+<br><br>If you'd like to join us, <a href='https://mcl.nci.nih.gov/register'>fill out the registration form</a>.'''
 
 # There has to be a better way of doing this:
 if socket.gethostname() == 'tumor.jpl.nasa.gov' or socket.gethostname().endswith('.local'):
@@ -20,6 +28,22 @@ if socket.gethostname() == 'tumor.jpl.nasa.gov' or socket.gethostname().endswith
 else:
     _rdfBaseURL = u'https://mcl.jpl.nasa.gov/ksdb/publishrdf/?rdftype='
 
+
+def createWelcomePage(portal):
+    if 'front-page' in portal.objectIds():
+        portal.manage_delObjects('front-page')
+    frontPage = portal[portal.invokeFactory('Document', 'front-page')]
+    frontPage.setTitle('Welcome to MCL!')
+    frontPage.setDescription(_edrnHomePageDescription)
+    frontPage.text = RichTextValue(_edrnHomePageBodyHTML, 'text/html', 'text/html')
+    frontPage.showGarishSearchBox = True
+    try:
+        wfTool = getToolByName(portal, 'portal_workflow')
+        wfTool.doActionFor(frontPage, action='publish')
+    except WorkflowException:
+        pass
+    frontPage.reindexObject()
+    portal.setDefaultPage('front-page')
 
 def createKnowledgeFolders(setupTool):
     if setupTool.readDataFile('jpl.mcl.site.knowledge.txt') is None: return
@@ -72,6 +96,7 @@ def createKnowledgeFolders(setupTool):
         url=_rdfBaseURL + u'publication', ingestEnabled=True
     )
     publish(knowledge)
+    createWelcomePage(portal)
     registry = getUtility(IRegistry)
     registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [
         u'knowledge/organs',
