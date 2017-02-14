@@ -7,7 +7,7 @@ import os.path
 # ------------
 
 _name            = 'jpl.mcl.site.knowledge'
-_version         = '0.0.1'
+_version         = '0.0.2'
 _description     = 'Knowledge representation for the MCL site'
 _url             = 'https://github.com/MCLConsortium/' + _name
 _downloadURL     = 'https://github.com/MCLConsortium/' + _name + '/archive/' + _version + '.zip'
@@ -37,8 +37,7 @@ _requirements = [
     'Products.CMFPlacefulWorkflow',
     'Products.CMFPlone',
     'rdflib',
-    'z3c.relationfield',
-    'jpl.mcl.site.sciencedata'
+    'z3c.relationfield'
 ]
 _classifiers = [
     'Development Status :: 2 - Pre-Alpha',
