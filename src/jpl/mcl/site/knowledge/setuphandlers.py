@@ -29,7 +29,8 @@ def createKnowledgeFolders(setupTool):
     portal = setupTool.getSite()
     # Don't bother if we're running in the test fixture
     if hasattr(portal._p_jar, 'db') and isinstance(portal._p_jar.db().storage, DemoStorage): return
-    if 'resources' in portal.keys(): return
+    if 'resources' in portal.keys():
+        portal.manage_delObjects('resources')
     knowledge = createContentInContainer(
         portal, 'Folder', title=u'Resources',
         description=u"Research resources and data."
