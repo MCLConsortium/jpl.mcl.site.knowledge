@@ -37,7 +37,8 @@ _requirements = [
     'Products.CMFPlacefulWorkflow',
     'Products.CMFPlone',
     'rdflib',
-    'z3c.relationfield'
+    'z3c.relationfield',
+    'eea.facetednavigation'
 ]
 _classifiers = [
     'Development Status :: 2 - Pre-Alpha',

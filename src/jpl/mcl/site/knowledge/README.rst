@@ -57,7 +57,7 @@ visiting a view at the root of the site::
     >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder']
     >>> import transaction
     >>> transaction.commit()
-    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
 
 But since the degree folder had ingest disabled, it's still empty::
 
@@ -69,7 +69,7 @@ So let's enable ingest and try again::
     >>> browser.open(portalURL + '/my-degree-folder/@@edit')    
     >>> browser.getControl(name='form.widgets.ingestEnabled:list').value = True
     >>> browser.getControl(name='form.buttons.save').click()
-    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
 
 And did it work?
 
@@ -101,7 +101,7 @@ Great!  Now let's see how we work in the face of alterations to data::
     >>> browser.open(portalURL + '/my-degree-folder/@@edit')    
     >>> browser.getControl(name='form.widgets.url').value = u'testscheme://localhost/rdf/degrees2'
     >>> browser.getControl(name='form.buttons.save').click()
-    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
     '...Ingest Complete...Objects Created (2)...Objects Updated (1)...'
     >>> len(folder.keys())
@@ -125,7 +125,7 @@ let's see what happens if a degree is deleted::
     >>> browser.open(portalURL + '/my-degree-folder/@@edit')    
     >>> browser.getControl(name='form.widgets.url').value = u'testscheme://localhost/rdf/degrees3'
     >>> browser.getControl(name='form.buttons.save').click()
-    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
     '...Ingest Complete...Objects Created (0)...Objects Updated (0)...Objects Deleted (1)...'
     >>> len(folder.keys())
@@ -170,7 +170,7 @@ Let's ingest and see what we get::
 
     >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder']
     >>> transaction.commit()
-    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
     '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
     >>> len(folder.keys())
@@ -219,7 +219,7 @@ Let's ingest and see what we get::
 
     >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder']
     >>> transaction.commit()
-    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
     '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
     >>> len(folder.keys())
@@ -278,7 +278,7 @@ Let's ingest and see what we get::
 
     >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder']
     >>> transaction.commit()
-    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
     '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
     >>> len(folder.keys())
@@ -329,7 +329,7 @@ Let's ingest and see what we get::
 
     >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder', u'my-institutions-folder']
     >>> transaction.commit()
-    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
     '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
     >>> len(folder.keys())
@@ -387,7 +387,7 @@ Let's ingest and see what we get::
 
     >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder', u'my-institutions-folder', u'my-participating-sites-folder']
     >>> transaction.commit()
-    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
     '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
     >>> len(folder.keys())
@@ -457,7 +457,7 @@ Let's ingest and see what we get::
 
     >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder', u'my-institutions-folder', u'my-participating-sites-folder', u'my-protocols-folder']
     >>> transaction.commit()
-    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
     '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
     >>> len(folder.keys())
@@ -514,7 +514,7 @@ Let's ingest and see what we get::
 
     >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder', u'my-institutions-folder', u'my-participating-sites-folder', u'my-protocols-folder', u'my-publications-folder']
     >>> transaction.commit()
-    >>> browser.open(portalURL + '/@@ingestContent')
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
     '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
     >>> len(folder.keys())
