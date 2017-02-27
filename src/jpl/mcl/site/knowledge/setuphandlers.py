@@ -50,11 +50,6 @@ def createKnowledgeFolders(setupTool):
         url=_rdfBaseURL + u'fundedsite', ingestEnabled=True
     )
     createContentInContainer(
-        knowledge, 'jpl.mcl.site.knowledge.projectfolder', title=u'Projects',
-        description=u'Projects that are being worked on.',
-        url=_rdfBaseURL + u'project', ingestEnabled=True
-    )
-    createContentInContainer(
         knowledge, 'jpl.mcl.site.knowledge.publicationfolder', title=u'Publications',
         description=u'Articles and other material published by the MCL Consortium.',
         url=_rdfBaseURL + u'publication', ingestEnabled=True
@@ -91,6 +86,16 @@ def createKnowledgeFolders(setupTool):
         description=u'Academic degrees are qualifications awarded on successful completion of courses of study.',
         url=_rdfBaseURL + u'degree', ingestEnabled=True
     )
+    createContentInContainer(
+        knowledge, 'jpl.mcl.site.knowledge.groupfolder', title=u'Working Groups',
+        description=u'Working groups formed to work on protocols and studies.',
+        url=_rdfBaseURL + u'group', ingestEnabled=True
+    )
+    createContentInContainer(
+        knowledge, 'jpl.mcl.site.knowledge.diseasefolder', title=u'Diseases',
+        description=u'Diseases being studied in MCL.',
+        url=_rdfBaseURL + u'disease', ingestEnabled=True
+    )
     publish(knowledge)
     registry = getUtility(IRegistry)
     registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [
@@ -99,7 +104,8 @@ def createKnowledgeFolders(setupTool):
         u'resources/people',
         u'resources/institutions',
         u'resources/participating-sites',
-        u'resources/projects',
         u'resources/protocols',
-        u'resources/publications'
+        u'resources/publications',
+        u'resources/working-groups',
+        u'resources/diseases'
     ]

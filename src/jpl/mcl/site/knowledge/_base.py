@@ -232,6 +232,8 @@ class Ingestor(grok.Adapter):
         to a sequence of dictionaries whose keys ``p`` are predicate URIs
         mapping to a sequence of ``o`` objects, which may be literal values
         or reference URIs.'''
+        print "URL"
+        print url
         graph = rdflib.Graph()
         graph.parse(url)
         statements = {}

@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
-<object name='jpl.mcl.site.knowledge.projectfolder' meta_type='Dexterity FTI' i18n:domain='jpl.mcl.site.knowledge'
+<object name='jpl.mcl.site.knowledge.groupfolder' meta_type='Dexterity FTI' i18n:domain='jpl.mcl.site.knowledge'
     xmlns:i18n='http://xml.zope.org/namespaces/i18n'>
-    <property name='title' i18n:translate=''>Project Folder</property>
-    <property name='description' i18n:translate=''>A container for projects</property>
-    <property name='content_icon'>++resource++jpl.mcl.site.knowledge/projectfolder.png</property>
+    <property name='title' i18n:translate=''>Group Folder</property>
+    <property name='description' i18n:translate=''>A container for groups</property>
+    <property name='content_icon'>++resource++jpl.mcl.site.knowledge/groupfolder.png</property>
     <property name='allow_discussion'>False</property>
     <property name='global_allow'>True</property>
     <property name='filter_content_types'>True</property>
     <property name='allowed_content_types'>
-        <element value='jpl.mcl.site.knowledge.project'/>
+        <element value='jpl.mcl.site.knowledge.group'/>
     </property>
-    <property name='schema'>jpl.mcl.site.knowledge.projectfolder.IProjectFolder</property>
+    <property name='schema'>jpl.mcl.site.knowledge.groupfolder.IGroupFolder</property>
     <property name='klass'>plone.dexterity.content.Container</property>
     <property name='add_permission'>cmf.AddPortalContent</property>
     <property name='behaviors'>

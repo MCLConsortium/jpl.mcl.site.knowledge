@@ -6,7 +6,7 @@
     i18n:domain='jpl.mcl.site.knowledge'
     metal:use-macro='context/main_template/macros/master'>
     <head>
-        <title>ParticipatingSite Folder View</title>
+        <title>Disease Folder View</title>
         <metal:block fill-slot='style_slot' tal:define='navroot context/@@plone_portal_state/navigation_root_url'>
             <link rel='stylesheet' type='text/css'
                 tal:attributes='href string:${navroot}/++resource++jpl.mcl.site.knowledge/custom-mcl.css'
@@ -42,52 +42,23 @@
                         You are seeing this because you are logged in with management privileges.
                     </span>
                 </p>
-                <table class='listing' summary='Listing of ParticipatingSites' i18n:attributes='summary'>
+                <table class='listing' summary='Listing of Diseases' i18n:attributes='summary'>
                     <thead>
                         <tr>
-                            <th i18n:translate='participatingsiteName'>Name</th>
-                            <th i18n:translate='participatingsiteDescription'>Description</th>
-                            <th i18n:translate='participatingsitePI'>PI</th>
-                            <th i18n:translate='participatingsiteOrgan'>Organ</th>
-                            <th i18n:translate='participatingsiteInstitution'>Institution</th>
+                            <th i18n:translate='diseaseName'>ICD10 Disease Name</th>
+                            <th i18n:translate='diseaseDesc'>Description</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tal:repeat repeat='row view/contents'>
-                            <tr class='odd' tal:define='odd repeat/row/odd; participatingsite row/getObject'
+                            <tr class='odd' tal:define='odd repeat/row/odd'
                                 tal:attributes='class python:u"odd" if odd else u"even"'>
                                 <td>
                                     <a href='#' tal:attributes='href row/getURL' tal:content='row/Title'>
-                                        Some ParticipatingSite
+                                        Anus
                                     </a>
                                 </td>
-                                <td tal:content='participatingsite/description'>
-                                    description
-                                </td>
-                                <td>
-                                    <tal:row repeat='pi participatingsite/pi'>
-                                        <a href='#' tal:content='pi/title'
-                                        tal:attributes='href pi/absolute_url;'>
-                                            PI
-                                        </a>
-                                    </tal:row>
-                                </td>
-                                <td>
-                                    <tal:row repeat='org participatingsite/organ'>
-                                        <a href='#' tal:content='org/title'
-                                        tal:attributes='href org/absolute_url;'>
-                                            Finger
-                                        </a>
-                                    </tal:row>
-                                </td>
-                                <td>
-                                    <tal:row repeat='institution participatingsite/institution'>
-                                        <a href='#' tal:content='institution/title'
-                                        tal:attributes='href institution/absolute_url'>
-                                            Institution
-                                        </a>
-                                    </tal:row>
-                                </td>
+                                <td tal:content='row/Description'>The anus is the external opening of the rectum.</td>
                             </tr>
                         </tal:repeat>
                     </tbody>

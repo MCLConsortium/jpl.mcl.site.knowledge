@@ -5,8 +5,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 >
     <rdf:Description rdf:about="https://mcl.jpl.nasa.gov/ksdb/fundedsiteinput/?id=1">
-    <ns2:project rdf:resource="https://mcl.jpl.nasa.gov/ksdb/projectinput/?id=2"/>
-    <ns2:project rdf:resource="https://mcl.jpl.nasa.gov/ksdb/projectinput/?id=1"/>
     <ns2:organ rdf:resource="https://mcl.jpl.nasa.gov/ksdb/organinput/?id=1"/>
     <ns2:organ rdf:resource="https://mcl.jpl.nasa.gov/ksdb/organinput/?id=2"/>
     <rdf:type rdf:resource="https://mcl.jpl.nasa.gov/rdf/types.rdf#FundedSite"/>
@@ -22,6 +20,5 @@
     <rdf:type rdf:resource="https://mcl.jpl.nasa.gov/rdf/types.rdf#FundedSite"/>
     <ns2:institution rdf:resource="https://mcl.jpl.nasa.gov/ksdb/institutioninput/?id=1"/>
     <ns1:title>DMCC</ns1:title>
-    <ns2:project rdf:resource="https://mcl.jpl.nasa.gov/ksdb/projectinput/?id=1"/>
   </rdf:Description>
 </rdf:RDF>

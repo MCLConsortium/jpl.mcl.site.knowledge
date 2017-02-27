@@ -247,57 +247,6 @@ Let's ingest and see what we get::
 Works fine!
 
 
-Projects
-========
-
-Ok, trying projects::
-
-    >>> browser.open(portalURL)
-    >>> l = browser.getLink(id='jpl-mcl-site-knowledge-projectfolder')
-    >>> l.url.endswith('++add++jpl.mcl.site.knowledge.projectfolder')
-    True
-    >>> l.click()
-    >>> browser.getControl(name='form.widgets.title').value = u'My Projects Folder'
-    >>> browser.getControl(name='form.widgets.description').value = u'Some of my favorite projects.'
-    >>> browser.getControl(name='form.widgets.url').value = u'testscheme://localhost/rdf/project'
-    >>> browser.getControl(name='form.widgets.ingestEnabled:list').value = True
-    >>> browser.getControl(name='form.buttons.save').click()
-    >>> 'my-projects-folder' in portal.keys()
-    True
-    >>> folder = portal['my-projects-folder']
-    >>> folder.title
-    u'My Projects Folder'
-    >>> folder.description
-    u'Some of my favorite projects.'
-    >>> folder.url
-    'testscheme://localhost/rdf/project'
-    >>> folder.ingestEnabled
-    True
-
-Let's ingest and see what we get::
-
-    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder']
-    >>> transaction.commit()
-    >>> browser.open(portalURL + '/@@ingestKnowledge')
-    >>> browser.contents
-    '...Ingest Complete...Objects Created (2)...Objects Updated (0)...Objects Deleted (0)...'
-    >>> len(folder.keys())
-    2
-    >>> keys = folder.keys()
-    >>> keys.sort()
-    >>> keys
-    ['consortium-for-molecular-and-cellular-characterization-of-screen-detected-lesions', 'early-detection-research-network']
-    >>> mcl = folder['consortium-for-molecular-and-cellular-characterization-of-screen-detected-lesions']
-    >>> mcl.title
-    u'Consortium for Molecular and Cellular Characterization of Screen-Detected Lesions'
-    >>> mcl.abbreviatedName
-    u'MCL'
-    >>> mcl.description
-    u'Consortium for Molecular and Cellular Characterization of Screen-Detected Lesions'
-
-That works great.
-
-
 Institutions
 ============
 
@@ -327,7 +276,7 @@ Now let's exercise institutions::
 
 Let's ingest and see what we get::
 
-    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder', u'my-institutions-folder']
+    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-institutions-folder']
     >>> transaction.commit()
     >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
@@ -385,7 +334,7 @@ Great, trying funded or participating sites::
 
 Let's ingest and see what we get::
 
-    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder', u'my-institutions-folder', u'my-participating-sites-folder']
+    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-institutions-folder', u'my-participating-sites-folder']
     >>> transaction.commit()
     >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
@@ -405,10 +354,6 @@ Let's ingest and see what we get::
     >>> organs.sort()
     >>> organs
     [u'Anus', u'Spleen']
-    >>> projects = [i.title for i in ic.project]
-    >>> projects.sort()
-    >>> projects
-    [u'Consortium for Molecular and Cellular Characterization of Screen-Detected Lesions', u'Early Detection Research Network']
     >>> staffs = [i.title for i in ic.staff]
     >>> staffs
     [u'\u9234\u6728, \u5e78\u5b50']
@@ -455,7 +400,7 @@ Yippee, going for protocols::
 
 Let's ingest and see what we get::
 
-    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder', u'my-institutions-folder', u'my-participating-sites-folder', u'my-protocols-folder']
+    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-institutions-folder', u'my-participating-sites-folder', u'my-protocols-folder']
     >>> transaction.commit()
     >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
@@ -512,7 +457,7 @@ Finally, going for publications::
 
 Let's ingest and see what we get::
 
-    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-projects-folder', u'my-institutions-folder', u'my-participating-sites-folder', u'my-protocols-folder', u'my-publications-folder']
+    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-institutions-folder', u'my-participating-sites-folder', u'my-protocols-folder', u'my-publications-folder']
     >>> transaction.commit()
     >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents

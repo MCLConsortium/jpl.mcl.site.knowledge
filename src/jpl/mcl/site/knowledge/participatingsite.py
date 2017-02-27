@@ -5,7 +5,6 @@ u'''MCL — ParticipatingSite'''
 from . import MESSAGE_FACTORY as _
 from ._base import IKnowledgeObject
 from person import IPerson
-from project import IProject
 from institution import IInstitution
 from organ import IOrgan
 from plone.formwidget.contenttree import ObjPathSourceBinder
@@ -24,17 +23,6 @@ class IParticipatingSite(IKnowledgeObject):
         title=_(u'Description'),
         description=_(u'A short summary of this participating site.'),
         required=False,
-    )
-    project = RelationList(
-        title=_(u'Projects'),
-        description=_(u'Projects associated with this Participating Site.'),
-        required=False,
-        default=[],
-        value_type=RelationChoice(
-            title=_(u'Project'),
-            description=_(u'A single project worked upon in this Participating Site.'),
-            source=ObjPathSourceBinder(object_provides=IProject.__identifier__)
-        )
     )
     organ = RelationList(
         title=_(u'Organs'),
@@ -86,7 +74,6 @@ IParticipatingSite.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/type
 IParticipatingSite.setTaggedValue('predicateMap', {
     u'http://purl.org/dc/terms/title': ('title', False),
     u'http://purl.org/dc/terms/description': ('description', False),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#project': ('project', True),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#organ': ('organ', True),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#staff': ('staff', True),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#pi': ('pi', True),

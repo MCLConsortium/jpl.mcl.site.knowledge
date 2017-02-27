@@ -6,7 +6,7 @@
     i18n:domain='jpl.mcl.site.knowledge'
     metal:use-macro='context/main_template/macros/master'>
     <head>
-        <title>Project Folder View</title>
+        <title>Working Groups</title>
         <metal:block fill-slot='style_slot' tal:define='navroot context/@@plone_portal_state/navigation_root_url'>
             <link rel='stylesheet' type='text/css'
                 tal:attributes='href string:${navroot}/++resource++jpl.mcl.site.knowledge/custom-mcl.css'
@@ -42,25 +42,25 @@
                         You are seeing this because you are logged in with management privileges.
                     </span>
                 </p>
-                <table class='listing' summary='Listing of Projects' i18n:attributes='summary'>
+                <table class='listing' summary='Listing of Groups' i18n:attributes='summary'>
                     <thead>
                         <tr>
-                            <th i18n:translate='projectName'>Name</th>
-                            <th i18n:translate='projectHomePage'>Description</th>
+                            <th i18n:translate='groupName'>Name</th>
+                            <th i18n:translate='groupDescription'>Description</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tal:repeat repeat='row view/contents'>
-                            <tr class='odd' tal:define='odd repeat/row/odd; project row/getObject'
+                            <tr class='odd' tal:define='odd repeat/row/odd; group row/getObject'
                                 tal:attributes='class python:u"odd" if odd else u"even"'>
                                 <td>
                                     <a href='#' tal:attributes='href row/getURL' tal:content='row/Title'>
-                                        Some Project
+                                        Blow, Joe
                                     </a>
                                 </td>
                                 <td>
-                                    <div tal:replace="structure project/description">
-                                    description
+                                    <div tal:replace="structure group/description">
+                                        Lorem ipsum etc.
                                     </div>
                                 </td>
                             </tr>

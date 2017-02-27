@@ -1,15 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
-<object name='jpl.mcl.site.knowledge.project' meta_type='Dexterity FTI' i18n:domain='jpl.mcl.site.knowledge'
+<!--
+Copyright 2016 California Institute of Technology. ALL RIGHTS
+RESERVED. U.S. Government Sponsorship acknowledged.
+-->
+<object name='jpl.mcl.site.knowledge.diseasefolder' meta_type='Dexterity FTI' i18n:domain='jpl.mcl.site.knowledge'
     xmlns:i18n='http://xml.zope.org/namespaces/i18n'>
-    <property name='title' i18n:translate=''>Project</property>
-    <property name='description' i18n:translate=''>An project participating with MCL</property>
-    <property name='content_icon'>++resource++jpl.mcl.site.knowledge/project.png</property>
+    <property name='title' i18n:translate=''>Disease Folder</property>
+    <property name='description' i18n:translate=''>A container for body systems</property>
+    <property name='content_icon'>++resource++jpl.mcl.site.knowledge/diseasefolder.png</property>
     <property name='allow_discussion'>False</property>
-    <property name='global_allow'>False</property>
+    <property name='global_allow'>True</property>
     <property name='filter_content_types'>True</property>
-    <property name='allowed_content_types'/>
-    <property name='schema'>jpl.mcl.site.knowledge.project.IProject</property>
-    <property name='klass'>plone.dexterity.content.Item</property>
+    <property name='allowed_content_types'>
+        <element value='jpl.mcl.site.knowledge.disease'/>
+    </property>
+    <property name='schema'>jpl.mcl.site.knowledge.diseasefolder.IDiseaseFolder</property>
+    <property name='klass'>plone.dexterity.content.Container</property>
     <property name='add_permission'>cmf.AddPortalContent</property>
     <property name='behaviors'>
         <element value='plone.app.content.interfaces.INameFromTitle'/>
