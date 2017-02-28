@@ -99,7 +99,7 @@ def createKnowledgeFolders(setupTool):
 
     createContentInContainer(
         portal, 'jpl.mcl.site.knowledge.groupfolder', title=u'Working Groups',
-        description=u'Working groups formed to work on protocols and studies.',
+        description=u'Committees and other expert groups appointed to study and report on a particular areas and make recommendations to MCL based on findings.',
         url=_rdfBaseURL + u'group', ingestEnabled=True
     )
 
