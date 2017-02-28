@@ -16,12 +16,13 @@ _logger = logging.getLogger(__name__)
 
 
 # There has to be a better way of doing this:
+# MCL ID is currently 39 in KSDB
 if socket.gethostname() == 'tumor.jpl.nasa.gov' or socket.gethostname().endswith('.local'):
     _logger.warn(u'Using development KSDB on edrn-dev.jpl.nasa.gov instead of production')
     _rdfBaseURL = u'https://edrn-dev.jpl.nasa.gov/ksdb/publishrdf/?rdftype='
-    #_rdfBaseURL = u'http://localhost:8000/ksdb/publishrdf/?rdftype='
+    _rdfBaseURL = u'http://localhost:8000/ksdb/publishrdf/?filterby=program&filterval=39&rdftype='
 else:
-    _rdfBaseURL = u'https://mcl.jpl.nasa.gov/ksdb/publishrdf/?rdftype='
+    _rdfBaseURL = u'https://mcl.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=39&rdftype='
 
 
 def createKnowledgeFolders(setupTool):
@@ -87,25 +88,31 @@ def createKnowledgeFolders(setupTool):
         url=_rdfBaseURL + u'degree', ingestEnabled=True
     )
     createContentInContainer(
-        knowledge, 'jpl.mcl.site.knowledge.groupfolder', title=u'Working Groups',
-        description=u'Working groups formed to work on protocols and studies.',
-        url=_rdfBaseURL + u'group', ingestEnabled=True
-    )
-    createContentInContainer(
         knowledge, 'jpl.mcl.site.knowledge.diseasefolder', title=u'Diseases',
         description=u'Diseases being studied in MCL.',
         url=_rdfBaseURL + u'disease', ingestEnabled=True
     )
+
+
+    if 'working-groups' in portal.keys():
+        portal.manage_delObjects('working-groups')
+
+    createContentInContainer(
+        portal, 'jpl.mcl.site.knowledge.groupfolder', title=u'Working Groups',
+        description=u'Working groups formed to work on protocols and studies.',
+        url=_rdfBaseURL + u'group', ingestEnabled=True
+    )
+
     publish(knowledge)
     registry = getUtility(IRegistry)
     registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [
         u'resources/organs',
         u'resources/degrees',
+        u'resources/publications',
         u'resources/people',
         u'resources/institutions',
         u'resources/participating-sites',
         u'resources/protocols',
-        u'resources/publications',
-        u'resources/working-groups',
+        u'working-groups',
         u'resources/diseases'
     ]

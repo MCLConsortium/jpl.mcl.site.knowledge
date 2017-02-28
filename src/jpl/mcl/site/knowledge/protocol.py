@@ -6,6 +6,8 @@ from . import MESSAGE_FACTORY as _
 from ._base import IKnowledgeObject
 from person import IPerson
 from organ import IOrgan
+from publication import IPublication
+from participatingsite import IParticipatingSite
 from plone.formwidget.contenttree import ObjPathSourceBinder
 from z3c.relationfield.schema import RelationChoice, RelationList
 from zope import schema
@@ -44,15 +46,48 @@ class IProtocol(IKnowledgeObject):
             source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
         )
     )
+    custodian = RelationList(
+        title=_(u'Custodians'),
+        description=_(u'The custodian who provided to this protocol.'),
+        required=False,
+        default=[],
+        value_type=RelationChoice(
+            title=_(u'Custodian'),
+            description=_(u'One of the custodians who provided this protocol.'),
+            source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
+        )
+    )
     organ = RelationList(
         title=_(u'Organs'),
-        description=_(u'Organs associated with this Participating Site.'),
+        description=_(u'Organs associated with this protocol.'),
         required=False,
         default=[],
         value_type=RelationChoice(
             title=_(u'Organ'),
-            description=_(u'A single organ studied in this Participating Site.'),
+            description=_(u'A single organ studied in this protocol.'),
             source=ObjPathSourceBinder(object_provides=IOrgan.__identifier__)
+        )
+    )
+    publication = RelationList(
+        title=_(u'Publications'),
+        description=_(u'Publications associated with this Protocol.'),
+        required=False,
+        default=[],
+        value_type=RelationChoice(
+            title=_(u'Publication'),
+            description=_(u'A single publication studied in this Protocol.'),
+            source=ObjPathSourceBinder(object_provides=IPublication.__identifier__)
+        )
+    )
+    site = RelationList(
+        title=_(u'Participating Sites'),
+        description=_(u'Participating sites associated with this Protocol.'),
+        required=False,
+        default=[],
+        value_type=RelationChoice(
+            title=_(u'Participating Site'),
+            description=_(u'A single participating site studied in this Protocol.'),
+            source=ObjPathSourceBinder(object_provides=IParticipatingSite.__identifier__)
         )
     )
     abstract = schema.TextLine(
@@ -87,6 +122,9 @@ IProtocol.setTaggedValue('predicateMap', {
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#irbapprovalnum': ('irbapprovalnum', False),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#irbapproval': ('irbapproval', False),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#organ': ('organ', True),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#pi': ('pi', True)
+    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#pi': ('pi', True),
+    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#custodian': ('custodian', True),
+    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#publication': ('publication', True),
+    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#site': ('site', True)
 })
 IProtocol.setTaggedValue('fti', 'jpl.mcl.site.knowledge.protocol')

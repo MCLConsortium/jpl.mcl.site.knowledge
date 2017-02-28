@@ -48,7 +48,6 @@
                     <thead>
                         <tr>
                             <th i18n:translate='protocolName'>Name</th>
-                            <th i18n:translate='protocolAbstract'>Abstract</th>
                             <th i18n:translate='protocolOrgan'>Organs</th>
                             <th i18n:translate='protocolPI'>PI</th>
                             <th i18n:translate='protocolStartDate'>Start date</th>
@@ -64,12 +63,6 @@
                                     <a href='#' tal:attributes='href row/getURL' tal:content='row/Title'>
                                         Some Protocol
                                     </a>
-                                </td>
-
-                                <td>
-                                    <div tal:replace="structure protocol/abstract">
-                                        abstract
-                                    </div>
                                 </td>
                                 <td>
                                     <tal:row repeat='org protocol/organ'>

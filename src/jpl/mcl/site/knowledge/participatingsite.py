@@ -57,6 +57,17 @@ class IParticipatingSite(IKnowledgeObject):
             source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
         )
     )
+    contact = RelationList(
+        title=_(u'Contacts'),
+        description=_(u'Contacts in this Participating Site.'),
+        required=False,
+        default=[],
+        value_type=RelationChoice(
+            title=_(u'Contact'),
+            description=_(u'An individual contact in this Participating Site.'),
+            source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
+        )
+    )
     institution = RelationList(
         title=_(u'Institutions'),
         description=_(u'Institutions associated with this Participating Site.'),
@@ -68,6 +79,16 @@ class IParticipatingSite(IKnowledgeObject):
             source=ObjPathSourceBinder(object_provides=IInstitution.__identifier__)
         )
     )
+    fundingStartDate = schema.TextLine(
+        title=_(u'Funding Start Date'),
+        description=_(u'Funding start date for this participating site.'),
+        required=False,
+    )
+    fundingFinishDate = schema.TextLine(
+        title=_(u'Funding Finish Date'),
+        description=_(u'Funding finish date for this participating site.'),
+        required=False,
+    )
 
 
 IParticipatingSite.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/types.rdf#FundedSite')
@@ -77,6 +98,9 @@ IParticipatingSite.setTaggedValue('predicateMap', {
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#organ': ('organ', True),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#staff': ('staff', True),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#pi': ('pi', True),
+    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#contact': ('contact', True),
+    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#fundingStartDate': ('fundingStartDate', False),
+    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#fundingFinishDate': ('fundingFinishDate', False),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#institution': ('institution', True)
 })
 IParticipatingSite.setTaggedValue('fti', 'jpl.mcl.site.knowledge.participatingsite')
