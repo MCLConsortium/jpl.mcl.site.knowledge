@@ -19,10 +19,9 @@ _logger = logging.getLogger(__name__)
 # MCL ID is currently 39 in KSDB
 if socket.gethostname() == 'tumor.jpl.nasa.gov' or socket.gethostname().endswith('.local'):
     _logger.warn(u'Using development KSDB on edrn-dev.jpl.nasa.gov instead of production')
-    _rdfBaseURL = u'https://edrn-dev.jpl.nasa.gov/ksdb/publishrdf/?rdftype='
-    _rdfBaseURL = u'http://localhost:8000/ksdb/publishrdf/?filterby=program&filterval=39&rdftype='
+    _rdfBaseURL = u'https://edrn-dev.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
 else:
-    _rdfBaseURL = u'https://mcl.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=39&rdftype='
+    _rdfBaseURL = u'https://mcl.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
 
 
 def createKnowledgeFolders(setupTool):
