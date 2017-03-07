@@ -9,8 +9,13 @@ from institution import IInstitution
 from organ import IOrgan
 from plone.formwidget.contenttree import ObjPathSourceBinder
 from z3c.relationfield.schema import RelationChoice, RelationList
+from plone.formwidget.contenttree import ObjPathSourceBinder
+from z3c.relationfield.schema import RelationChoice, RelationList
+from Acquisition import aq_inner
 from zope import schema
-
+from plone.app.textfield import RichText
+from five import grok
+import plone.api
 
 class IParticipatingSite(IKnowledgeObject):
     u'''An participatingsite participating with the MCL consortium.'''
@@ -22,6 +27,21 @@ class IParticipatingSite(IKnowledgeObject):
     description = schema.Text(
         title=_(u'Description'),
         description=_(u'A short summary of this participating site.'),
+        required=False,
+    )
+    aims = schema.Text(
+        title=_(u'Aims'),
+        description=_(u'The aims of this participating site.'),
+        required=False,
+    )
+    abstract = schema.Text(
+        title=_(u'Abstract'),
+        description=_(u'A abstract of this participating site.'),
+        required=False,
+    )
+    abbreviation = schema.Text(
+        title=_(u'Abbreviation'),
+        description=_(u'A abbreviated name of this participating site.'),
         required=False,
     )
     organ = RelationList(
@@ -89,12 +109,31 @@ class IParticipatingSite(IKnowledgeObject):
         description=_(u'Funding finish date for this participating site.'),
         required=False,
     )
+    additionalText = RichText(title=u"Text",required=False)
+
+class View(grok.View):
+    u'''View for an working group folder'''
+    grok.context(IParticipatingSite)
+    grok.require('zope2.View')
+
+    def isManager(self):
+        context = aq_inner(self.context)
+        membership = plone.api.portal.get_tool('portal_membership')
+        return membership.checkPermission('Manage Portal', context)
+
+    def contents(self):
+        context = aq_inner(self.context)
+        catalog = plone.api.portal.get_tool('portal_catalog')
+        return catalog(path={'query': '/'.join(context.getPhysicalPath()), 'depth': 0}, sort_on='sortable_title')
 
 
 IParticipatingSite.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/types.rdf#FundedSite')
 IParticipatingSite.setTaggedValue('predicateMap', {
     u'http://purl.org/dc/terms/title': ('title', False),
     u'http://purl.org/dc/terms/description': ('description', False),
+    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#aims': ('aims', False),
+    u'http://purl.org/dc/terms/abstract': ('abstract', False),
+    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#abbreviatedName': ('abbreviation', False),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#organ': ('organ', True),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#staff': ('staff', True),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#pi': ('pi', True),

@@ -6,7 +6,7 @@
     i18n:domain='jpl.mcl.site.knowledge'
     metal:use-macro='context/main_template/macros/master'>
     <head>
-        <title>Working Groups</title>
+        <title>Participating Site</title>
         <metal:block fill-slot='style_slot' tal:define='navroot context/@@plone_portal_state/navigation_root_url'>
             <link rel='stylesheet' type='text/css'
                 tal:attributes='href string:${navroot}/++resource++jpl.mcl.site.knowledge/custom-mcl.css'
@@ -18,7 +18,7 @@
             <metal:content-core define-macro='content-core' tal:define='isManager view/isManager'>
                 <p tal:condition='isManager' class='discreet callout'>
                     <label for='form-widgets-url' class='horizontal' i18n:translate='rdfURL'>
-                        RDF URL: OKOK
+                        RDF URL:
                     </label>
                     <span id='form-widgets-url' class='uri-widget uri-field'>
                         <a href='#' tal:attributes='href context/url' tal:content='context/url'>
@@ -43,14 +43,84 @@
                     </span>
                 </p>
                 <tal:repeat repeat='row view/contents'>
-                    <div tal:define='group row/getObject'>
-                        <p><a href='#' tal:attributes='href row/getURL' tal:content='row/Title'>
-                            Blow, Joe
-                    </a><br/>
-                        <font color="#777">
-                        <div tal:replace="structure group/description">
-                            Lorem ipsum etc.
-                        </div></font>
+                    <div tal:define='
+                        site            row/getObject;
+                        description     site/description;
+                        aims            site/aims;
+
+                    '>
+                        <label for='aims' class='horizontal' i18n:translate='aims'>
+                            Specific Aims <font color="#777">An enumeration of the aims this protocol hopes to achieve.</font>
+                        </label>
+                            <br>
+                        <span id='aims' tal:replace="structure aims">
+                            An enumeration of the aims this protocol hopes to achieve.
+                        </span>
+                        <br><br>
+                        <label for='pis' class='horizontal' i18n:translate='pis'>
+                            PI <font color="#777">- Principal Investigator(s)</font>
+                        </label>
+                        <ul>
+                        <tal:repeat repeat='pi site/pi'>
+                            <div tal:define="
+                                firstname   pi/givenName;
+                                lastname    pi/surname;
+                                piurl       pi/absolute_url;
+                                dcpflag     pi/dcpflag;
+                                dcbflag     pi/dcbflag;
+                            ">
+                            <li><a href='#' tal:attributes='href piurl' tal:content='python:firstname+" "+lastname'>
+                                Blow, Joe
+                            </a>
+                            <font color="#777" tal:condition="python:dcpflag=='true'">- DCP Liaison</font>
+                            <font color="#777" tal:condition="python:dcbflag=='true'">- DCB Liaison</font></li>
+                            </div>
+                        </tal:repeat>
+                        </ul>
+                        <label for='staff' class='horizontal' i18n:translate='staff'>
+                            Additional Staff <font color="#777">- Other staff members part of this site.</font>
+                        </label>
+                        <ul>
+                        <tal:repeat repeat='staff site/staff'>
+                            <div tal:define="
+                                firstname   staff/givenName;
+                                lastname    staff/surname;
+                                staffurl    staff/absolute_url;
+                                dcpflag     staff/dcpflag;
+                                dcbflag     staff/dcbflag;
+                            ">
+                            <li><a href='#' tal:attributes='href staffurl' tal:content='python:firstname+" "+lastname'>
+                                Blow, Joe
+                            </a>
+                            <font color="#777" tal:condition="python:dcpflag=='true'">- DCP Liaison</font>
+                            <font color="#777" tal:condition="python:dcbflag=='true'">- DCB Liaison</font></li>
+                            </div>
+                        </tal:repeat>
+                        </ul>
+                        <label for='contact' class='horizontal' i18n:translate='contact'>
+                            Contact(s) <font color="#777">- Contacts for this site.</font>
+                        </label>
+                        <ul>
+                        <tal:repeat repeat='contact site/contact'>
+                            <div tal:define="
+                                firstname   contact/givenName;
+                                lastname    contact/surname;
+                                contacturl    contact/absolute_url;
+                                dcpflag     contact/dcpflag;
+                                dcbflag     contact/dcbflag;
+                            ">
+                            <li><a href='#' tal:attributes='href contacturl' tal:content='python:firstname+" "+lastname'>
+                                Blow, Joe
+                            </a>
+                            <font color="#777" tal:condition="python:dcpflag=='true'">- DCP Liaison</font>
+                            <font color="#777" tal:condition="python:dcbflag=='true'">- DCB Liaison</font></li>
+                            </div>
+                        </tal:repeat>
+                        </ul>
+                        <legend>Contents</legend>
+                        <div tal:condition="site/additionalText">
+                            <span tal:content="structure site/additionalText/output"></span>
+                        </div>
                     </div>
                 </tal:repeat>
             </metal:content-core>

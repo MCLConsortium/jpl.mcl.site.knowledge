@@ -194,9 +194,10 @@ class Ingestor(grok.Adapter):
                             self._setValue(obj, fti, iface, predicate, predicateMap, newValues)  # Yep, set new values
                             objectUpdated = True                                                 # We updated the obj
                     else:                                                                        # Single-valued field
-                        if currentValues != newValues[0]:                                        # Value different?
-                            self._setValue(obj, fti, iface, predicate, predicateMap, newValues)  # Set thew new value
-                            objectUpdated = True                                                 # We updated the obj
+                        if len(newValues) > 0:
+                            if currentValues != newValues[0]:                                        # Value different?
+                                self._setValue(obj, fti, iface, predicate, predicateMap, newValues)  # Set thew new value
+                                objectUpdated = True                                                 # We updated the obj
             if objectUpdated:                                                                # Did we update the obj?
                 obj.reindexObject()                                                          # Yep, reindex it
                 updatedObjects.append(obj)                                                   # Add it to the list
@@ -232,8 +233,6 @@ class Ingestor(grok.Adapter):
         to a sequence of dictionaries whose keys ``p`` are predicate URIs
         mapping to a sequence of ``o`` objects, which may be literal values
         or reference URIs.'''
-        print "URL"
-        print url
         graph = rdflib.Graph()
         graph.parse(url)
         statements = {}

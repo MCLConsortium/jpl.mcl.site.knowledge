@@ -56,13 +56,25 @@ class IPerson(IKnowledgeObject):
         description=_(u'Public switched telephone network number where this person may be called.'),
         required=False,
     )
-
+    dcbflag = schema.TextLine(
+        title=_(u'Part of DCB?'),
+        description=_(u'True (checked) if person is part of DCB Committee'),
+        required=False,
+    )
+    dcpflag = schema.TextLine(
+        title=_(u'Part of DCP?'),
+        description=_(u'True (checked) if person is part of DCP Committee'),
+        required=False,
+    )
 
 IPerson.setTaggedValue('predicateMap', {
     FOAF_SURNAME: ('surname', False),
     FOAF_GIVENNAME: ('givenName', False),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#degree': ('degrees', True),
     u'http://xmlns.com/foaf/0.1/mbox': ('email', False),
+    u'http://purl.org/dc/terms/description': ('description', False),
+    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#has_dcp': ('dcpflag', False),
+    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#has_dcb': ('dcbflag', False),
     u'http://xmlns.com/foaf/0.1/phone': ('phone', False)
 })
 IPerson.setTaggedValue('fti', 'jpl.mcl.site.knowledge.person')

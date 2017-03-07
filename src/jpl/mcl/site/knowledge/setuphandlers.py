@@ -40,14 +40,21 @@ def createKnowledgeFolders(setupTool):
         description=u'MCL Consortium studies',
         url=_rdfBaseURL + u'protocol', ingestEnabled=True
     )
+    #members replaced
+    if 'members' in portal.keys():
+        portal.manage_delObjects('members')
+    members = createContentInContainer(
+        portal, 'Folder', title=u'Members',
+        description=u"MCL Consortium members and working groups."
+    )
+    createContentInContainer(
+        members, 'jpl.mcl.site.knowledge.participatingsitefolder', title=u'Participating Sites',
+        description=u'Hospitals, universities, and other institutions participating with MCL.',
+        url=_rdfBaseURL + u'fundedsite', ingestEnabled=True
+    )
     createContentInContainer(
         knowledge, 'Folder', title=u'Signatures',
         description=u'Molecularly screened signatures are …'
-    )
-    createContentInContainer(
-        knowledge, 'jpl.mcl.site.knowledge.participatingsitefolder', title=u'Participating Sites',
-        description=u'Groups formed inter or intra organizations to participate in a common goal.',
-        url=_rdfBaseURL + u'fundedsite', ingestEnabled=True
     )
     createContentInContainer(
         knowledge, 'jpl.mcl.site.knowledge.publicationfolder', title=u'Publications',
@@ -71,6 +78,16 @@ def createKnowledgeFolders(setupTool):
         description=u'Universities, hospitals, and other institutions working with the consortium.',
         url=_rdfBaseURL + u'institution', ingestEnabled=True
     )
+
+    #working groups gets removed and replaced
+    if 'working-groups' in portal.keys():
+        portal.manage_delObjects('working-groups')
+
+    createContentInContainer(
+        portal, 'jpl.mcl.site.knowledge.groupfolder', title=u'Working Groups',
+        description=u'Committees and other expert groups appointed to study and report on a particular areas and make recommendations to MCL based on findings.',
+        url=_rdfBaseURL + u'group', ingestEnabled=True
+    )
     createContentInContainer(
         knowledge, 'jpl.mcl.site.knowledge.organfolder', title=u'Organs',
         description=u'Organs are collections of tissues joined in structural unit to serve a common function.',
@@ -91,27 +108,16 @@ def createKnowledgeFolders(setupTool):
         description=u'Diseases being studied in MCL.',
         url=_rdfBaseURL + u'disease', ingestEnabled=True
     )
-
-
-    if 'working-groups' in portal.keys():
-        portal.manage_delObjects('working-groups')
-
-    createContentInContainer(
-        portal, 'jpl.mcl.site.knowledge.groupfolder', title=u'Working Groups',
-        description=u'Committees and other expert groups appointed to study and report on a particular areas and make recommendations to MCL based on findings.',
-        url=_rdfBaseURL + u'group', ingestEnabled=True
-    )
-
     publish(knowledge)
     registry = getUtility(IRegistry)
     registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [
         u'resources/organs',
+        u'resources/diseases',
         u'resources/degrees',
-        u'resources/publications',
         u'resources/people',
+        u'resources/publications',
         u'resources/institutions',
-        u'resources/participating-sites',
+        u'members/participating-sites',
         u'resources/protocols',
-        u'working-groups',
-        u'resources/diseases'
+        u'working-groups'
     ]
