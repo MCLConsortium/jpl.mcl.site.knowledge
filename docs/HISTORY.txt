@@ -9,6 +9,7 @@ The following describes the changes between releases.
 • Created types and RDF ingest for institution, protocols, participating sites, and projects
 • Created types and RDF ingest for degrees, organs, and people
 • Create new types documentation
+• CA-1489: Ingest all new items from KSDB
 
 
 0.0.0 — Unreleased

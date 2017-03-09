@@ -38,4 +38,8 @@ RESERVED. U.S. Government Sponsorship acknowledged.
         zcml:condition='installed Products.GenericSetup.upgrade'
         file='upgrades.zcml'
     />
+    <utility
+        component='.person.PersonVocabularyFactory'
+        name='jpl.mcl.site.knowledge.PersonVocabulary'
+    />
 </configure>

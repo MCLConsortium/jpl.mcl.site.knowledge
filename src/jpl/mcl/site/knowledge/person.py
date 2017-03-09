@@ -9,6 +9,10 @@ from degree import IDegree
 from z3c.relationfield.schema import RelationChoice, RelationList
 from plone.formwidget.contenttree import ObjPathSourceBinder
 
+from zope.interface import directlyProvides
+from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleVocabulary
+
 FOAF_SURNAME = u'http://xmlns.com/foaf/0.1/surname'
 FOAF_GIVENNAME = u'http://xmlns.com/foaf/0.1/givenname'
 
@@ -79,3 +83,12 @@ IPerson.setTaggedValue('predicateMap', {
 })
 IPerson.setTaggedValue('fti', 'jpl.mcl.site.knowledge.person')
 IPerson.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/types.rdf#Person')
+
+def PersonVocabularyFactory(context):
+    '''Yield a vocabulary for biomarkers.'''
+    catalog = plone.api.portal.get_tool('portal_catalog')
+    # TODO: filter by review_state?
+    results = catalog(object_provides=IPerson.__identifier__, sort_on='sortable_title')
+    terms = [SimpleVocabulary.createTerm(i.UID, i.UID, i.Title.decode('utf-8')) for i in results]
+    return SimpleVocabulary(terms)
+directlyProvides(PersonVocabularyFactory, IVocabularyFactory)
