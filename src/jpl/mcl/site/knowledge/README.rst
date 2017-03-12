@@ -414,7 +414,7 @@ Let's ingest and see what we get::
     >>> ksdb = folder['ksdb-protocol']
     >>> ksdb.title
     u'KSDB Protocol'
-    >>> ksdb.abstract
+    >>> ksdb.description
     u'ksdb abstract'
     >>> ksdb.irbapprovalnum
     u'1113232323'
