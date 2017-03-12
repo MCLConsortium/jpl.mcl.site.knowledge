@@ -4,10 +4,15 @@ u'''MCL — Institution'''
 
 from . import MESSAGE_FACTORY as _
 from ._base import IKnowledgeObject
+from ._utils import getReferencedBrains
+from Acquisition import aq_inner
+from five import grok
 from person import IPerson
-from plone.formwidget.contenttree import ObjPathSourceBinder
+from plone.app.vocabularies.catalog import CatalogSource
+from plone.memoize import view
 from z3c.relationfield.schema import RelationChoice, RelationList
 from zope import schema
+import plone.api
 
 
 class IInstitution(IKnowledgeObject):
@@ -29,7 +34,7 @@ class IInstitution(IKnowledgeObject):
     )
     abbreviation = schema.TextLine(
         title=_(u'Abbreviation'),
-        description=_(u'And abbreviated name or acronym to simplify identifying this institution.'),
+        description=_(u'An abbreviated name or acronym to simplify identifying this institution.'),
         required=False,
     )
     homepage = schema.TextLine(
@@ -45,7 +50,7 @@ class IInstitution(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Member'),
             description=_(u'A single member of this institution.'),
-            source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
+            source=CatalogSource(object_provides=IPerson.__identifier__)
         )
     )
 
@@ -60,3 +65,13 @@ IInstitution.setTaggedValue('predicateMap', {
     u'http://xmlns.com/foaf/0.1/member': ('members', True)
 })
 IInstitution.setTaggedValue('fti', 'jpl.mcl.site.knowledge.institution')
+
+
+class View(grok.View):
+    u'''View for an institution'''
+    grok.context(IInstitution)
+    grok.require('zope2.View')
+    @view.memoize
+    def members(self):
+        context = aq_inner(self.context)
+        return getReferencedBrains(context.members)

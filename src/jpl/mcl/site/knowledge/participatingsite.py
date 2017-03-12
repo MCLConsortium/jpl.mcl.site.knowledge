@@ -7,9 +7,9 @@ from ._base import IKnowledgeObject
 from person import IPerson
 from institution import IInstitution
 from organ import IOrgan
-from plone.formwidget.contenttree import ObjPathSourceBinder
+from plone.app.vocabularies.catalog import CatalogSource
 from z3c.relationfield.schema import RelationChoice, RelationList
-from plone.formwidget.contenttree import ObjPathSourceBinder
+from plone.app.vocabularies.catalog import CatalogSource
 from z3c.relationfield.schema import RelationChoice, RelationList
 from Acquisition import aq_inner
 from zope import schema
@@ -52,7 +52,7 @@ class IParticipatingSite(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Organ'),
             description=_(u'A single organ studied in this Participating Site.'),
-            source=ObjPathSourceBinder(object_provides=IOrgan.__identifier__)
+            source=CatalogSource(object_provides=IOrgan.__identifier__)
         )
     )
     staff = RelationList(
@@ -63,7 +63,7 @@ class IParticipatingSite(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Staff Member'),
             description=_(u'A individual staff member in this Participating Site.'),
-            source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
+            source=CatalogSource(object_provides=IPerson.__identifier__)
         )
     )
     pi = RelationList(
@@ -74,7 +74,7 @@ class IParticipatingSite(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'PI'),
             description=_(u'An individual PI in this Participating Site.'),
-            source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
+            source=CatalogSource(object_provides=IPerson.__identifier__)
         )
     )
     contact = RelationList(
@@ -85,7 +85,7 @@ class IParticipatingSite(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Contact'),
             description=_(u'An individual contact in this Participating Site.'),
-            source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
+            source=CatalogSource(object_provides=IPerson.__identifier__)
         )
     )
     institution = RelationList(
@@ -96,20 +96,21 @@ class IParticipatingSite(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Institution'),
             description=_(u'A single institution studied in this Participating Site.'),
-            source=ObjPathSourceBinder(object_provides=IInstitution.__identifier__)
+            source=CatalogSource(object_provides=IInstitution.__identifier__)
         )
     )
-    fundingStartDate = schema.TextLine(
+    fundingStartDate = schema.Datetime(
         title=_(u'Funding Start Date'),
         description=_(u'Funding start date for this participating site.'),
         required=False,
     )
-    fundingFinishDate = schema.TextLine(
+    fundingFinishDate = schema.Datetime(
         title=_(u'Funding Finish Date'),
         description=_(u'Funding finish date for this participating site.'),
         required=False,
     )
-    additionalText = RichText(title=u"Text",required=False)
+    additionalText = RichText(title=u"Text", required=False)
+
 
 class View(grok.View):
     u'''View for an working group folder'''

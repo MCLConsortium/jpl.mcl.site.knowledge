@@ -235,7 +235,7 @@ Let's ingest and see what we get::
     u'Beverley'
     >>> liu.surname
     u'Liu'
-    >>> degrees = [i.title for i in liu.degrees]
+    >>> degrees = [i.to_object.title for i in liu.degrees]
     >>> degrees.sort()
     >>> degrees
     [u'MD', u'MPH']
@@ -298,7 +298,7 @@ Let's ingest and see what we get::
     u'JPL'
     >>> jpl.homepage
     u'http://www.jpl.nasa.gov/'
-    >>> members = [i.title for i in jpl.members]
+    >>> members = [i.to_object.title for i in jpl.members]
     >>> members.sort()
     >>> members
     [u'Liu, Beverley', u'\u9234\u6728, \u5e78\u5b50']
@@ -350,17 +350,17 @@ Let's ingest and see what we get::
     u'IC'
     >>> ic.description
     u'Informatics Center'
-    >>> organs = [i.title for i in ic.organ]
+    >>> organs = [i.to_object.title for i in ic.organ]
     >>> organs.sort()
     >>> organs
     [u'Anus', u'Spleen']
-    >>> staffs = [i.title for i in ic.staff]
+    >>> staffs = [i.to_object.title for i in ic.staff]
     >>> staffs
     [u'\u9234\u6728, \u5e78\u5b50']
-    >>> pis = [i.title for i in ic.pi]
+    >>> pis = [i.to_object.title for i in ic.pi]
     >>> pis
     [u'Liu, Beverley']
-    >>> institutions = [i.title for i in ic.institution]
+    >>> institutions = [i.to_object.title for i in ic.institution]
     >>> institutions
     [u'National Cancer Institute']
 
@@ -418,11 +418,11 @@ Let's ingest and see what we get::
     u'ksdb abstract'
     >>> ksdb.irbapprovalnum
     u'1113232323'
-    >>> organs = [i.title for i in ksdb.organ]
+    >>> organs = [i.to_object.title for i in ksdb.organ]
     >>> organs.sort()
     >>> organs
     [u'Anus', u'Spleen']
-    >>> pis = [i.title for i in ksdb.pi]
+    >>> pis = [i.to_object.title for i in ksdb.pi]
     >>> pis
     [u'Liu, Beverley', u'\u9234\u6728, \u5e78\u5b50']
 
@@ -474,7 +474,7 @@ Let's ingest and see what we get::
     >>> pub.pmid
     u'20864512'
     >>> pub.year
-    u'2006'
+    2006L
     >>> pub.journal
     u'Cancer Prev Res (Phil)'
     >>> authors = pub.author

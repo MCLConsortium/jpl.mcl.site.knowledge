@@ -3,15 +3,16 @@
 u'''MCL — Person'''
 
 from . import MESSAGE_FACTORY as _
-from zope import schema
 from ._base import IKnowledgeObject
+from ._utils import getReferencedBrains
+from Acquisition import aq_inner
 from degree import IDegree
+from five import grok
+from plone.app.vocabularies.catalog import CatalogSource
+from plone.memoize import view
 from z3c.relationfield.schema import RelationChoice, RelationList
-from plone.formwidget.contenttree import ObjPathSourceBinder
-
-from zope.interface import directlyProvides
-from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleVocabulary
+from zope import schema
+import plone.api
 
 FOAF_SURNAME = u'http://xmlns.com/foaf/0.1/surname'
 FOAF_GIVENNAME = u'http://xmlns.com/foaf/0.1/givenname'
@@ -47,7 +48,7 @@ class IPerson(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Degree'),
             description=_(u'A single academic degree conferred upon this person.'),
-            source=ObjPathSourceBinder(object_provides=IDegree.__identifier__)
+            source=CatalogSource(object_provides=IDegree.__identifier__)
         )
     )
     email = schema.TextLine(
@@ -60,12 +61,12 @@ class IPerson(IKnowledgeObject):
         description=_(u'Public switched telephone network number where this person may be called.'),
         required=False,
     )
-    dcbflag = schema.TextLine(
+    dcbflag = schema.Bool(
         title=_(u'Part of DCB?'),
         description=_(u'True (checked) if person is part of DCB Committee'),
         required=False,
     )
-    dcpflag = schema.TextLine(
+    dcpflag = schema.Bool(
         title=_(u'Part of DCP?'),
         description=_(u'True (checked) if person is part of DCP Committee'),
         required=False,
@@ -84,11 +85,12 @@ IPerson.setTaggedValue('predicateMap', {
 IPerson.setTaggedValue('fti', 'jpl.mcl.site.knowledge.person')
 IPerson.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/types.rdf#Person')
 
-def PersonVocabularyFactory(context):
-    '''Yield a vocabulary for biomarkers.'''
-    catalog = plone.api.portal.get_tool('portal_catalog')
-    # TODO: filter by review_state?
-    results = catalog(object_provides=IPerson.__identifier__, sort_on='sortable_title')
-    terms = [SimpleVocabulary.createTerm(i.UID, i.UID, i.Title.decode('utf-8')) for i in results]
-    return SimpleVocabulary(terms)
-directlyProvides(PersonVocabularyFactory, IVocabularyFactory)
+
+class View(grok.View):
+    u'''View for a Person'''
+    grok.context(IPerson)
+    grok.require('zope2.View')
+    @view.memoize
+    def degrees(self):
+        context = aq_inner(self.context)
+        return getReferencedBrains(context.degrees)

@@ -298,7 +298,7 @@ institution content type.  Create the file
     from . import MESSAGE_FACTORY as _
     from ._base import IKnowledgeObject
     from person import IPerson
-    from plone.formwidget.contenttree import ObjPathSourceBinder
+    from plone.app.vocabularies.catalog import CatalogSource
     from z3c.relationfield.schema import RelationChoice, RelationList
     from zope import schema
 
@@ -338,7 +338,7 @@ institution content type.  Create the file
             value_type=RelationChoice(
                 title=_(u'Member'),
                 description=_(u'A single member of this institution.'),
-                source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
+                source=CatalogSource(object_provides=IPerson.__identifier__)
             )
         )
 

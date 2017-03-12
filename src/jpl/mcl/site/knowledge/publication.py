@@ -5,7 +5,6 @@ u'''MCL — Publication'''
 from . import MESSAGE_FACTORY as _
 from ._base import IKnowledgeObject
 from person import IPerson
-from plone.formwidget.contenttree import ObjPathSourceBinder
 from z3c.relationfield.schema import RelationChoice, RelationList
 from zope import schema
 
@@ -17,7 +16,7 @@ class IPublication(IKnowledgeObject):
         description=_(u'Name of this publication.'),
         required=True
     )
-    year = schema.Text(
+    year = schema.Int(
         title=_(u'Year'),
         description=_(u'The year this publication was published.'),
         required=False,

@@ -4,13 +4,18 @@ u'''MCL — Protocol'''
 
 from . import MESSAGE_FACTORY as _
 from ._base import IKnowledgeObject
-from person import IPerson
+from ._utils import getReferencedBrains
+from Acquisition import aq_inner
+from five import grok
 from organ import IOrgan
-from publication import IPublication
 from participatingsite import IParticipatingSite
-from plone.formwidget.contenttree import ObjPathSourceBinder
+from person import IPerson
+from plone.app.vocabularies.catalog import CatalogSource
+from plone.memoize import view
+from publication import IPublication
 from z3c.relationfield.schema import RelationChoice, RelationList
 from zope import schema
+import plone.api
 
 
 class IProtocol(IKnowledgeObject):
@@ -19,6 +24,11 @@ class IProtocol(IKnowledgeObject):
         title=_(u'Name'),
         description=_(u'Name of this protocol.'),
         required=True
+    )
+    description = schema.Text(
+        title=_(u'Abstract'),
+        description=_(u'A brief summary of this protocol.'),
+        required=False,
     )
     humanSubjectTraining = schema.Text(
         title=_(u'Human Subject Training'),
@@ -43,7 +53,7 @@ class IProtocol(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'PI'),
             description=_(u'A single PI assigned to this protocol.'),
-            source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
+            source=CatalogSource(object_provides=IPerson.__identifier__)
         )
     )
     custodian = RelationList(
@@ -54,7 +64,7 @@ class IProtocol(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Custodian'),
             description=_(u'One of the custodians who provided this protocol.'),
-            source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
+            source=CatalogSource(object_provides=IPerson.__identifier__)
         )
     )
     organ = RelationList(
@@ -65,7 +75,7 @@ class IProtocol(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Organ'),
             description=_(u'A single organ studied in this protocol.'),
-            source=ObjPathSourceBinder(object_provides=IOrgan.__identifier__)
+            source=CatalogSource(object_provides=IOrgan.__identifier__)
         )
     )
     publication = RelationList(
@@ -76,7 +86,7 @@ class IProtocol(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Publication'),
             description=_(u'A single publication studied in this Protocol.'),
-            source=ObjPathSourceBinder(object_provides=IPublication.__identifier__)
+            source=CatalogSource(object_provides=IPublication.__identifier__)
         )
     )
     site = RelationList(
@@ -87,15 +97,10 @@ class IProtocol(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Participating Site'),
             description=_(u'A single participating site studied in this Protocol.'),
-            source=ObjPathSourceBinder(object_provides=IParticipatingSite.__identifier__)
+            source=CatalogSource(object_provides=IParticipatingSite.__identifier__)
         )
     )
-    abstract = schema.TextLine(
-        title=_(u'Abstract'),
-        description=_(u'The abstract describing this protocol.'),
-        required=False,
-    )
-    startDate = schema.TextLine(
+    startDate = schema.Datetime(
         title=_(u'Start Date'),
         description=_(u'IRB Contact email for this protocol.'),
         required=False,
@@ -111,10 +116,11 @@ class IProtocol(IKnowledgeObject):
         required=False,
     )
 
+
 IProtocol.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/types.rdf#Protocol')
 IProtocol.setTaggedValue('predicateMap', {
     u'http://purl.org/dc/terms/title': ('title', False),
-    u'http://purl.org/dc/terms/abstract': ('abstract', False),
+    u'http://purl.org/dc/terms/abstract': ('description', False),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#humanSubjectTraining': ('humanSubjectTraining', False),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#sitecontact': ('sitecontact', False),
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#irbcontact': ('irbcontact', False),
@@ -128,3 +134,25 @@ IProtocol.setTaggedValue('predicateMap', {
     u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#site': ('site', True)
 })
 IProtocol.setTaggedValue('fti', 'jpl.mcl.site.knowledge.protocol')
+
+
+class View(grok.View):
+    u'''View for a protocol'''
+    grok.context(IProtocol)
+    grok.require('zope2.View')
+    @view.memoize
+    def pis(self):
+        context = aq_inner(self.context)
+        return getReferencedBrains(context.pi)
+    def custodians(self):
+        context = aq_inner(self.context)
+        return getReferencedBrains(context.custodian)
+    def organs(self):
+        context = aq_inner(self.context)
+        return getReferencedBrains(context.organ)
+    def publications(self):
+        context = aq_inner(self.context)
+        return getReferencedBrains(context.publication)
+    def sites(self):
+        context = aq_inner(self.context)
+        return getReferencedBrains(context.site)
