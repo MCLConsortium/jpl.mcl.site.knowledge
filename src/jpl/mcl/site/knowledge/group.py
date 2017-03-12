@@ -4,14 +4,15 @@ u'''MCL — Working Group'''
 
 from . import MESSAGE_FACTORY as _
 from ._base import IKnowledgeObject
-from person import IPerson
-from plone.formwidget.contenttree import ObjPathSourceBinder
-from z3c.relationfield.schema import RelationChoice, RelationList
 from Acquisition import aq_inner
-from zope import schema
 from five import grok
-import plone.api
+from person import IPerson
 from plone.app.textfield import RichText
+from plone.app.vocabularies.catalog import CatalogSource
+from z3c.relationfield.schema import RelationChoice, RelationList
+from zope import schema
+import plone.api
+
 
 class IGroup(IKnowledgeObject):
     u'''A working group participating with the MCL consortium.'''
@@ -33,7 +34,7 @@ class IGroup(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Member'),
             description=_(u'A single member of this group.'),
-            source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
+            source=CatalogSource(object_provides=IPerson.__identifier__)
         )
     )
     chairs = RelationList(
@@ -44,7 +45,7 @@ class IGroup(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Chair'),
             description=_(u'A single chair of this group.'),
-            source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
+            source=CatalogSource(object_provides=IPerson.__identifier__)
         )
     )
     cochairs = RelationList(
@@ -55,10 +56,11 @@ class IGroup(IKnowledgeObject):
         value_type=RelationChoice(
             title=_(u'Co-Chair'),
             description=_(u'A single co-chair of this group.'),
-            source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
+            source=CatalogSource(object_provides=IPerson.__identifier__)
         )
     )
     additionalText = RichText(title=u"Text", required=False)
+
 
 class View(grok.View):
     u'''View for an working group folder'''
