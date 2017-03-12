@@ -3,14 +3,17 @@
 u'''MCL — Base classes'''
 
 from . import MESSAGE_FACTORY as _
-from .interfaces import IIngestor
 from ._utils import IngestResults, publish
 from .errors import IngestDisabled, RDFTypeMismatchError, TitlePredicateMissing, IngestError
+from .interfaces import IIngestor
 from Acquisition import aq_inner
 from five import grok
-from plone.supermodel import model
 from plone.dexterity.utils import createContentInContainer
+from plone.supermodel import model
+from z3c.relationfield import RelationValue
 from zope import schema
+from zope.component import getUtility
+from zope.intid.interfaces import IIntIds
 import rdflib, plone.api, logging
 
 
@@ -109,16 +112,19 @@ class Ingestor(grok.Adapter):
         field = iface.get(fieldName)                                     # Get the field out of the content interface
         fieldBinding = field.bind(obj)                                   # Bind that field to the content object
         if isRef:                                                        # Is this a reference field?
+            idUtil = getUtility(IIntIds)                                 # Get the intids utility
             items = [i.getObject() for i in catalog(subjectURI=values)]  # Find matching objects
             if len(items) != len(values):                                # Find them all?
                 _logger.info(
                     u'For type %s predicate %s linked to %d URIs, but only %d found',
                     fti, predicate, len(values), len(items)
                 )
+            intids = [idUtil.getId(i) for i in items]                    # Go from matching objects to int ids
+            rvs = [RelationValue(i) for i in intids]                     # And from int ids to RelationValues
             if schema.interfaces.ICollection.providedBy(field):          # Multi reference?
-                fieldBinding.set(obj, items)                             # Yes, set them all
+                fieldBinding.set(obj, rvs)                               # Yes, set them all
             elif len(items) > 0:                                         # Single reference and we have an item?
-                fieldBinding.set(obj, items[0])                          # Set single value
+                fieldBinding.set(obj, rvs[0])                            # Set single value
         else:                                                            # It's a non-reference field
             if schema.interfaces.ICollection.providedBy(field):          # Is it multi valued?
                 fieldBinding.validate(values)                            # Yes, validate all the values
@@ -152,7 +158,7 @@ class Ingestor(grok.Adapter):
                     continue                                              # We already set that, skip it
                 values = predicates.get(predicate)                        # Get the values
                 if not values: continue                                   # Skip if empty
-                values = [unicode(i) for i in values]                     # Convert Literal+URIRefs to unicode
+                values = [i.toPython() for i in values]                   # Convert Literal+URIRefs to unicode
                 try:
                     self._setValue(obj, fti, iface, predicate, predicateMap, values)
                 except schema.ValidationError:
@@ -168,6 +174,7 @@ class Ingestor(grok.Adapter):
         find those objects, there's a lookup table ``brains`` that maps from
         subject URI to a portal catalog brain.  Subclasses may override this
         for special ingest needs.'''
+        catalog = plone.api.portal.get_tool('portal_catalog')
         updatedObjects = []                                                                  # Start w/no updated objs
         for uri in uris:                                                                     # For each subject URI
             brain = brains[uri]                                                              # Get matching brain
@@ -179,9 +186,12 @@ class Ingestor(grok.Adapter):
                 field = iface.get(fieldName)                                                 # Get the field
                 fieldBinding = field.bind(obj)                                               # Bind it to the obj
                 newValues = predicates.get(rdflib.URIRef(predicate), [])                     # Get new values
-                newValues = [unicode(i) for i in newValues]                                  # Literals to unicodes
+                newValues = [i.toPython() for i in newValues]                                # Literals to Python types
                 if isRef:                                                                    # Is this a reference?
-                    currentRefs = [i.subjectURI for i in fieldBinding.get(obj)]              # Get cur ref'd sub URIs
+                    rvs = fieldBinding.get(obj)                                              # Get the RelationValues
+                    paths = [i.to_path for i in rvs]
+                    matches = catalog(path={'query': paths, 'depth': 0})
+                    currentRefs = [i['subjectURI'].decode('utf-8') for i in matches]
                     currentRefs.sort()                                                       # Sort 'em
                     newValues.sort()                                                         # Sort the new ones, too
                     if currentRefs != newValues:                                             # Any change?
