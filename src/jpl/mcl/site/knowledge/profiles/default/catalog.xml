@@ -12,8 +12,16 @@
     <index name='homepage' meta_type='FieldIndex'>
         <indexed_attr value='homepage'/>
     </index>
+    <index name='dcbflag' meta_type='FieldIndex'>
+        <indexed_attr value='dcbflag'/>
+    </index>
+    <index name='dcpflag' meta_type='FieldIndex'>
+        <indexed_attr value='homepage'/>
+    </index>
     <column value='subjectURI'/>
     <column value='phone'/>
     <column value='email'/>
     <column value='homepage'/>
+    <column value='dcbflag'/>
+    <column value='dcpflag'/>
 </object>

@@ -12,107 +12,82 @@
                 tal:attributes='href string:${navroot}/++resource++jpl.mcl.site.knowledge/custom-mcl.css'
             />
         </metal:block>
+        <metal:person define-macro='person'>
+            <span tal:define='isDCB person/dcbflag; isDCP person/dcpflag' tal:omit-tag=''>
+                <a tal:content='person/Title' tal:attributes='title person/Description; href person/getURL'>
+                </a>
+                <span tal:condition='python:isDCB and isDCP'>- DCB and DCP Liaison</span>
+                <span tal:condition='python:isDCB and not isDCP'>- DCB Liaison</span>
+                <span tal:condition='python:isDCP and not isDCB'>- DCP Liaison</span>
+            </span>
+        </metal:person>
     </head>
     <body>
         <metal:content-core fill-slot='content-core'>
-            <metal:content-core define-macro='content-core' tal:define='isManager view/isManager'>
-                <p tal:condition='isManager' class='discreet callout'>
-                    <label for='form-widgets-url' class='horizontal' i18n:translate='rdfURL'>
-                        RDF URL:
+            <metal:content-core define-macro='content-core'>
+                <div class='field' id='formfield-form-widgets-chairs' tal:define='chairs view/chairs'>
+                    <label for='form-widgets-chairs' i18n:translate='label_chairs' class='horizontal'>
+                        Chairs
+                        <span class='formHelp'>The person or people in charge of this group.</span>
                     </label>
-                    <span id='form-widgets-url' class='uri-widget uri-field'>
-                        <a href='#' tal:attributes='href context/url' tal:content='context/url'>
-                            http://somewhere.com/some/rdf/source
-                        </a>
-                    </span>
-                    <label for='form-widgets-ingestEnabled' class='horizontal'>
-                        Ingest Enabled:
-                    </label>
-                    <span id='form-widgets-ingestEnabled' class='uri-widget uri-field'>
-                        <span tal:omit-tag='' tal:condition='context/ingestEnabled' i18n:translate='ingestEnabled'>
-                            &#x2705;
-                        </span>
-                        <span tal:omit-tag='' tal:condition='not:context/ingestEnabled'
-                            i18n:translate='ingestNotEnabled'>
-                            &#x1f6ab; This folder will <em>not</em> be updated
-                        </span>
-                    </span>
-                    <br/>
-                    <span i18n:translate='youAreAManager'>
-                        You are seeing this because you are logged in with management privileges.
-                    </span>
-                </p>
-                <tal:repeat repeat='row view/contents'>
-                    <div tal:define='group row/getObject'>
-                        <h4 tal:content="python:group.title+' Members'"></h4>
-                        <table>
-                            <tr>
-                            <tal:repeat repeat='member group/chairs'>
-                                <div tal:define="
-                                    firstname   member/givenName;
-                                    lastname    member/surname;
-                                    memurl      member/absolute_url;
-                                    dcpflag     member/dcpflag;
-                                    dcbflag     member/dcbflag;
-                                    odd         repeat/member/odd;
-                                ">
-                                <td>
-                                <p><a href='#' tal:attributes='href memurl' tal:content='python:firstname+" "+lastname'>
-                                    Blow, Joe
-                                </a>
-                                <font color="#777">- Chair</font>
-                                <font color="#777" tal:condition="python:dcpflag=='true'">- DCP Liaison</font>
-                                <font color="#777" tal:condition="python:dcbflag=='true'">- DCB Liaison</font></p>
-                                </td>
-                                    <tr tal:condition="odd"/>
-                                </div>
-                            </tal:repeat>
-                            <tal:repeat repeat='member group/cochairs'>
-                                <div tal:define="
-                                    firstname   member/givenName;
-                                    lastname    member/surname;
-                                    memurl      member/absolute_url;
-                                    dcpflag     member/dcpflag;
-                                    dcbflag     member/dcbflag;
-                                    odd         repeat/member/odd;
-                                ">
-                                <td>
-                                <p><a href='#' tal:attributes='href memurl' tal:content='python:firstname+" "+lastname'>
-                                    Blow, Joe
-                                </a>
-                                <font color="#777">- Co-Chair</font>
-                                <font color="#777" tal:condition="python:dcpflag=='true'">- DCP Liaison</font>
-                                <font color="#777" tal:condition="python:dcbflag=='true'">- DCB Liaison</font></p>
-                                </td>
-                                    <tr tal:condition="odd"/>
-                                </div>
-                            </tal:repeat>
-                            <tal:repeat repeat='member group/members'>
-                                <div tal:define="
-                                    firstname   member/givenName;
-                                    lastname    member/surname;
-                                    memurl      member/absolute_url;
-                                    dcpflag     member/dcpflag;
-                                    dcbflag     member/dcbflag;
-                                    odd         repeat/member/odd;
-                                ">
-                                <td>
-                                <p><a href='#' tal:attributes='href memurl' tal:content='python:firstname+" "+lastname'>
-                                    Blow, Joe
-                                </a>
-                                <font color="#777" tal:condition="python:dcpflag=='true'">- DCP Liaison</font>
-                                <font color="#777" tal:condition="python:dcbflag=='true'">- DCB Liaison</font></p>
-                                </td>
-                                    <tr tal:condition="odd"/>
-                                </div>
-                            </tal:repeat>
-                            </tr>
-                        </table>
-                        <div tal:condition="group/additionalText">
-                            <span tal:content="structure group/additionalText/output"></span>
-                        </div>
+                    <div id='form-widgets-chairs' tal:condition='python:len(chairs) == 1'
+                        class='relationlist-widget relationlist-field' tal:define='person python:chairs[0];'>
+                        <metal:macro use-macro='template/macros/person'/>
                     </div>
-                </tal:repeat>
+                    <ul id='form-widgets-chairs' tal:condition='python:len(chairs) &gt; 1'
+                        class='relationlist-widget relationlist-field'>
+                        <li tal:repeat='person chairs'>
+                            <metal:macro use-macro='template/macros/person'/>
+                        </li>
+                    </ul>
+                </div>
+                <div class='field' id='formfield-form-widgets-cochairs' tal:define='cochairs view/cochairs'>
+                    <label for='form-widgets-cochairs' i18n:translate='label_cochairs' class='horizontal'>
+                        Co-Chairs
+                        <span class='formHelp'>The person or people in charge jointly of this group.</span>
+                    </label>
+                    <div id='form-widgets-cochairs' tal:condition='python:len(cochairs) == 1'
+                        class='relationlist-widget relationlist-field' tal:define='person python:cochairs[0];'>
+                        <metal:macro use-macro='template/macros/person'/>
+                    </div>
+                    <ul id='form-widgets-cochairs' tal:condition='python:len(cochairs) &gt; 1'
+                        class='relationlist-widget relationlist-field'>
+                        <li tal:repeat='person cochairs'>
+                            <metal:macro use-macro='template/macros/person'/>
+                        </li>
+                    </ul>
+                </div>
+                <div class='field' id='formfield-form-widgets-members' tal:define='members view/members'>
+                    <label for='form-widgets-members' i18n:translate='label_members' class='horizontal'>
+                        Members
+                        <span class='formHelp'>People in this group.</span>
+                    </label>
+                    <div id='form-widgets-members' tal:condition='python:len(members) == 1'
+                        class='relationlist-widget relationlist-field' tal:define='person python:members[0];'>
+                        <metal:macro use-macro='template/macros/person'/>
+                    </div>
+                    <ul id='form-widgets-members' tal:condition='python:len(members) &gt; 1'
+                        class='relationlist-widget relationlist-field'>
+                        <li tal:repeat='person members'>
+                            <metal:macro use-macro='template/macros/person'/>
+                        </li>
+                    </ul>
+                </div>
+                <div class='field' id='formfield-form-widgets-additionalText'>
+                    <label for='form-widgets-additionalText' i18n:translate='label_additionalText' class='horizontal'>
+                        Additional Text
+                        <span class='formHelp'>Further explanations about this group.</span>
+                    </label>
+                    <div id='form-widgets-additionalText' class='richtext-widget text-field'
+                        tal:content='structure context/additionalText/output'>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </div>
+                </div>
             </metal:content-core>
         </metal:content-core>
     </body>

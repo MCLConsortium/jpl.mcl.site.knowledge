@@ -4,14 +4,15 @@ u'''MCL — Working Group'''
 
 from . import MESSAGE_FACTORY as _
 from ._base import IKnowledgeObject
+from ._utils import getReferencedBrains
 from Acquisition import aq_inner
 from five import grok
 from person import IPerson
 from plone.app.textfield import RichText
 from plone.app.vocabularies.catalog import CatalogSource
+from plone.memoize import view
 from z3c.relationfield.schema import RelationChoice, RelationList
 from zope import schema
-import plone.api
 
 
 class IGroup(IKnowledgeObject):
@@ -63,21 +64,21 @@ class IGroup(IKnowledgeObject):
 
 
 class View(grok.View):
-    u'''View for an working group folder'''
+    u'''View for a working group.'''
     grok.context(IGroup)
     grok.require('zope2.View')
-
-    def isManager(self):
+    @view.memoize
+    def chairs(self):
         context = aq_inner(self.context)
-        membership = plone.api.portal.get_tool('portal_membership')
-        return membership.checkPermission('Manage Portal', context)
-
-    def contents(self):
+        return getReferencedBrains(context.chairs)
+    @view.memoize
+    def cochairs(self):
         context = aq_inner(self.context)
-        catalog = plone.api.portal.get_tool('portal_catalog')
-        print "LENGTH OF GROUPS"
-        print catalog(path={'query': '/'.join(context.getPhysicalPath()), 'depth': 0}, sort_on='sortable_title')
-        return catalog(path={'query': '/'.join(context.getPhysicalPath()), 'depth': 0}, sort_on='sortable_title')
+        return getReferencedBrains(context.cochairs)
+    @view.memoize
+    def members(self):
+        context = aq_inner(self.context)
+        return getReferencedBrains(context.members)
 
 
 IGroup.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/types.rdf#Group')
