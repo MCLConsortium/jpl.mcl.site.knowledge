@@ -144,15 +144,19 @@ class View(grok.View):
     def pis(self):
         context = aq_inner(self.context)
         return getReferencedBrains(context.pi)
+    @view.memoize
     def custodians(self):
         context = aq_inner(self.context)
         return getReferencedBrains(context.custodian)
+    @view.memoize
     def organs(self):
         context = aq_inner(self.context)
         return getReferencedBrains(context.organ)
+    @view.memoize
     def publications(self):
         context = aq_inner(self.context)
         return getReferencedBrains(context.publication)
+    @view.memoize
     def sites(self):
         context = aq_inner(self.context)
         return getReferencedBrains(context.site)
