@@ -4,18 +4,18 @@ u'''MCL — ParticipatingSite'''
 
 from . import MESSAGE_FACTORY as _
 from ._base import IKnowledgeObject
-from person import IPerson
+from ._utils import getReferencedBrains
+from Acquisition import aq_inner
+from five import grok
 from institution import IInstitution
 from organ import IOrgan
-from plone.app.vocabularies.catalog import CatalogSource
-from z3c.relationfield.schema import RelationChoice, RelationList
-from plone.app.vocabularies.catalog import CatalogSource
-from z3c.relationfield.schema import RelationChoice, RelationList
-from Acquisition import aq_inner
-from zope import schema
+from person import IPerson
 from plone.app.textfield import RichText
-from five import grok
-import plone.api
+from plone.app.vocabularies.catalog import CatalogSource
+from plone.memoize import view
+from z3c.relationfield.schema import RelationChoice, RelationList
+from zope import schema
+
 
 class IParticipatingSite(IKnowledgeObject):
     u'''An participatingsite participating with the MCL consortium.'''
@@ -29,7 +29,7 @@ class IParticipatingSite(IKnowledgeObject):
         description=_(u'A short summary of this participating site.'),
         required=False,
     )
-    aims = schema.Text(
+    aims = RichText(
         title=_(u'Aims'),
         description=_(u'The aims of this participating site.'),
         required=False,
@@ -39,7 +39,7 @@ class IParticipatingSite(IKnowledgeObject):
         description=_(u'A abstract of this participating site.'),
         required=False,
     )
-    abbreviation = schema.Text(
+    abbreviation = schema.TextLine(
         title=_(u'Abbreviation'),
         description=_(u'A abbreviated name of this participating site.'),
         required=False,
@@ -116,16 +116,26 @@ class View(grok.View):
     u'''View for an working group folder'''
     grok.context(IParticipatingSite)
     grok.require('zope2.View')
-
-    def isManager(self):
+    @view.memoize
+    def organs(self):
         context = aq_inner(self.context)
-        membership = plone.api.portal.get_tool('portal_membership')
-        return membership.checkPermission('Manage Portal', context)
-
-    def contents(self):
+        return getReferencedBrains(context.organ)
+    @view.memoize
+    def pis(self):
         context = aq_inner(self.context)
-        catalog = plone.api.portal.get_tool('portal_catalog')
-        return catalog(path={'query': '/'.join(context.getPhysicalPath()), 'depth': 0}, sort_on='sortable_title')
+        return getReferencedBrains(context.pi)
+    @view.memoize
+    def staff(self):
+        context = aq_inner(self.context)
+        return getReferencedBrains(context.staff)
+    @view.memoize
+    def contacts(self):
+        context = aq_inner(self.context)
+        return getReferencedBrains(context.contact)
+    @view.memoize
+    def institutions(self):
+        context = aq_inner(self.context)
+        return getReferencedBrains(context.institution)
 
 
 IParticipatingSite.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/types.rdf#FundedSite')

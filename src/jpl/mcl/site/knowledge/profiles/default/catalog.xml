@@ -12,11 +12,11 @@
     <index name='homepage' meta_type='FieldIndex'>
         <indexed_attr value='homepage'/>
     </index>
-    <index name='dcbflag' meta_type='FieldIndex'>
+    <index name='dcbflag' meta_type='BooleanIndex'>
         <indexed_attr value='dcbflag'/>
     </index>
-    <index name='dcpflag' meta_type='FieldIndex'>
-        <indexed_attr value='homepage'/>
+    <index name='dcpflag' meta_type='BooleanIndex'>
+        <indexed_attr value='dcpflag'/>
     </index>
     <column value='subjectURI'/>
     <column value='phone'/>

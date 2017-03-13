@@ -15,114 +15,192 @@
     </head>
     <body>
         <metal:content-core fill-slot='content-core'>
-            <metal:content-core define-macro='content-core' tal:define='isManager view/isManager'>
-                <p tal:condition='isManager' class='discreet callout'>
-                    <label for='form-widgets-url' class='horizontal' i18n:translate='rdfURL'>
-                        RDF URL:
+            <metal:content-core define-macro='content-core'>
+                <div class='field' id='formfield-form-widgets-aims'>
+                    <label for='form-widgets-aims' i18n:translate='label_aims' class='horizontal'>
+                        Aims
+                        <span class='formHelp'>The intentions and desired outcomes of this participating site.</span>
                     </label>
-                    <span id='form-widgets-url' class='uri-widget uri-field'>
-                        <a href='#' tal:attributes='href context/url' tal:content='context/url'>
-                            http://somewhere.com/some/rdf/source
-                        </a>
-                    </span>
-                    <label for='form-widgets-ingestEnabled' class='horizontal'>
-                        Ingest Enabled:
-                    </label>
-                    <span id='form-widgets-ingestEnabled' class='uri-widget uri-field'>
-                        <span tal:omit-tag='' tal:condition='context/ingestEnabled' i18n:translate='ingestEnabled'>
-                            &#x2705;
-                        </span>
-                        <span tal:omit-tag='' tal:condition='not:context/ingestEnabled'
-                            i18n:translate='ingestNotEnabled'>
-                            &#x1f6ab; This folder will <em>not</em> be updated
-                        </span>
-                    </span>
-                    <br/>
-                    <span i18n:translate='youAreAManager'>
-                        You are seeing this because you are logged in with management privileges.
-                    </span>
-                </p>
-                <tal:repeat repeat='row view/contents'>
-                    <div tal:define='
-                        site            row/getObject;
-                        description     site/description;
-                        aims            site/aims;
-
-                    '>
-                        <label for='aims' class='horizontal' i18n:translate='aims'>
-                            Specific Aims <font color="#777">An enumeration of the aims this protocol hopes to achieve.</font>
-                        </label>
-                            <br>
-                        <span id='aims' tal:replace="structure aims">
-                            An enumeration of the aims this protocol hopes to achieve.
-                        </span>
-                        <br><br>
-                        <label for='pis' class='horizontal' i18n:translate='pis'>
-                            PI <font color="#777">- Principal Investigator(s)</font>
-                        </label>
-                        <ul>
-                        <tal:repeat repeat='pi site/pi'>
-                            <div tal:define="
-                                firstname   pi/givenName;
-                                lastname    pi/surname;
-                                piurl       pi/absolute_url;
-                                dcpflag     pi/dcpflag;
-                                dcbflag     pi/dcbflag;
-                            ">
-                            <li><a href='#' tal:attributes='href piurl' tal:content='python:firstname+" "+lastname'>
-                                Blow, Joe
-                            </a>
-                            <font color="#777" tal:condition="python:dcpflag=='true'">- DCP Liaison</font>
-                            <font color="#777" tal:condition="python:dcbflag=='true'">- DCB Liaison</font></li>
-                            </div>
-                        </tal:repeat>
-                        </ul>
-                        <label for='staff' class='horizontal' i18n:translate='staff'>
-                            Additional Staff <font color="#777">- Other staff members part of this site.</font>
-                        </label>
-                        <ul>
-                        <tal:repeat repeat='staff site/staff'>
-                            <div tal:define="
-                                firstname   staff/givenName;
-                                lastname    staff/surname;
-                                staffurl    staff/absolute_url;
-                                dcpflag     staff/dcpflag;
-                                dcbflag     staff/dcbflag;
-                            ">
-                            <li><a href='#' tal:attributes='href staffurl' tal:content='python:firstname+" "+lastname'>
-                                Blow, Joe
-                            </a>
-                            <font color="#777" tal:condition="python:dcpflag=='true'">- DCP Liaison</font>
-                            <font color="#777" tal:condition="python:dcbflag=='true'">- DCB Liaison</font></li>
-                            </div>
-                        </tal:repeat>
-                        </ul>
-                        <label for='contact' class='horizontal' i18n:translate='contact'>
-                            Contact(s) <font color="#777">- Contacts for this site.</font>
-                        </label>
-                        <ul>
-                        <tal:repeat repeat='contact site/contact'>
-                            <div tal:define="
-                                firstname   contact/givenName;
-                                lastname    contact/surname;
-                                contacturl    contact/absolute_url;
-                                dcpflag     contact/dcpflag;
-                                dcbflag     contact/dcbflag;
-                            ">
-                            <li><a href='#' tal:attributes='href contacturl' tal:content='python:firstname+" "+lastname'>
-                                Blow, Joe
-                            </a>
-                            <font color="#777" tal:condition="python:dcpflag=='true'">- DCP Liaison</font>
-                            <font color="#777" tal:condition="python:dcbflag=='true'">- DCB Liaison</font></li>
-                            </div>
-                        </tal:repeat>
-                        </ul>
-                        <legend>Contents</legend>
-                        <div tal:condition="site/additionalText">
-                            <span tal:content="structure site/additionalText/output"></span>
-                        </div>
+                    <div id='form-widgets-aims' class='richtext-widget text-field'
+                        tal:content='structure context/@@text-transform/aims/text/x-html-safe|nothing'>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </div>
-                </tal:repeat>
+                </div>
+                <div class='field' id='formfield-form-widgets-abstract'>
+                    <label for='form-widgets-abstract' i18n:translate='label_abstract' class='horizontal'>
+                        Abstract
+                        <span class='formHelp'>A précis of this participating site.</span>
+                    </label>
+                    <div id='form-widgets-abstract' class='text-widget text-field'
+                        tal:content='context/abstract'>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </div>
+                </div>
+                <div class='field' id='formfield-form-widgets-abbreviation'>
+                    <label for='form-widgets-abbreviation' i18n:translate='label_abbreviation' class='horizontal'>
+                        Abbreviation
+                        <span class='formHelp'>An abbreviated way of referring to this participating site, perhaps with an acronym.</span>
+                    </label>
+                    <div id='form-widgets-abbreviation' class='textline-widget text-field'
+                        tal:content='context/abbreviation'>
+                        XYZ
+                    </div>
+                </div>
+                <div class='field' id='formfield-form-widgets-organs' tal:define='organs view/organs'>
+                    <label for='form-widgets-organs' i18n:translate='label_organs' class='horizontal'>
+                        Organs
+                        <span class='formHelp'>Body systems studied by this participating site.</span>
+                    </label>
+                    <div id='form-widgets-organs' tal:condition='python:len(organs) == 1'
+                        class='relationlist-widget relationlist-field'>
+                        <a href='#' title='Cool Organ' tal:content='python:organs[0]["Title"]'
+                            tal:attributes='title python:organs[0]["Description"]; href python:organs[0].getURL();'>
+                            Anus
+                        </a>
+                    </div>
+                    <ul id='form-widgets-organs' tal:condition='python:len(organs) &gt; 1'
+                        class='relationlist-widget relationlist-field'>
+                        <li tal:repeat='organ organs'>
+                            <a href='#' title='Cool Organ' tal:content='organ/Title'
+                                tal:attributes='title organ/Description; href organ/getURL'>
+                                Rectum
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class='field' id='formfield-form-widgets-pis' tal:define='pis view/pis'>
+                    <label for='form-widgets-pis' i18n:translate='label_pis' class='horizontal'>
+                        Principal Investigators
+                        <span class='formHelp'>The person of people in charge of this participating site.</span>
+                    </label>
+                    <div id='form-widgets-pis' tal:condition='python:len(pis) == 1'
+                        class='relationlist-widget relationlist-field'>
+                        <a href='#' title='Cool Lady' tal:content='python:pis[0]["Title"]'
+                            tal:attributes='title python:pis[0]["Description"]; href python:pis[0].getURL();'>
+                            Lucy Liu
+                        </a>
+                    </div>
+                    <ul id='form-widgets-pis' tal:condition='python:len(pis) &gt; 1'
+                        class='relationlist-widget relationlist-field'>
+                        <li tal:repeat='pi pis'>
+                            <a href='#' title='Cool PI' tal:content='pi/Title'
+                                tal:attributes='title pi/Description; href pi/getURL'>
+                                David Liu
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class='field' id='formfield-form-widgets-staff' tal:define='staff view/staff'>
+                    <label for='form-widgets-staff' i18n:translate='label_staff' class='horizontal'>
+                        Staff
+                        <span class='formHelp'>Other personnel at this participating site.</span>
+                    </label>
+                    <div id='form-widgets-staff' tal:condition='python:len(staff) == 1'
+                        class='relationlist-widget relationlist-field'>
+                        <a href='#' title='Cool Lady' tal:content='python:staff[0]["Title"]'
+                            tal:attributes='title python:staff[0]["Description"]; href python:staff[0].getURL();'>
+                            Lucy Liu
+                        </a>
+                    </div>
+                    <ul id='form-widgets-staff' tal:condition='python:len(staff) &gt; 1'
+                        class='relationlist-widget relationlist-field'>
+                        <li tal:repeat='staffer staff'>
+                            <a href='#' title='Cool Staffer' tal:content='staffer/Title'
+                                tal:attributes='title staffer/Description; href staffer/getURL'>
+                                David Liu
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class='field' id='formfield-form-widgets-contacts' tal:define='contacts view/contacts'>
+                    <label for='form-widgets-contacts' i18n:translate='label_contacts' class='horizontal'>
+                        Contacts
+                        <span class='formHelp'>People you can contact at this participating site.</span>
+                    </label>
+                    <div id='form-widgets-contacts' tal:condition='python:len(contacts) == 1'
+                        class='relationlist-widget relationlist-field'>
+                        <a href='#' title='Cool Lady' tal:content='python:contacts[0]["Title"]'
+                            tal:attributes='title python:contacts[0]["Description"]; href python:contacts[0].getURL();'>
+                            Lucy Liu
+                        </a>
+                    </div>
+                    <ul id='form-widgets-contacts' tal:condition='python:len(contacts) &gt; 1'
+                        class='relationlist-widget relationlist-field'>
+                        <li tal:repeat='contact contacts'>
+                            <a href='#' title='Cool Contact' tal:content='contact/Title'
+                                tal:attributes='title contact/Description; href contact/getURL'>
+                                David Liu
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class='field' id='formfield-form-widgets-institutions' tal:define='institutions view/institutions'>
+                    <label for='form-widgets-institutions' i18n:translate='label_institutions' class='horizontal'>
+                        Institutions
+                        <span class='formHelp'>Institutions represnting this participating site.</span>
+                    </label>
+                    <div id='form-widgets-institutions' tal:condition='python:len(institutions) == 1'
+                        class='relationlist-widget relationlist-field'>
+                        <a href='#' title='Cool Place' tal:content='python:institutions[0]["Title"]'
+                            tal:attributes='title python:institutions[0]["Description"]; href python:institutions[0].getURL();'>
+                            JPL
+                        </a>
+                    </div>
+                    <ul id='form-widgets-institutions' tal:condition='python:len(institutions) &gt; 1'
+                        class='relationlist-widget relationlist-field'>
+                        <li tal:repeat='institution institutions'>
+                            <a href='#' title='Cool Place' tal:content='institution/Title'
+                                tal:attributes='title institution/Description; href institution/getURL'>
+                                CalTech
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class='field' id='formfield-form-widgets-fundingStartDate'>
+                    <label for='form-widgets-fundingStartDate' i18n:translate='label_fundingStartDate' class='horizontal'>
+                        Funding Start Date
+                        <span class='formHelp'>The date on which funding commenced for this participating site.</span>
+                    </label>
+                    <div id='form-widgets-fundingStartDate' class='date-widget datetime-field'
+                        tal:content='context/fundingStartDate/date'>
+                        2017-01-01
+                    </div>
+                </div>
+                <div class='field' id='formfield-form-widgets-fundingFinishDate'>
+                    <label for='form-widgets-fundingFinishDate' i18n:translate='label_fundingFinishDate' class='horizontal'>
+                        Funding Finish Date
+                        <span class='formHelp'>The date on which funding ended for this participating site.</span>
+                    </label>
+                    <div id='form-widgets-fundingFinishDate' class='date-widget datetime-field'
+                        tal:content='context/fundingFinishDate/date'>
+                        2017-01-02
+                    </div>
+                </div>
+                <div class='field' id='formfield-form-widgets-additionalText'>
+                    <label for='form-widgets-additionalText' i18n:translate='label_additionalText' class='horizontal'>
+                        Additional Text
+                        <span class='formHelp'>Further explanations about this group.</span>
+                    </label>
+                    <div id='form-widgets-additionalText' class='richtext-widget text-field'
+                        tal:content='structure context/@@text-transform/additionalText/text/x-html-safe|nothing'>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </div>
+                </div>
             </metal:content-core>
         </metal:content-core>
     </body>

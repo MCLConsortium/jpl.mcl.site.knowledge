@@ -10,6 +10,8 @@ The following describes the changes between releases.
 • Created types and RDF ingest for degrees, organs, and people
 • Create new types documentation
 • CA-1489: Ingest all new items from KSDB
+• CA-1500: RelationChoice and RelationList fields are broken in MCL Knowledge
+• CA-1501: Only text ingest is supported
 
 
 0.0.0 — Unreleased
