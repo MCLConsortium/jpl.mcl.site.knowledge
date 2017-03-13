@@ -79,7 +79,7 @@
                         <span class='formHelp'>Further explanations about this group.</span>
                     </label>
                     <div id='form-widgets-additionalText' class='richtext-widget text-field'
-                        tal:content='structure context/@@text-transform/additionalText/text/x-html-safe|nothing'
+                        tal:content='structure context/@@text-transform/additionalText/text/x-html-safe|nothing'>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
