@@ -30,32 +30,36 @@
                         Chairs
                         <span class='formHelp'>The person or people in charge of this group.</span>
                     </label>
-                    <div id='form-widgets-chairs' tal:condition='python:len(chairs) == 1'
-                        class='relationlist-widget relationlist-field' tal:define='person python:chairs[0];'>
-                        <metal:macro use-macro='template/macros/person'/>
-                    </div>
-                    <ul id='form-widgets-chairs' tal:condition='python:len(chairs) &gt; 1'
-                        class='relationlist-widget relationlist-field'>
-                        <li tal:repeat='person chairs'>
+                    <div tal:condition='python:len(chairs) &gt; 0'>
+                        <div id='form-widgets-chairs' tal:condition='python:len(chairs) == 1'
+                            class='relationlist-widget relationlist-field' tal:define='person python:chairs[0];'>
                             <metal:macro use-macro='template/macros/person'/>
-                        </li>
-                    </ul>
+                        </div>
+                        <ul id='form-widgets-chairs' tal:condition='python:len(chairs) &gt; 1'
+                            class='relationlist-widget relationlist-field'>
+                            <li tal:repeat='person chairs'>
+                                <metal:macro use-macro='template/macros/person'/>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class='field' id='formfield-form-widgets-cochairs' tal:define='cochairs view/cochairs'>
                     <label for='form-widgets-cochairs' i18n:translate='label_cochairs' class='horizontal'>
                         Co-Chairs
                         <span class='formHelp'>The person or people in charge jointly of this group.</span>
                     </label>
-                    <div id='form-widgets-cochairs' tal:condition='python:len(cochairs) == 1'
-                        class='relationlist-widget relationlist-field' tal:define='person python:cochairs[0];'>
-                        <metal:macro use-macro='template/macros/person'/>
-                    </div>
-                    <ul id='form-widgets-cochairs' tal:condition='python:len(cochairs) &gt; 1'
-                        class='relationlist-widget relationlist-field'>
-                        <li tal:repeat='person cochairs'>
+                    <div tal:condition='python:len(cochairs) &gt; 0'>
+                        <div id='form-widgets-cochairs' tal:condition='python:len(cochairs) == 1'
+                            class='relationlist-widget relationlist-field' tal:define='person python:cochairs[0];'>
                             <metal:macro use-macro='template/macros/person'/>
-                        </li>
-                    </ul>
+                        </div>
+                        <ul id='form-widgets-cochairs' tal:condition='python:len(cochairs) &gt; 1'
+                            class='relationlist-widget relationlist-field'>
+                            <li tal:repeat='person cochairs'>
+                                <metal:macro use-macro='template/macros/person'/>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class='field' id='formfield-form-widgets-members' tal:define='members view/members'>
                     <label for='form-widgets-members' i18n:translate='label_members' class='horizontal'>

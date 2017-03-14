@@ -22,7 +22,7 @@
                         <span class='formHelp'>The intentions and desired outcomes of this participating site.</span>
                     </label>
                     <div id='form-widgets-aims' class='richtext-widget text-field'
-                        tal:content='structure context/@@text-transform/aims/text/x-html-safe|nothing'>
+                        tal:content='context/aims|nothing'>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -37,7 +37,7 @@
                         <span class='formHelp'>A précis of this participating site.</span>
                     </label>
                     <div id='form-widgets-abstract' class='text-widget text-field'
-                        tal:content='context/abstract'>
+                        tal:content='structure context/abstract|nothing'>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -171,9 +171,11 @@
                         Funding Start Date
                         <span class='formHelp'>The date on which funding commenced for this participating site.</span>
                     </label>
-                    <div id='form-widgets-fundingStartDate' class='date-widget datetime-field'
-                        tal:content='context/fundingStartDate/date'>
-                        2017-01-01
+                    <div tal:condition='context/fundingStartDate'>
+                        <div id='form-widgets-fundingStartDate' class='date-widget datetime-field'
+                            tal:content='context/fundingStartDate/date'>
+                            2017-01-01
+                        </div>
                     </div>
                 </div>
                 <div class='field' id='formfield-form-widgets-fundingFinishDate'>
@@ -181,9 +183,11 @@
                         Funding Finish Date
                         <span class='formHelp'>The date on which funding ended for this participating site.</span>
                     </label>
-                    <div id='form-widgets-fundingFinishDate' class='date-widget datetime-field'
-                        tal:content='context/fundingFinishDate/date'>
-                        2017-01-02
+                    <div tal:condition='context/fundingFinishDate'>
+                        <div id='form-widgets-fundingFinishDate' class='date-widget datetime-field'
+                            tal:content='context/fundingFinishDate/date'>
+                            2017-01-02
+                        </div>
                     </div>
                 </div>
                 <div class='field' id='formfield-form-widgets-additionalText'>

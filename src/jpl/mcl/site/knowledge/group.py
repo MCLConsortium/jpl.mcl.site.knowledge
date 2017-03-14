@@ -60,7 +60,9 @@ class IGroup(IKnowledgeObject):
             source=CatalogSource(object_provides=IPerson.__identifier__)
         )
     )
-    additionalText = RichText(title=u"Text", required=False)
+    additionalText = RichText(title=u"Additional Text", 
+        description=_(u'Any additional rich text information you want to add to this working group.'),
+        required=False)
 
 
 class View(grok.View):

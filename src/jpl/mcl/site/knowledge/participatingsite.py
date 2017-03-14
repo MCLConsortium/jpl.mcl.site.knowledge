@@ -34,7 +34,7 @@ class IParticipatingSite(IKnowledgeObject):
         description=_(u'The aims of this participating site.'),
         required=False,
     )
-    abstract = schema.Text(
+    abstract = RichText(
         title=_(u'Abstract'),
         description=_(u'A abstract of this participating site.'),
         required=False,
@@ -109,7 +109,10 @@ class IParticipatingSite(IKnowledgeObject):
         description=_(u'Funding finish date for this participating site.'),
         required=False,
     )
-    additionalText = RichText(title=u"Text", required=False)
+    additionalText = RichText(
+        title=u"Additional Text", 
+        description=_(u'Any additional rich text information you want to add to this participating site.'),
+        required=False)
 
 
 class View(grok.View):
