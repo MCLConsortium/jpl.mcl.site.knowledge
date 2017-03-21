@@ -55,12 +55,12 @@ class IInstitution(IKnowledgeObject):
     )
 
 
-IInstitution.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/types.rdf#Institution')
+IInstitution.setTaggedValue('typeURI', u'https://cancer.jpl.nasa.gov/rdf/types.rdf#Institution')
 IInstitution.setTaggedValue('predicateMap', {
     u'http://purl.org/dc/terms/title': ('title', False),
     u'http://purl.org/dc/terms/description': ('description', False),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#department': ('department', False),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#abbreviatedName': ('abbreviation', False),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#department': ('department', False),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#abbreviatedName': ('abbreviation', False),
     u'http://xmlns.com/foaf/0.1/homepage': ('homepage', False),
     u'http://xmlns.com/foaf/0.1/member': ('members', True)
 })

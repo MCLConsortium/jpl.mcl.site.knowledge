@@ -75,15 +75,15 @@ class IPerson(IKnowledgeObject):
 IPerson.setTaggedValue('predicateMap', {
     FOAF_SURNAME: ('surname', False),
     FOAF_GIVENNAME: ('givenName', False),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#degree': ('degrees', True),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#degree': ('degrees', True),
     u'http://xmlns.com/foaf/0.1/mbox': ('email', False),
     u'http://purl.org/dc/terms/description': ('description', False),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#has_dcp': ('dcpflag', False),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#has_dcb': ('dcbflag', False),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#has_dcp': ('dcpflag', False),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#has_dcb': ('dcbflag', False),
     u'http://xmlns.com/foaf/0.1/phone': ('phone', False)
 })
 IPerson.setTaggedValue('fti', 'jpl.mcl.site.knowledge.person')
-IPerson.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/types.rdf#Person')
+IPerson.setTaggedValue('typeURI', u'https://cancer.jpl.nasa.gov/rdf/types.rdf#Person')
 
 
 class View(grok.View):

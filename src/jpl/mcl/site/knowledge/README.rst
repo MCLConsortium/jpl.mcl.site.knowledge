@@ -87,14 +87,14 @@ And did it work?
     >>> mph.description
     u'Master Public Health'
     >>> mph.subjectURI
-    u'https://mcl.jpl.nasa.gov/ksdb/degreeinput/?id=2'
+    u'https://cancer.jpl.nasa.gov/ksdb/degreeinput/?id=2'
     >>> phd = folder['phd']
     >>> phd.title
     u'PhD'
     >>> phd.description
     u'Doctor of Philosophy'
     >>> phd.subjectURI
-    u'https://mcl.jpl.nasa.gov/ksdb/degreeinput/?id=1'
+    u'https://cancer.jpl.nasa.gov/ksdb/degreeinput/?id=1'
 
 Great!  Now let's see how we work in the face of alterations to data::
 
@@ -423,6 +423,7 @@ Let's ingest and see what we get::
     >>> organs
     [u'Anus', u'Spleen']
     >>> pis = [i.to_object.title for i in ksdb.pi]
+    >>> pis.sort()
     >>> pis
     [u'Liu, Beverley', u'\u9234\u6728, \u5e78\u5b50']
 
@@ -481,5 +482,149 @@ Let's ingest and see what we get::
     >>> authors.sort()
     >>> authors
     [u'Fang H', u'Jiang F', u'Li R', u'Stass SA.', u'Todd NW', u'Zhang H']
+
+That works great.
+
+Species
+============
+
+Finally, going for species::
+
+    >>> browser.open(portalURL)
+    >>> l = browser.getLink(id='jpl-mcl-site-knowledge-speciesfolder')
+    >>> l.url.endswith('++add++jpl.mcl.site.knowledge.speciesfolder')
+    True
+    >>> l.click()
+    >>> browser.getControl(name='form.widgets.title').value = u'My Species Folder'
+    >>> browser.getControl(name='form.widgets.description').value = u'Some of my favorite species.'
+    >>> browser.getControl(name='form.widgets.url').value = u'testscheme://localhost/rdf/species'
+    >>> browser.getControl(name='form.widgets.ingestEnabled:list').value = True
+    >>> browser.getControl(name='form.buttons.save').click()
+    >>> 'my-species-folder' in portal.keys()
+    True
+    >>> folder = portal['my-species-folder']
+    >>> folder.title
+    u'My Species Folder'
+    >>> folder.description
+    u'Some of my favorite species.'
+    >>> folder.url
+    'testscheme://localhost/rdf/species'
+    >>> folder.ingestEnabled
+    True
+
+Let's ingest and see what we get::
+
+    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-institutions-folder', u'my-participating-sites-folder', u'my-protocols-folder', u'my-publications-folder', u'my-species-folder']
+    >>> transaction.commit()
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
+    >>> browser.contents
+    '...Ingest Complete...Objects Created (2)...Objects Updated (2)...Objects Deleted (0)...'
+    >>> len(folder.keys())
+    2
+    >>> keys = folder.keys()
+    >>> keys.sort()
+    >>> keys
+    ['test-species-1', 'test-species-2']
+    >>> spe = folder['test-species-1']
+    >>> spe.title
+    u'Test Species 1'
+    >>> spe.description
+    u'Test Species description 1'
+
+That works great.
+
+Discipline
+============
+
+Finally, going for discipline::
+
+    >>> browser.open(portalURL)
+    >>> l = browser.getLink(id='jpl-mcl-site-knowledge-disciplinefolder')
+    >>> l.url.endswith('++add++jpl.mcl.site.knowledge.disciplinefolder')
+    True
+    >>> l.click()
+    >>> browser.getControl(name='form.widgets.title').value = u'My Discipline Folder'
+    >>> browser.getControl(name='form.widgets.description').value = u'Some of my favorite discipline.'
+    >>> browser.getControl(name='form.widgets.url').value = u'testscheme://localhost/rdf/discipline'
+    >>> browser.getControl(name='form.widgets.ingestEnabled:list').value = True
+    >>> browser.getControl(name='form.buttons.save').click()
+    >>> 'my-discipline-folder' in portal.keys()
+    True
+    >>> folder = portal['my-discipline-folder']
+    >>> folder.title
+    u'My Discipline Folder'
+    >>> folder.description
+    u'Some of my favorite discipline.'
+    >>> folder.url
+    'testscheme://localhost/rdf/discipline'
+    >>> folder.ingestEnabled
+    True
+
+Let's ingest and see what we get::
+
+    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-institutions-folder', u'my-participating-sites-folder', u'my-protocols-folder', u'my-publications-folder', u'my-species-folder', u'my-discipline-folder']
+    >>> transaction.commit()
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
+    >>> browser.contents
+    '...Ingest Complete...Objects Created (2)...Objects Updated (2)...Objects Deleted (0)...'
+    >>> len(folder.keys())
+    2
+    >>> keys = folder.keys()
+    >>> keys.sort()
+    >>> keys
+    ['test-discipline-1', 'test-discipline-2']
+    >>> dis = folder['test-discipline-1']
+    >>> dis.title
+    u'Test Discipline 1'
+    >>> dis.description
+    u'Test Discipline description 1'
+
+That works great.
+
+Specimen Type
+============
+
+Finally, going for specimentype::
+
+    >>> browser.open(portalURL)
+    >>> l = browser.getLink(id='jpl-mcl-site-knowledge-specimentypefolder')
+    >>> l.url.endswith('++add++jpl.mcl.site.knowledge.specimentypefolder')
+    True
+    >>> l.click()
+    >>> browser.getControl(name='form.widgets.title').value = u'My Specimen Type Folder'
+    >>> browser.getControl(name='form.widgets.description').value = u'Some of my favorite specimentype.'
+    >>> browser.getControl(name='form.widgets.url').value = u'testscheme://localhost/rdf/specimentype'
+    >>> browser.getControl(name='form.widgets.ingestEnabled:list').value = True
+    >>> browser.getControl(name='form.buttons.save').click()
+    >>> 'my-specimen-type-folder' in portal.keys()
+    True
+    >>> folder = portal['my-specimen-type-folder']
+    >>> folder.title
+    u'My Specimen Type Folder'
+    >>> folder.description
+    u'Some of my favorite specimentype.'
+    >>> folder.url
+    'testscheme://localhost/rdf/specimentype'
+    >>> folder.ingestEnabled
+    True
+
+Let's ingest and see what we get::
+
+    >>> registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [u'my-degree-folder', u'my-organ-folder', u'my-person-folder', u'my-institutions-folder', u'my-participating-sites-folder', u'my-protocols-folder', u'my-publications-folder', u'my-species-folder', u'my-discipline-folder', u'my-specimen-type-folder']
+    >>> transaction.commit()
+    >>> browser.open(portalURL + '/@@ingestKnowledge')
+    >>> browser.contents
+    '...Ingest Complete...Objects Created (2)...Objects Updated (2)...Objects Deleted (0)...'
+    >>> len(folder.keys())
+    2
+    >>> keys = folder.keys()
+    >>> keys.sort()
+    >>> keys
+    ['test-specimen-type-1', 'test-specimen-type-2']
+    >>> spe = folder['test-specimen-type-1']
+    >>> spe.title
+    u'Test Specimen Type 1'
+    >>> spe.description
+    u'Test Specimen Type description 1'
 
 That works great.

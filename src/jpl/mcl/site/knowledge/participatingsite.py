@@ -141,19 +141,19 @@ class View(grok.View):
         return getReferencedBrains(context.institution)
 
 
-IParticipatingSite.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/types.rdf#FundedSite')
+IParticipatingSite.setTaggedValue('typeURI', u'https://cancer.jpl.nasa.gov/rdf/types.rdf#FundedSite')
 IParticipatingSite.setTaggedValue('predicateMap', {
     u'http://purl.org/dc/terms/title': ('title', False),
     u'http://purl.org/dc/terms/description': ('description', False),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#aims': ('aims', False),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#aims': ('aims', False),
     u'http://purl.org/dc/terms/abstract': ('abstract', False),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#abbreviatedName': ('abbreviation', False),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#organ': ('organ', True),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#staff': ('staff', True),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#pi': ('pi', True),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#contact': ('contact', True),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#fundingStartDate': ('fundingStartDate', False),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#fundingFinishDate': ('fundingFinishDate', False),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#institution': ('institution', True)
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#abbreviatedName': ('abbreviation', False),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#organ': ('organ', True),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#staff': ('staff', True),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#pi': ('pi', True),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#contact': ('contact', True),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#fundingStartDate': ('fundingStartDate', False),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#fundingFinishDate': ('fundingFinishDate', False),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#institution': ('institution', True)
 })
 IParticipatingSite.setTaggedValue('fti', 'jpl.mcl.site.knowledge.participatingsite')

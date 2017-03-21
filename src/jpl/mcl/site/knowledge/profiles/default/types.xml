@@ -18,4 +18,10 @@
     <object name='jpl.mcl.site.knowledge.groupfolder' meta_type='Dexterity FTI'/>
     <object name='jpl.mcl.site.knowledge.disease' meta_type='Dexterity FTI'/>
     <object name='jpl.mcl.site.knowledge.diseasefolder' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.discipline' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.disciplinefolder' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.species' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.speciesfolder' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.specimentype' meta_type='Dexterity FTI'/>
+    <object name='jpl.mcl.site.knowledge.specimentypefolder' meta_type='Dexterity FTI'/>
 </object>

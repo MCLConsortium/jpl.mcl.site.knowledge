@@ -21,7 +21,7 @@ if socket.gethostname() == 'tumor.jpl.nasa.gov' or socket.gethostname().endswith
     _logger.warn(u'Using development KSDB on edrn-dev.jpl.nasa.gov instead of production')
     _rdfBaseURL = u'https://edrn-dev.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
 else:
-    _rdfBaseURL = u'https://mcl.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
+    _rdfBaseURL = u'https://edrn.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
 
 
 def createKnowledgeFolders(setupTool):
@@ -104,6 +104,21 @@ def createKnowledgeFolders(setupTool):
         url=_rdfBaseURL + u'degree', ingestEnabled=True
     )
     createContentInContainer(
+        knowledge, 'jpl.mcl.site.knowledge.specimentypefolder', title=u'Specimen Types',
+        description=u'Specimen Types being studied in MCL.',
+        url=_rdfBaseURL + u'specimentype', ingestEnabled=True
+    )
+    createContentInContainer(
+        knowledge, 'jpl.mcl.site.knowledge.speciesfolder', title=u'Species',
+        description=u'Species being studied in MCL.',
+        url=_rdfBaseURL + u'species', ingestEnabled=True
+    )
+    createContentInContainer(
+        knowledge, 'jpl.mcl.site.knowledge.disciplinefolder', title=u'Disciplines',
+        description=u'Disciplines being studied in MCL.',
+        url=_rdfBaseURL + u'discipline', ingestEnabled=True
+    )
+    createContentInContainer(
         knowledge, 'jpl.mcl.site.knowledge.diseasefolder', title=u'Diseases',
         description=u'Diseases being studied in MCL.',
         url=_rdfBaseURL + u'disease', ingestEnabled=True
@@ -116,6 +131,9 @@ def createKnowledgeFolders(setupTool):
         u'resources/organs',
         u'resources/diseases',
         u'resources/degrees',
+        u'resources/species',
+        u'resources/specimen-types',
+        u'resources/disciplines',
         u'resources/people',
         u'resources/publications',
         u'resources/institutions',

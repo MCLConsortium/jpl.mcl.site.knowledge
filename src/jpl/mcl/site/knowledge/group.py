@@ -83,12 +83,12 @@ class View(grok.View):
         return getReferencedBrains(context.members)
 
 
-IGroup.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/types.rdf#Group')
+IGroup.setTaggedValue('typeURI', u'https://cancer.jpl.nasa.gov/rdf/types.rdf#Group')
 IGroup.setTaggedValue('predicateMap', {
     u'http://purl.org/dc/terms/title': ('title', False),
     u'http://purl.org/dc/terms/description': ('description', False),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#chair': ('chairs', True),
-    u'https://mcl.jpl.nasa.gov/rdf/schema.rdf#cochair': ('cochairs', True),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#chair': ('chairs', True),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#cochair': ('cochairs', True),
     u'http://xmlns.com/foaf/0.1/member': ('members', True)
 })
 IGroup.setTaggedValue('fti', 'jpl.mcl.site.knowledge.group')

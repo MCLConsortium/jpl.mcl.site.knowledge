@@ -26,4 +26,4 @@ IDegree.setTaggedValue('predicateMap', {
     u'http://purl.org/dc/terms/description': ('description', False)
 })
 IDegree.setTaggedValue('fti', 'jpl.mcl.site.knowledge.degree')
-IDegree.setTaggedValue('typeURI', u'https://mcl.jpl.nasa.gov/rdf/types.rdf#Degree')
+IDegree.setTaggedValue('typeURI', u'https://cancer.jpl.nasa.gov/rdf/types.rdf#Degree')
