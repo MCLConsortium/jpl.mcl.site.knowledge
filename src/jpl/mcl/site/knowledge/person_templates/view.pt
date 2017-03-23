@@ -11,6 +11,26 @@
     <body>
         <metal:content-core fill-slot='content-core'>
             <metal:content-core define-macro='content-core'>
+                <div class='field' id='formfield-form-widgets-surname'>
+                    <label for='form-widgets-surname' i18n:translate='label_surname' class='horizontal'>
+                        Surname
+                        <span class='formHelp'>Surname (family name, last name, etc.) of this person.</span>
+                    </label>
+                    <div id='form-widgets-surname' class='text-widget textline-field'
+                        tal:content='context/surname'>
+                        Liu
+                    </div>
+                </div>
+                <div class='field' id='formfield-form-widgets-givenName'>
+                    <label for='form-widgets-givenName' i18n:translate='label_givenName' class='horizontal'>
+                        Given Name
+                        <span class='formHelp'>Given name (first name, etc.) of this person.</span>
+                    </label>
+                    <div id='form-widgets-givenName' class='text-widget textline-field'
+                        tal:content='context/givenName'>
+                        Lucy
+                    </div>
+                </div>
                 <div class='field' id='formfield-form-widgets-degrees' tal:define='degrees view/degrees'>
                     <label for='form-widgets-degrees' i18n:translate='label_degrees' class='horizontal'>
                         Degrees
@@ -52,6 +72,26 @@
                     <div id='form-widgets-phone' class='text-widget textline-field'
                         tal:content='context/phone'>
                         +1 818 555 1234
+                    </div>
+                </div>
+                <div class='field' id='formfield-form-widgets-dcbflag'>
+                    <label for='form-widgets-dcbflag' i18n:translate='label_dcbflag' class='horizontal'>
+                        DCB Member
+                        <span class='formHelp'>Is this person a part of the DCB Committee?</span>
+                    </label>
+                    <div id='form-widgets-dcbflag' class='single-checkbox-widget bool-field'>
+                        <span tal:condition='context/dcbflag' tal:omit-tag=''>&#x2705;</span>
+                        <span tal:condition='not:context/dcbflag' tal:omit-tag=''>&#x1f6ab;</span>
+                    </div>
+                </div>
+                <div class='field' id='formfield-form-widgets-dcpflag'>
+                    <label for='form-widgets-dcpflag' i18n:translate='label_dcpflag' class='horizontal'>
+                        DCP Member
+                        <span class='formHelp'>Is this person a part of the DCP Committee?</span>
+                    </label>
+                    <div id='form-widgets-dcpflag' class='single-checkbox-widget bool-field'>
+                        <span tal:condition='context/dcpflag' tal:omit-tag=''>&#x2705;</span>
+                        <span tal:condition='not:context/dcpflag' tal:omit-tag=''>&#x1f6ab;</span>
                     </div>
                 </div>
             </metal:content-core>
