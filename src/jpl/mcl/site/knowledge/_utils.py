@@ -24,12 +24,16 @@ def publish(context, wfTool=None):
 
 def rename(old, new):
     u'''Rename object to new name.'''
-    plone.api.content.rename(obj=old, new_id = new, safe_id=True)
+    plone.api.content.rename(obj=old, new_id = new.replace(" ","-").lower(), safe_id=True)
+    old.title = new
+    old.reindexObject()
 
 def move(source, target):
     u'''Move source folder under target folder.'''
     try:
         plone.api.content.move(source, target)
+        target.reindexObject()
+        source.reindexObject()
     except KeyError, ValueError:
         pass
 
