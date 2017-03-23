@@ -122,28 +122,6 @@
                         </li>
                     </ul>
                 </div>
-                <div class='field' id='formfield-form-widgets-contacts' tal:define='contacts view/contacts'>
-                    <label for='form-widgets-contacts' i18n:translate='label_contacts' class='horizontal'>
-                        Contacts
-                        <span class='formHelp'>People you can contact at this participating site.</span>
-                    </label>
-                    <div id='form-widgets-contacts' tal:condition='python:len(contacts) == 1'
-                        class='relationlist-widget relationlist-field'>
-                        <a href='#' title='Cool Lady' tal:content='python:contacts[0]["Title"]'
-                            tal:attributes='title python:contacts[0]["Description"]; href python:contacts[0].getURL();'>
-                            Lucy Liu
-                        </a>
-                    </div>
-                    <ul id='form-widgets-contacts' tal:condition='python:len(contacts) &gt; 1'
-                        class='relationlist-widget relationlist-field'>
-                        <li tal:repeat='contact contacts'>
-                            <a href='#' title='Cool Contact' tal:content='contact/Title'
-                                tal:attributes='title contact/Description; href contact/getURL'>
-                                David Liu
-                            </a>
-                        </li>
-                    </ul>
-                </div>
                 <div class='field' id='formfield-form-widgets-institutions' tal:define='institutions view/institutions'>
                     <label for='form-widgets-institutions' i18n:translate='label_institutions' class='horizontal'>
                         Institutions
@@ -166,34 +144,9 @@
                         </li>
                     </ul>
                 </div>
-                <div class='field' id='formfield-form-widgets-fundingStartDate'>
-                    <label for='form-widgets-fundingStartDate' i18n:translate='label_fundingStartDate' class='horizontal'>
-                        Funding Start Date
-                        <span class='formHelp'>The date on which funding commenced for this participating site.</span>
-                    </label>
-                    <div tal:condition='context/fundingStartDate'>
-                        <div id='form-widgets-fundingStartDate' class='date-widget datetime-field'
-                            tal:content='context/fundingStartDate/date'>
-                            2017-01-01
-                        </div>
-                    </div>
-                </div>
-                <div class='field' id='formfield-form-widgets-fundingFinishDate'>
-                    <label for='form-widgets-fundingFinishDate' i18n:translate='label_fundingFinishDate' class='horizontal'>
-                        Funding Finish Date
-                        <span class='formHelp'>The date on which funding ended for this participating site.</span>
-                    </label>
-                    <div tal:condition='context/fundingFinishDate'>
-                        <div id='form-widgets-fundingFinishDate' class='date-widget datetime-field'
-                            tal:content='context/fundingFinishDate/date'>
-                            2017-01-02
-                        </div>
-                    </div>
-                </div>
+                <hr/>
                 <div class='field' id='formfield-form-widgets-additionalText'>
                     <label for='form-widgets-additionalText' i18n:translate='label_additionalText' class='horizontal'>
-                        Additional Text
-                        <span class='formHelp'>Further explanations about this group.</span>
                     </label>
                     <div id='form-widgets-additionalText' class='richtext-widget text-field'
                         tal:content='structure context/@@text-transform/additionalText/text/x-html-safe|nothing'>

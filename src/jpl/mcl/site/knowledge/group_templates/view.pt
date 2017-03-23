@@ -27,7 +27,7 @@
             <metal:content-core define-macro='content-core'>
                 <div class='field' id='formfield-form-widgets-chairs' tal:define='chairs view/chairs'>
                     <label for='form-widgets-chairs' i18n:translate='label_chairs' class='horizontal'>
-                        Chairs
+                        Chair
                         <span class='formHelp'>The person or people in charge of this group.</span>
                     </label>
                     <div tal:condition='python:len(chairs) &gt; 0'>
@@ -77,10 +77,9 @@
                         </li>
                     </ul>
                 </div>
+                <hr>
                 <div class='field' id='formfield-form-widgets-additionalText'>
                     <label for='form-widgets-additionalText' i18n:translate='label_additionalText' class='horizontal'>
-                        Additional Text
-                        <span class='formHelp'>Further explanations about this group.</span>
                     </label>
                     <div id='form-widgets-additionalText' class='richtext-widget text-field'
                         tal:content='structure context/@@text-transform/additionalText/text/x-html-safe|nothing'>
