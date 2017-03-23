@@ -66,16 +66,16 @@
                                 </td>
                                 <td>
                                     <tal:row repeat='org protocol/organ'>
-                                        <a href='#' tal:content='org/title'
-                                        tal:attributes='href org/absolute_url'>
+                                        <a href='#' tal:content='org/to_object/title'
+                                        tal:attributes='href org/to_object/absolute_url'>
                                             Finger
                                         </a>
                                     </tal:row>
                                 </td>
                                 <td>
                                     <tal:row repeat='pi protocol/pi'>
-                                        <a href='#' tal:content='pi/title'
-                                        tal:attributes='href pi/absolute_url'>
+                                        <a href='#' tal:content='pi/to_object/title'
+                                        tal:attributes='href pi/to_object/absolute_url'>
                                             PI
                                         </a>
                                     </tal:row>
