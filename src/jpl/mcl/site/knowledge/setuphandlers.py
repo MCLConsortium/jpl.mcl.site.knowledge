@@ -29,14 +29,14 @@ def createKnowledgeFolders(setupTool):
     portal = setupTool.getSite()
     # Don't bother if we're running in the test fixture
     if hasattr(portal._p_jar, 'db') and isinstance(portal._p_jar.db().storage, DemoStorage): return
-    if 'resources' not in portal.keys():
+    if 'archive' not in portal.keys():
         createContentInContainer(
-            portal, 'Folder', title=u'Resources',
-            description=u'Resources for MCL.'
+            portal, 'Folder', title=u'Archive',
+            description=u'Archived folder for all previously created resources …'
         )
     if 'protocols' in portal['resources'].keys():
-        #move(portal['resources']['protocols'], portal['archive'])
-        rename(portal['resources']['protocols'], 'Archived Protocols')
+        move(portal['resources']['protocols'], portal['archive'])
+        rename(portal['archive']['protocols'], 'archived protocols')
     createContentInContainer(
         portal['resources'], 'jpl.mcl.site.knowledge.protocolfolder', title=u'Protocols',
         description=u'MCL Consortium studies',
@@ -44,16 +44,16 @@ def createKnowledgeFolders(setupTool):
     )
     #members archived
     if 'members' in portal.keys():
-        #move(portal['members'], portal['archive'])
-        rename(portal['members'], 'Archived Members')
+        move(portal['members'], portal['archive'])
+        rename(portal['archive']['members'], 'archived members')
     createContentInContainer(
         portal, 'jpl.mcl.site.knowledge.participatingsitefolder', title=u'Members',
         description=u'Hospitals, universities, and other institutions participating with MCL.',
         url=_rdfBaseURL + u'fundedsite', ingestEnabled=True
     )
     if 'publications' in portal['resources'].keys():
-        #move(portal['resources']['publications'], portal['archive'])
-        rename(portal['resources']['publications'], 'Archived Publications')
+        move(portal['resources']['publications'], portal['archive'])
+        rename(portal['archive']['publications'], 'archived publications')
     createContentInContainer(
         portal['resources'], 'jpl.mcl.site.knowledge.publicationfolder', title=u'Publications',
         description=u'Articles and other material published by the MCL Consortium.',
@@ -67,8 +67,8 @@ def createKnowledgeFolders(setupTool):
 
     #working groups gets removed and replaced
     if 'working-groups' in portal.keys():
-        #move(portal['working-groups'], portal['archive'])
-        rename(portal['working-groups'], 'Archived Working Groups')
+        move(portal['working-groups'], portal['archive'])
+        rename(portal['archive']['working-groups'], 'archived working-groups')
 
     workingGroup = createContentInContainer(
         portal, 'jpl.mcl.site.knowledge.groupfolder', title=u'Working Groups',
@@ -118,7 +118,7 @@ def createKnowledgeFolders(setupTool):
     hide(organfolder)
     hide(degreefolder)
     hide(diseasefolder)
-    #hide(portal['archive'])
+    hide(portal['archive'])
 
     registry = getUtility(IRegistry)
     registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [
