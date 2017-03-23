@@ -12,7 +12,6 @@ The following describes the changes between releases.
 • CA-1489: Ingest all new items from KSDB
 • CA-1500: RelationChoice and RelationList fields are broken in MCL Knowledge
 • CA-1501: Only text ingest is supported
-• CA-1509: Traceback error on Contents button; upgrade to Plone 5.0.7
 
 
 0.0.0 — Unreleased
