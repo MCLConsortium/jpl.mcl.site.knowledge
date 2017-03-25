@@ -138,5 +138,5 @@ def createKnowledgeFolders(setupTool):
         u'resources/other-lists/institutions',
         u'members',
         u'resources/protocols',
-        u'working-groups'
+        u'working-groups-new'
     ]
