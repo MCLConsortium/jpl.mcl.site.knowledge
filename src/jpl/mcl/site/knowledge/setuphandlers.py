@@ -11,7 +11,7 @@ import socket, logging
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.WorkflowCore import WorkflowException
 from plone.app.textfield.value import RichTextValue
-from Products.CMFPlone.interfaces import INavigationSchema
+#from Products.CMFPlone.interfaces import INavigationSchema
 
 _logger = logging.getLogger(__name__)
 
@@ -137,9 +137,9 @@ def createKnowledgeFolders(setupTool):
     registry = getUtility(IRegistry)
     
     #Expose navigations types that this package creates and orders them
-    navigation_settings = registry.forInterface(INavigationSchema, prefix='plone')
-    navigation_settings.displayed_types = ('Folder', 'jpl.mcl.site.knowledge.groupfolder', 'jpl.mcl.site.knowledge.participatingsitefolder')
-    orderFolderTabs(portal)
+    #navigation_settings = registry.forInterface(INavigationSchema, prefix='plone')
+    #navigation_settings.displayed_types = ('Folder', 'jpl.mcl.site.knowledge.groupfolder', 'jpl.mcl.site.knowledge.participatingsitefolder')
+    #orderFolderTabs(portal)
 
     registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [
         u'resources/other-lists/organs',
