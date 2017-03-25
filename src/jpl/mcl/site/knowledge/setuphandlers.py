@@ -2,7 +2,7 @@
 
 u'''JPL MCL Site Knowledge — setup handlers.'''
 
-from ._utils import publish, hide, rename, move
+from ._utils import publish, hideTab, rename, move
 from plone.dexterity.utils import createContentInContainer
 from plone.registry.interfaces import IRegistry
 from ZODB.DemoStorage import DemoStorage
@@ -11,6 +11,7 @@ import socket, logging
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.WorkflowCore import WorkflowException
 from plone.app.textfield.value import RichTextValue
+from Products.CMFPlone.interfaces import INavigationSchema
 
 _logger = logging.getLogger(__name__)
 
@@ -23,6 +24,14 @@ if socket.gethostname() == 'tumor.jpl.nasa.gov' or socket.gethostname().endswith
 else:
     _rdfBaseURL = u'https://edrn.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
 
+def orderFolderTabs(portal):
+    # Members < Working Groups < Resources < News & Meetings < Science Data
+    idx = 1
+    for i in ('members', 'working-groups', 'resources', 'news-meetings'):
+        portal.moveObject(i, idx)
+        idx += 1
+    ploneUtils = getToolByName(portal, 'plone_utils')
+    ploneUtils.reindexOnReorder(portal)
 
 def createKnowledgeFolders(setupTool):
     if setupTool.readDataFile('jpl.mcl.site.knowledge.txt') is None: return
@@ -79,9 +88,10 @@ def createKnowledgeFolders(setupTool):
     if 'working-groups' in portal.keys():
         #move(portal['working-groups'], portal['resources']['archive'])
         #rename(portal['resources']['archive']['working-groups'], 'Archived Working Groups')
-        portal.manage_delObjects('working-groups')
+        #portal.manage_delObjects('working-groups')
+        hideTab(portal['working-groups'])
     workingGroup = createContentInContainer(
-        portal, 'jpl.mcl.site.knowledge.groupfolder', title=u'Working Groups',
+        portal, 'jpl.mcl.site.knowledge.groupfolder', title=u'Working Groups', id='working-groups-new',
         description=u'Committees and other expert groups appointed to study and report on a particular areas and make recommendations to MCL based on findings.',
         url=_rdfBaseURL + u'group', ingestEnabled=True
     )
@@ -121,11 +131,16 @@ def createKnowledgeFolders(setupTool):
         url=_rdfBaseURL + u'disease', ingestEnabled=True
     )
     publish(portal['resources'])
+    publish(portal['members'])
     publish(workingGroup)
 
-    #hide(portal['archive'])
-
     registry = getUtility(IRegistry)
+    
+    #Expose navigations types that this package creates and orders them
+    navigation_settings = registry.forInterface(INavigationSchema, prefix='plone')
+    navigation_settings.displayed_types = ('Folder', 'jpl.mcl.site.knowledge.groupfolder', 'jpl.mcl.site.knowledge.participatingsitefolder')
+    orderFolderTabs(portal)
+
     registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [
         u'resources/other-lists/organs',
         u'resources/other-lists/diseases',
