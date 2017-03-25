@@ -11,7 +11,6 @@ import socket, logging
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.WorkflowCore import WorkflowException
 from plone.app.textfield.value import RichTextValue
-#from Products.CMFPlone.interfaces import INavigationSchema
 
 _logger = logging.getLogger(__name__)
 
@@ -23,15 +22,6 @@ if socket.gethostname() == 'tumor.jpl.nasa.gov' or socket.gethostname().endswith
     _rdfBaseURL = u'https://edrn-dev.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
 else:
     _rdfBaseURL = u'https://edrn.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
-
-def orderFolderTabs(portal):
-    # Members < Working Groups < Resources < News & Meetings < Science Data
-    idx = 1
-    for i in ('members', 'working-groups', 'resources', 'news-meetings'):
-        portal.moveObject(i, idx)
-        idx += 1
-    ploneUtils = getToolByName(portal, 'plone_utils')
-    ploneUtils.reindexOnReorder(portal)
 
 def createKnowledgeFolders(setupTool):
     if setupTool.readDataFile('jpl.mcl.site.knowledge.txt') is None: return
@@ -136,11 +126,6 @@ def createKnowledgeFolders(setupTool):
 
     registry = getUtility(IRegistry)
     
-    #Expose navigations types that this package creates and orders them
-    #navigation_settings = registry.forInterface(INavigationSchema, prefix='plone')
-    #navigation_settings.displayed_types = ('Folder', 'jpl.mcl.site.knowledge.groupfolder', 'jpl.mcl.site.knowledge.participatingsitefolder')
-    #orderFolderTabs(portal)
-
     registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [
         u'resources/other-lists/organs',
         u'resources/other-lists/diseases',
