@@ -33,19 +33,29 @@ def createKnowledgeFolders(setupTool):
             portal, 'Folder', title=u'Resources',
             description=u'Resources for MCL.'
         )
-    if 'archive' not in portal['resources'].keys():
+
+    if 'archive' not in portal.keys():
         createContentInContainer(
-            portal['resources'], 'Folder', title=u'Archive',
+            portal, 'Folder', title=u'Archive',
             description=u'Archive for MCL.'
         )
-    if 'other-lists' not in portal['resources'].keys():
+        hideTab(portal['archive'])
+    # Hide resource folders not being used
+    if 'datasets' in portal['resources'].keys():
+        move(portal['resources']['datasets'], portal['archive'])    
+    if 'image-data' in portal['resources'].keys():
+        move(portal['resources']['image-data'], portal['archive'])    
+    if 'pathology-data' in portal['resources'].keys():
+        move(portal['resources']['pathology-data'], portal['archive'])    
+
+    if 'other-lists' not in portal['archive'].keys():
         createContentInContainer(
-            portal['resources'], 'Folder', title=u'Other Lists',
+            portal['archive'], 'Folder', title=u'Other Lists',
             description=u'Other Lists for MCL.'
         )
     if 'protocols' in portal['resources'].keys():
-        move(portal['resources']['protocols'], portal['resources']['archive'])
-        rename(portal['resources']['archive']['protocols'], 'Archived Protocols')
+        move(portal['resources']['protocols'], portal['archive'])
+        rename(portal['archive']['protocols'], 'Archived Protocols')
     createContentInContainer(
         portal['resources'], 'jpl.mcl.site.knowledge.protocolfolder', title=u'Protocols',
         description=u'MCL Consortium studies',
@@ -53,31 +63,31 @@ def createKnowledgeFolders(setupTool):
     )
     #members archived
     if 'members' in portal.keys():
-        move(portal['members'], portal['resources']['archive'])
-        rename(portal['resources']['archive']['members'], 'Archived Members')
+        move(portal['members'], portal['archive'])
+        rename(portal['archive']['members'], 'Archived Members')
     createContentInContainer(
         portal, 'jpl.mcl.site.knowledge.participatingsitefolder', title=u'Members',
         description=u'Hospitals, universities, and other institutions participating with MCL.',
         url=_rdfBaseURL + u'fundedsite', ingestEnabled=True
     )
     if 'publications' in portal['resources'].keys():
-        move(portal['resources']['publications'], portal['resources']['archive'])
-        rename(portal['resources']['archive']['publications'], 'Archived Publications')
+        move(portal['resources']['publications'], portal['archive'])
+        rename(portal['archive']['publications'], 'Archived Publications')
     createContentInContainer(
         portal['resources'], 'jpl.mcl.site.knowledge.publicationfolder', title=u'Publications',
         description=u'Articles and other material published by the MCL Consortium.',
         url=_rdfBaseURL + u'publication', ingestEnabled=True
     )
     institutionfolder = createContentInContainer(
-        portal['resources']['other-lists'], 'jpl.mcl.site.knowledge.institutionfolder', title=u'Institutions',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.institutionfolder', title=u'Institutions',
         description=u'Universities, hospitals, and other institutions working with the consortium.',
         url=_rdfBaseURL + u'institution', ingestEnabled=True
     )
 
-    #working groups gets removed and replaced
+    #working groups cannot be removed for some reason, so will just hide for now
     if 'working-groups' in portal.keys():
-        #move(portal['working-groups'], portal['resources']['archive'])
-        #rename(portal['resources']['archive']['working-groups'], 'Archived Working Groups')
+        #move(portal['working-groups'], portal['archive'])
+        #rename(portal['archive']['working-groups'], 'Archived Working Groups')
         #portal.manage_delObjects('working-groups')
         hideTab(portal['working-groups'])
     workingGroup = createContentInContainer(
@@ -86,7 +96,7 @@ def createKnowledgeFolders(setupTool):
         url=_rdfBaseURL + u'group', ingestEnabled=True
     )
     organfolder = createContentInContainer(
-        portal['resources']['other-lists'], 'jpl.mcl.site.knowledge.organfolder', title=u'Organs',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.organfolder', title=u'Organs',
         description=u'Organs are collections of tissues joined in structural unit to serve a common function.',
         url=_rdfBaseURL + u'organ', ingestEnabled=True
     )
@@ -96,27 +106,27 @@ def createKnowledgeFolders(setupTool):
         url=_rdfBaseURL + u'person', ingestEnabled=True
     )
     degreefolder = createContentInContainer(
-        portal['resources']['other-lists'], 'jpl.mcl.site.knowledge.degreefolder', title=u'Degrees',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.degreefolder', title=u'Degrees',
         description=u'Academic degrees are qualifications awarded on successful completion of courses of study.',
         url=_rdfBaseURL + u'degree', ingestEnabled=True
     )
     createContentInContainer(
-        portal['resources']['other-lists'], 'jpl.mcl.site.knowledge.specimentypefolder', title=u'Specimen Types',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.specimentypefolder', title=u'Specimen Types',
         description=u'Specimen Types being studied in MCL.',
         url=_rdfBaseURL + u'specimentype', ingestEnabled=True
     )
     createContentInContainer(
-        portal['resources']['other-lists'], 'jpl.mcl.site.knowledge.speciesfolder', title=u'Species',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.speciesfolder', title=u'Species',
         description=u'Species being studied in MCL.',
         url=_rdfBaseURL + u'species', ingestEnabled=True
     )
     createContentInContainer(
-        portal['resources']['other-lists'], 'jpl.mcl.site.knowledge.disciplinefolder', title=u'Disciplines',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.disciplinefolder', title=u'Disciplines',
         description=u'Disciplines being studied in MCL.',
         url=_rdfBaseURL + u'discipline', ingestEnabled=True
     )
     diseasefolder = createContentInContainer(
-        portal['resources']['other-lists'], 'jpl.mcl.site.knowledge.diseasefolder', title=u'Diseases',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.diseasefolder', title=u'Diseases',
         description=u'Diseases being studied in MCL.',
         url=_rdfBaseURL + u'disease', ingestEnabled=True
     )
@@ -127,16 +137,16 @@ def createKnowledgeFolders(setupTool):
     registry = getUtility(IRegistry)
     
     registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [
-        u'resources/other-lists/organs',
-        u'resources/other-lists/diseases',
-        u'resources/other-lists/degrees',
-        u'resources/other-lists/species',
-        u'resources/other-lists/specimen-types',
-        u'resources/other-lists/disciplines',
+        u'archive/other-lists/organs',
+        u'archive/other-lists/diseases',
+        u'archive/other-lists/degrees',
+        u'archive/other-lists/species',
+        u'archive/other-lists/specimen-types',
+        u'archive/other-lists/disciplines',
         u'resources/people',
         u'resources/publications',
-        u'resources/other-lists/institutions',
+        u'archive/other-lists/institutions',
         u'members',
         u'resources/protocols',
-        u'working-groups'
+        u'working-groups-new'
     ]

@@ -28,7 +28,7 @@
                 <div class='field' id='formfield-form-widgets-chairs' tal:define='chairs view/chairs'>
                     <label for='form-widgets-chairs' i18n:translate='label_chairs' class='horizontal'>
                         Chair
-                        <span class='formHelp'>The person or people in charge of this group.</span>
+                        <!--<span class='formHelp'>The person or people in charge of this group.</span>-->
                     </label>
                     <div tal:condition='python:len(chairs) &gt; 0'>
                         <div id='form-widgets-chairs' tal:condition='python:len(chairs) == 1'
@@ -46,7 +46,7 @@
                 <div class='field' id='formfield-form-widgets-cochairs' tal:define='cochairs view/cochairs'>
                     <label for='form-widgets-cochairs' i18n:translate='label_cochairs' class='horizontal'>
                         Co-Chairs
-                        <span class='formHelp'>The person or people in charge jointly of this group.</span>
+                        <!--<span class='formHelp'>The person or people in charge jointly of this group.</span>-->
                     </label>
                     <div tal:condition='python:len(cochairs) &gt; 0'>
                         <div id='form-widgets-cochairs' tal:condition='python:len(cochairs) == 1'
@@ -64,7 +64,7 @@
                 <div class='field' id='formfield-form-widgets-members' tal:define='members view/members'>
                     <label for='form-widgets-members' i18n:translate='label_members' class='horizontal'>
                         Members
-                        <span class='formHelp'>People in this group.</span>
+                        <!--<span class='formHelp'>People in this group.</span>-->
                     </label>
                     <div id='form-widgets-members' tal:condition='python:len(members) == 1'
                         class='relationlist-widget relationlist-field' tal:define='person python:members[0];'>

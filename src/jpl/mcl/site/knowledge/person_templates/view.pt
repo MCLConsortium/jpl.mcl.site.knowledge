@@ -14,7 +14,7 @@
                 <div class='field' id='formfield-form-widgets-degrees' tal:define='degrees view/degrees'>
                     <label for='form-widgets-degrees' i18n:translate='label_degrees' class='horizontal'>
                         Degrees
-                        <span class='formHelp'>Academic degrees conferred upon this person.</span>
+                        <!--<span class='formHelp'>Academic degrees conferred upon this person.</span>-->
                     </label>
                     <div id='form-widgets-degrees' tal:condition='python:len(degrees) == 1'
                         class='relationlist-widget relationlist-field'>
@@ -36,7 +36,7 @@
                 <div class='field' id='formfield-form-widgets-email'>
                     <label for='form-widgets-email' i18n:translate='label_email' class='horizontal'>
                         Email
-                        <span class='formHelp'>Electronic mail address via which this person may be contacted.</span>
+                        <!--<span class='formHelp'>Electronic mail address via which this person may be contacted.</span>-->
                     </label>
                     <div id='form-widgets-email' class='text-widget textline-field'>
                         <a href='#' tal:attributes='href string:mailto:${context/email}' tal:content='context/email'>
@@ -47,7 +47,7 @@
                 <div class='field' id='formfield-form-widgets-phone'>
                     <label for='form-widgets-phone' i18n:translate='label_phone' class='horizontal'>
                         Phone
-                        <span class='formHelp'>Public switched telephone network number where this person may be called.</span>
+                        <!--<span class='formHelp'>Public switched telephone network number where this person may be called.</span>-->
                     </label>
                     <div id='form-widgets-phone' class='text-widget textline-field'
                         tal:content='context/phone'>
