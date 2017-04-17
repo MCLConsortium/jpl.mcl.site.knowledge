@@ -8,7 +8,7 @@ from five import grok
 
 
 class IDiseaseFolder(IIngestableFolder):
-    u'''Folder containing body systems, also known as diseases.'''
+    u'''Folder containing diseases.'''
 
 
 class DiseaseIngestor(Ingestor):
