@@ -3,7 +3,7 @@ Changelog
 
 The following describes the changes between releases.
 
-1.0.0 — Knowledge On Fleek!
+0.0.1 — Knowledge On Fleek!
 ---------------------------
 
 • Created types and RDF ingest for institution, protocols, participating sites, and projects
