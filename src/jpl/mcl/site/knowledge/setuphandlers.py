@@ -21,7 +21,7 @@ if socket.gethostname() == 'tumor.jpl.nasa.gov' or socket.gethostname().endswith
     _logger.warn(u'Using development KSDB on edrn-dev.jpl.nasa.gov instead of production')
     _rdfBaseURL = u'https://edrn-dev.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
 else:
-    _rdfBaseURL = u'https://edrn.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
+    _rdfBaseURL = u'https://mcl.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
 
 def createKnowledgeFolders(setupTool):
     if setupTool.readDataFile('jpl.mcl.site.knowledge.txt') is None: return
@@ -143,6 +143,7 @@ def createKnowledgeFolders(setupTool):
         u'archive/other-lists/species',
         u'archive/other-lists/specimen-types',
         u'archive/other-lists/disciplines',
+        u'archive/datasets',
         u'resources/people',
         u'resources/publications',
         u'archive/other-lists/institutions',
