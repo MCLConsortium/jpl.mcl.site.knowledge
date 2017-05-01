@@ -3,6 +3,14 @@ Changelog
 
 The following describes the changes between releases.
 
+
+0.0.2 — TBD
+-----------
+
+• CA-1521: MCL Search and Site Map broken
+• CA-1522: Blobstorage error on MCL
+
+
 0.0.1 — Knowledge On Fleek!
 ---------------------------
 

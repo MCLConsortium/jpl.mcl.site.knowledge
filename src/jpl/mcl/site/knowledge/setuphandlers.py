@@ -3,14 +3,14 @@
 u'''JPL MCL Site Knowledge — setup handlers.'''
 
 from ._utils import publish, hideTab, rename, move
+from plone.app.textfield.value import RichTextValue
 from plone.dexterity.utils import createContentInContainer
 from plone.registry.interfaces import IRegistry
-from ZODB.DemoStorage import DemoStorage
-from zope.component import getUtility
-import socket, logging
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.WorkflowCore import WorkflowException
-from plone.app.textfield.value import RichTextValue
+from ZODB.DemoStorage import DemoStorage
+from zope.component import getUtility
+import socket, logging, plone.api
 
 _logger = logging.getLogger(__name__)
 
@@ -40,13 +40,13 @@ def createKnowledgeFolders(setupTool):
             description=u'Archive for MCL.'
         )
         hideTab(portal['archive'])
-    # Hide resource folders not being used
+    # Nuke resource folders not being used
     if 'datasets' in portal['resources'].keys():
-        move(portal['resources']['datasets'], portal['archive'])    
+        plone.api.content.delete(obj=portal['resources']['datasets'])
     if 'image-data' in portal['resources'].keys():
-        move(portal['resources']['image-data'], portal['archive'])    
+        plone.api.content.delete(obj=portal['resources']['image-data'])
     if 'pathology-data' in portal['resources'].keys():
-        move(portal['resources']['pathology-data'], portal['archive'])    
+        plone.api.content.delete(obj=portal['resources']['pathology-data'])
 
     if 'other-lists' not in portal['archive'].keys():
         createContentInContainer(
