@@ -3,11 +3,8 @@
 u'''JPL MCL Site Knowledge — setup handlers.'''
 
 from ._utils import publish, hideTab, rename, move
-from plone.app.textfield.value import RichTextValue
 from plone.dexterity.utils import createContentInContainer
 from plone.registry.interfaces import IRegistry
-from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.WorkflowCore import WorkflowException
 from ZODB.DemoStorage import DemoStorage
 from zope.component import getUtility
 import socket, logging, plone.api
@@ -22,6 +19,7 @@ if socket.gethostname() == 'tumor.jpl.nasa.gov' or socket.gethostname().endswith
     _rdfBaseURL = u'https://edrn-dev.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
 else:
     _rdfBaseURL = u'https://mcl.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
+
 
 def createKnowledgeFolders(setupTool):
     if setupTool.readDataFile('jpl.mcl.site.knowledge.txt') is None: return
@@ -78,24 +76,25 @@ def createKnowledgeFolders(setupTool):
         description=u'Articles and other material published by the MCL Consortium.',
         url=_rdfBaseURL + u'publication', ingestEnabled=True
     )
-    institutionfolder = createContentInContainer(
+    createContentInContainer(
         portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.institutionfolder', title=u'Institutions',
         description=u'Universities, hospitals, and other institutions working with the consortium.',
         url=_rdfBaseURL + u'institution', ingestEnabled=True
     )
 
-    #working groups cannot be removed for some reason, so will just hide for now
+    # working groups cannot be removed for some reason, so will just hide for now
+    # [kelly/2017-05-01] THIS IS SO WEIRD
     if 'working-groups' in portal.keys():
-        #move(portal['working-groups'], portal['archive'])
-        #rename(portal['archive']['working-groups'], 'Archived Working Groups')
-        #portal.manage_delObjects('working-groups')
+        # move(portal['working-groups'], portal['archive'])
+        # rename(portal['archive']['working-groups'], 'Archived Working Groups')
+        # portal.manage_delObjects('working-groups')
         hideTab(portal['working-groups'])
     workingGroup = createContentInContainer(
         portal, 'jpl.mcl.site.knowledge.groupfolder', title=u'Working Groups', id='working-groups-new',
         description=u'Committees and other expert groups appointed to study and report on a particular areas and make recommendations to MCL based on findings.',
         url=_rdfBaseURL + u'group', ingestEnabled=True
     )
-    organfolder = createContentInContainer(
+    createContentInContainer(
         portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.organfolder', title=u'Organs',
         description=u'Organs are collections of tissues joined in structural unit to serve a common function.',
         url=_rdfBaseURL + u'organ', ingestEnabled=True
@@ -105,7 +104,7 @@ def createKnowledgeFolders(setupTool):
         description=u'Individuals working with and comprising the consortium.',
         url=_rdfBaseURL + u'person', ingestEnabled=True
     )
-    degreefolder = createContentInContainer(
+    createContentInContainer(
         portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.degreefolder', title=u'Degrees',
         description=u'Academic degrees are qualifications awarded on successful completion of courses of study.',
         url=_rdfBaseURL + u'degree', ingestEnabled=True
@@ -125,7 +124,7 @@ def createKnowledgeFolders(setupTool):
         description=u'Disciplines being studied in MCL.',
         url=_rdfBaseURL + u'discipline', ingestEnabled=True
     )
-    diseasefolder = createContentInContainer(
+    createContentInContainer(
         portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.diseasefolder', title=u'Diseases',
         description=u'Diseases being studied in MCL.',
         url=_rdfBaseURL + u'disease', ingestEnabled=True
@@ -135,7 +134,7 @@ def createKnowledgeFolders(setupTool):
     publish(workingGroup)
 
     registry = getUtility(IRegistry)
-    
+
     registry['jpl.mcl.site.knowledge.interfaces.ISettings.objects'] = [
         u'archive/other-lists/organs',
         u'archive/other-lists/diseases',
@@ -143,7 +142,6 @@ def createKnowledgeFolders(setupTool):
         u'archive/other-lists/species',
         u'archive/other-lists/specimen-types',
         u'archive/other-lists/disciplines',
-        u'archive/datasets',
         u'resources/people',
         u'resources/publications',
         u'archive/other-lists/institutions',
