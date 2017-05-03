@@ -4,12 +4,13 @@ Changelog
 The following describes the changes between releases.
 
 
-0.0.2 — TBD
------------
+0.0.2 — Blobs! Blobs Everywhere!
+--------------------------------
 
 • CA-1521: MCL Search and Site Map broken
 • CA-1522: Blobstorage error on MCL
-• CA-1520: - Ingest URLs incorrect
+• CA-1520: Ingest URLs incorrect
+
 
 0.0.1 — Knowledge On Fleek!
 ---------------------------
