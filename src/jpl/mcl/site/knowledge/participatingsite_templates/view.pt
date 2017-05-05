@@ -102,7 +102,7 @@
                 </div>
                 <div class='field' id='formfield-form-widgets-staff' tal:define='staff view/staff'>
                     <label for='form-widgets-staff' i18n:translate='label_staff' class='horizontal'>
-                        Staff
+                        Additional Investigators and Staff
                         <!--<span class='formHelp'>Other personnel at this participating site.</span>-->
                     </label>
                     <div id='form-widgets-staff' tal:condition='python:len(staff) == 1'
