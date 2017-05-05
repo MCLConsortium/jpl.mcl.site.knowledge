@@ -5,11 +5,13 @@ The following describes the changes between releases.
 
 
 
-0.0.3 — Ready for Prime Time
+0.0.4 — Ready for Prime Time
 ----------------------------
 
 • CA-1529: Change staff label in participating sites to Additional Investigators and Staff
 
+0.0.3 — Skipped version due to Pypi push error
+----------------------------------------------
 
 0.0.2 — Blobs! Blobs Everywhere!
 --------------------------------
