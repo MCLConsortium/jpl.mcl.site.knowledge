@@ -7,7 +7,7 @@ import os.path
 # ------------
 
 _name            = 'jpl.mcl.site.knowledge'
-_version         = '0.0.4'
+_version         = '0.0.3'
 _description     = 'Knowledge representation for the MCL site'
 _url             = 'https://github.com/MCLConsortium/' + _name
 _downloadURL     = 'https://github.com/MCLConsortium/' + _name + '/archive/' + _version + '.zip'

@@ -4,13 +4,15 @@ Changelog
 The following describes the changes between releases.
 
 
-<<<<<<< HEAD
-0.0.2 — Ready for Prime Time
+
+0.0.3 — Ready for Prime Time
 ----------------------------
-=======
+
+• CA-1529: Change staff label in participating sites to Additional Investigators and Staff
+
+
 0.0.2 — Blobs! Blobs Everywhere!
 --------------------------------
->>>>>>> 3be03c7a1c48105f719528cca3153b595285162c
 
 • CA-1521: MCL Search and Site Map broken
 • CA-1522: Blobstorage error on MCL
