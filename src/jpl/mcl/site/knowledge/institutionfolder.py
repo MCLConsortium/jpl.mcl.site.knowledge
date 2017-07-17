@@ -3,7 +3,7 @@
 u'''MCL — Institution Folder'''
 
 from ._base import IIngestableFolder, Ingestor, IngestableFolderView
-from .institution import IInstitution
+from .interfaces import IInstitution
 from five import grok
 
 

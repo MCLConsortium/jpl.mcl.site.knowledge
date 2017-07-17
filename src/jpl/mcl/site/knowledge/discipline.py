@@ -2,23 +2,8 @@
 
 u'''MCL — Discipline'''
 
-from . import MESSAGE_FACTORY as _
 from zope import schema
-from ._base import IKnowledgeObject
-
-
-class IDiscipline(IKnowledgeObject):
-    u'''An discipline is a branch of knowledge studied under.'''
-    title = schema.TextLine(
-        title=_(u'Name'),
-        description=_(u'Name of this discipline.'),
-        required=True,
-    )
-    description = schema.Text(
-        title=_(u'Description'),
-        description=_(u'A brief description of this discipline.'),
-        required=False,
-    )
+from interfaces import IDiscipline
 
 
 IDiscipline.setTaggedValue('predicateMap', {

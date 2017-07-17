@@ -12,6 +12,12 @@
                 tal:attributes='href string:${navroot}/++resource++jpl.mcl.site.knowledge/custom-mcl.css'
             />
         </metal:block>
+        <metal:person define-macro='person'>
+            <span tal:define='per python:person[0]; institution python:person[1]' tal:omit-tag=''>
+                <a tal:content='per/Title' tal:attributes='title per/Description; href per/getURL'></a>
+                <span tal:condition='python:institution'>- <a tal:content='institution/Title' tal:attributes='title institution/Description; href institution/absolute_url'></a></span>
+            </span>
+        </metal:person>
     </head>
     <body>
         <metal:content-core fill-slot='content-core'>
@@ -83,44 +89,36 @@
                         Principal Investigators
                         <!--<span class='formHelp'>The person of people in charge of this participating site.</span>-->
                     </label>
-                    <div id='form-widgets-pis' tal:condition='python:len(pis) == 1'
-                        class='relationlist-widget relationlist-field'>
-                        <a href='#' title='Cool Lady' tal:content='python:pis[0]["Title"]'
-                            tal:attributes='title python:pis[0]["Description"]; href python:pis[0].getURL();'>
-                            Lucy Liu
-                        </a>
+                    <div tal:condition='python:len(pis) &gt; 0'>
+                        <div id='form-widgets-pis' tal:condition='python:len(pis) == 1'
+                            class='relationlist-widget relationlist-field' tal:define='person python:pis[0];'>
+                            <metal:macro use-macro='template/macros/person'/>
+                        </div>
+                        <ul id='form-widgets-pis' tal:condition='python:len(pis) &gt; 1'
+                            class='relationlist-widget relationlist-field'>
+                            <li tal:repeat='person pis'>
+                                <metal:macro use-macro='template/macros/person'/>
+                            </li>
+                        </ul>
                     </div>
-                    <ul id='form-widgets-pis' tal:condition='python:len(pis) &gt; 1'
-                        class='relationlist-widget relationlist-field'>
-                        <li tal:repeat='pi pis'>
-                            <a href='#' title='Cool PI' tal:content='pi/Title'
-                                tal:attributes='title pi/Description; href pi/getURL'>
-                                David Liu
-                            </a>
-                        </li>
-                    </ul>
                 </div>
                 <div class='field' id='formfield-form-widgets-staff' tal:define='staff view/staff'>
                     <label for='form-widgets-staff' i18n:translate='label_staff' class='horizontal'>
                         Additional Investigators and Staff
                         <!--<span class='formHelp'>Other personnel at this participating site.</span>-->
                     </label>
-                    <div id='form-widgets-staff' tal:condition='python:len(staff) == 1'
-                        class='relationlist-widget relationlist-field'>
-                        <a href='#' title='Cool Lady' tal:content='python:staff[0]["Title"]'
-                            tal:attributes='title python:staff[0]["Description"]; href python:staff[0].getURL();'>
-                            Lucy Liu
-                        </a>
+                    <div tal:condition='python:len(staff) &gt; 0'>
+                        <div id='form-widgets-staff' tal:condition='python:len(staff) == 1'
+                            class='relationlist-widget relationlist-field' tal:define='person python:staff[0];'>
+                            <metal:macro use-macro='template/macros/person'/>
+                        </div>
+                        <ul id='form-widgets-staff' tal:condition='python:len(staff) &gt; 1'
+                            class='relationlist-widget relationlist-field'>
+                            <li tal:repeat='person staff'>
+                                <metal:macro use-macro='template/macros/person'/>
+                            </li>
+                        </ul>
                     </div>
-                    <ul id='form-widgets-staff' tal:condition='python:len(staff) &gt; 1'
-                        class='relationlist-widget relationlist-field'>
-                        <li tal:repeat='staffer staff'>
-                            <a href='#' title='Cool Staffer' tal:content='staffer/Title'
-                                tal:attributes='title staffer/Description; href staffer/getURL'>
-                                David Liu
-                            </a>
-                        </li>
-                    </ul>
                 </div>
                 <div class='field' id='formfield-form-widgets-institutions' tal:define='institutions view/institutions'>
                     <label for='form-widgets-institutions' i18n:translate='label_institutions' class='horizontal'>

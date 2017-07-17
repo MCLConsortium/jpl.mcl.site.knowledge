@@ -33,6 +33,27 @@
                         </li>
                     </ul>
                 </div>
+                <div class='field' id='formfield-form-widgets-institutions' tal:define='institutions view/institutions'>
+                    <label for='form-widgets-institutions' i18n:translate='label_institutions' class='horizontal'>
+                        Institutions
+                    </label>
+                    <div id='form-widgets-institutions' tal:condition='python:len(institutions) == 1'
+                        class='relationlist-widget relationlist-field'>
+                        <a href='#' title='Cool Place' tal:content='python:institutions[0].title'
+                            tal:attributes='title python:institutions[0].description; href python:institutions[0].absolute_url;'>
+                            JPL
+                        </a>
+                    </div>
+                    <ul id='form-widgets-institutions' tal:condition='python:len(institutions) &gt; 1'
+                        class='relationlist-widget relationlist-field'>
+                        <li tal:repeat='institution institutions'>
+                            <a href='#' title='Cool Place' tal:content='institution/title'
+                                tal:attributes='title institution/description; href institution/absolute_url'>
+                                CalTech
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <div class='field' id='formfield-form-widgets-email'>
                     <label for='form-widgets-email' i18n:translate='label_email' class='horizontal'>
                         Email

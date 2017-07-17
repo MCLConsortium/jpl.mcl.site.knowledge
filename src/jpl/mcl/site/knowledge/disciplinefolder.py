@@ -3,7 +3,7 @@
 u'''MCL — Discipline Folder'''
 
 from ._base import IIngestableFolder, Ingestor, IngestableFolderView
-from .discipline import IDiscipline
+from .interfaces import IDiscipline
 from five import grok
 
 

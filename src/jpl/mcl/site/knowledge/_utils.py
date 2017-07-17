@@ -61,6 +61,13 @@ def getReferencedBrains(relations):
     results.sort(lambda a, b: cmp(a['Title'].decode('utf-8'), b['Title'].decode('utf-8')))
     return results
 
+#Find the first institution associated with person id
+def getFirstInst(person_id, institutions):
+    for i in institutions:
+        for rel in i.members:
+            if person_id == rel.to_id:
+                return i
+    return False
 
 class IngestResults(object):
     def __init__(self, created, updated, deleted):

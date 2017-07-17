@@ -3,7 +3,7 @@
 u'''MCL — Specimen Type Folder'''
 
 from ._base import IIngestableFolder, Ingestor, IngestableFolderView
-from .specimentype import ISpecimenType
+from .interfaces import ISpecimenType
 from five import grok
 
 

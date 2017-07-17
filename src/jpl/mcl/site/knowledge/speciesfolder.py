@@ -3,7 +3,7 @@
 u'''MCL — Species Folder'''
 
 from ._base import IIngestableFolder, Ingestor, IngestableFolderView
-from .species import ISpecies
+from .interfaces import ISpecies
 from five import grok
 
 

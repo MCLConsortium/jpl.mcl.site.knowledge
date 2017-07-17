@@ -3,7 +3,7 @@
 u'''MCL — ParticipatingSite Folder'''
 
 from ._base import IIngestableFolder, Ingestor, IngestableFolderView
-from .participatingsite import IParticipatingSite
+from .interfaces import IParticipatingSite
 from five import grok
 
 

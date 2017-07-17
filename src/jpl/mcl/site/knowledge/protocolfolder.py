@@ -3,7 +3,7 @@
 u'''MCL — Protocol Folder'''
 
 from ._base import IIngestableFolder, Ingestor, IngestableFolderView
-from .protocol import IProtocol
+from .interfaces import IProtocol
 from five import grok
 
 

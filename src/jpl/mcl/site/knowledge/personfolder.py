@@ -3,7 +3,8 @@
 u'''MCL — Person Folder'''
 
 from ._base import IIngestableFolder, Ingestor, IngestableFolderView
-from .person import IPerson, FOAF_SURNAME, FOAF_GIVENNAME
+from .person import FOAF_SURNAME, FOAF_GIVENNAME
+from .interfaces import IPerson
 from five import grok
 from rdflib import URIRef
 

@@ -5,7 +5,7 @@ u'''MCL — Base classes'''
 from . import MESSAGE_FACTORY as _
 from ._utils import IngestResults, publish
 from .errors import IngestDisabled, RDFTypeMismatchError, TitlePredicateMissing, IngestError
-from .interfaces import IIngestor
+from .interfaces import IIngestor, IKnowledgeObject
 from Acquisition import aq_inner
 from five import grok
 from plone.dexterity.utils import createContentInContainer
@@ -57,15 +57,6 @@ class IngestableFolderView(grok.View):
         context = aq_inner(self.context)
         catalog = plone.api.portal.get_tool('portal_catalog')
         return catalog(path={'query': '/'.join(context.getPhysicalPath()), 'depth': 1}, sort_on='sortable_title')
-
-
-class IKnowledgeObject(model.Schema):
-    u'''An abstract base class for content that are identified by RDF subject URIs.'''
-    subjectURI = schema.URI(
-        title=_(u'Subject URI'),
-        description=_(u"Uniform Resource Identifier that identifies the subject of this object.'"),
-        required=True,
-    )
 
 
 class Ingestor(grok.Adapter):

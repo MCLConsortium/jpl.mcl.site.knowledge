@@ -13,12 +13,9 @@
             />
         </metal:block>
         <metal:person define-macro='person'>
-            <span tal:define='isDCB person/dcbflag; isDCP person/dcpflag' tal:omit-tag=''>
-                <a tal:content='person/Title' tal:attributes='title person/Description; href person/getURL'>
-                </a>
-                <span tal:condition='python:isDCB and isDCP'>- DCB and DCP Liaison</span>
-                <span tal:condition='python:isDCB and not isDCP'>- DCB Liaison</span>
-                <span tal:condition='python:isDCP and not isDCB'>- DCP Liaison</span>
+            <span tal:define='per python:person[0]; institution python:person[1]' tal:omit-tag=''>
+                <a tal:content='per/Title' tal:attributes='title per/Description; href per/getURL'></a>
+                <span tal:condition='python:institution'>- <a tal:content='institution/Title' tal:attributes='title institution/Description; href institution/absolute_url'></a></span>
             </span>
         </metal:person>
     </head>

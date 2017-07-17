@@ -3,7 +3,7 @@
 u'''MCL — Organ Folder'''
 
 from ._base import IIngestableFolder, Ingestor, IngestableFolderView
-from .organ import IOrgan
+from .interfaces import IOrgan
 from five import grok
 
 

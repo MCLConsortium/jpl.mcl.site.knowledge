@@ -3,7 +3,7 @@
 u'''MCL — Group Folder'''
 
 from ._base import IIngestableFolder, Ingestor, IngestableFolderView
-from .group import IGroup
+from .interfaces import IGroup
 from five import grok
 
 

@@ -3,7 +3,7 @@
 u'''MCL — Publication Folder'''
 
 from ._base import IIngestableFolder, Ingestor, IngestableFolderView
-from .publication import IPublication
+from .interfaces import IPublication
 from five import grok
 
 

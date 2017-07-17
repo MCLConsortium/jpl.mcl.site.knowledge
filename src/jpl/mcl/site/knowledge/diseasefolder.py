@@ -3,7 +3,7 @@
 u'''MCL — Disease Folder'''
 
 from ._base import IIngestableFolder, Ingestor, IngestableFolderView
-from .disease import IDisease
+from .interfaces import IDisease
 from five import grok
 
 

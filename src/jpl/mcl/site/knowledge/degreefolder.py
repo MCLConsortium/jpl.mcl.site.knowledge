@@ -3,7 +3,7 @@
 u'''MCL — Degree Folder'''
 
 from ._base import IIngestableFolder, Ingestor, IngestableFolderView
-from .degree import IDegree
+from .interfaces import IDegree
 from five import grok
 
 
