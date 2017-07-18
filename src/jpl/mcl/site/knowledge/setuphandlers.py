@@ -85,9 +85,6 @@ def createKnowledgeFolders(setupTool):
     # working groups cannot be removed for some reason, so will just hide for now
     # [kelly/2017-05-01] THIS IS SO WEIRD
     if 'working-groups' in portal.keys():
-        # move(portal['working-groups'], portal['archive'])
-        # rename(portal['archive']['working-groups'], 'Archived Working Groups')
-        # portal.manage_delObjects('working-groups')
         hideTab(portal['working-groups'])
     workingGroup = createContentInContainer(
         portal, 'jpl.mcl.site.knowledge.groupfolder', title=u'Working Groups', id='working-groups-new',
