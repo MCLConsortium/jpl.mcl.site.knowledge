@@ -49,6 +49,7 @@
                             <th i18n:translate='publicationpubmedid'>Pubmed ID</th>
                             <th i18n:translate='publicationjournal'>Journal</th>
                             <th i18n:translate='publicationyear'>Year</th>
+                            <th i18n:translate='publicationpi'>PI</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,6 +70,15 @@
                                 <td tal:content='publication/year'>
                                     year
                                 </td>
+                                <td>
+                                    <tal:row repeat='pi publication/pi'>
+                                        <a href='#' tal:content='pi/to_object/title'
+                                        tal:attributes='href pi/to_object/absolute_url'>
+                                            PI
+                                        </a>
+                                    </tal:row>
+                                </td>
+
                             </tr>
                         </tal:repeat>
                     </tbody>

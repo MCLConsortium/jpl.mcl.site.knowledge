@@ -396,6 +396,18 @@ class IPublication(IKnowledgeObject):
         description=_(u'The publications was published in this journal.'),
         required=False,
     )
+    pi = RelationList(
+        title=_(u'PIs'),
+        description=_(u'The principle investigator assigned to this publication.'),
+        required=False,
+        default=[],
+        value_type=RelationChoice(
+            title=_(u'PI'),
+            description=_(u'A single PI assigned to this publication.'),
+            source=CatalogSource(object_provides=IPerson.__identifier__)
+        )
+    )
+
 
 class IProtocol(IKnowledgeObject):
     u'''An protocol participating with the MCL consortium.'''
