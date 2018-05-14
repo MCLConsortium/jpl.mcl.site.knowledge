@@ -4,7 +4,7 @@ u'''MCL — Person'''
 from ._utils import getReferencedBrains
 from Acquisition import aq_inner
 from zope.component import getUtility
-from interfaces import IPerson, IDegree, IInstitution
+from .interfaces import IPerson, IDegree, IInstitution
 from zope.intid.interfaces import IIntIds
 from five import grok
 

@@ -11,6 +11,7 @@ IPublication.setTaggedValue('predicateMap', {
     u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#year': ('year', False),
     u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#author': ('author', False),
     u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#pmid': ('pmid', False),
+    u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#pi': ('pi', False),
     u'https://cancer.jpl.nasa.gov/rdf/schema.rdf#journal': ('journal', False)
 })
 IPublication.setTaggedValue('fti', 'jpl.mcl.site.knowledge.publication')
