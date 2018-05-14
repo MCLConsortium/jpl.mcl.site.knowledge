@@ -71,8 +71,8 @@ def createKnowledgeFolders(setupTool):
     if 'publications' in portal['resources'].keys():
         move(portal['resources']['publications'], portal['archive'])
         rename(portal['archive']['publications'], 'Archived Publications')
-    createContentInContainer(
-        portal['resources'], 'jpl.mcl.site.knowledge.publicationfolder', title=u'Publications',
+    publication = createContentInContainer(
+        portal, 'jpl.mcl.site.knowledge.publicationfolder', title=u'Publications',
         description=u'Articles and other material published by the MCL Consortium.',
         url=_rdfBaseURL + u'publication', ingestEnabled=True
     )
@@ -129,6 +129,7 @@ def createKnowledgeFolders(setupTool):
     publish(portal['resources'])
     publish(portal['members'])
     publish(workingGroup)
+    publish(publication)
 
     registry = getUtility(IRegistry)
 
@@ -140,7 +141,7 @@ def createKnowledgeFolders(setupTool):
         u'archive/other-lists/specimen-types',
         u'archive/other-lists/disciplines',
         u'resources/people',
-        u'resources/publications',
+        u'publications',
         u'archive/other-lists/institutions',
         u'members',
         u'resources/protocols',
