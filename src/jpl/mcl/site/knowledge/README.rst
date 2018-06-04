@@ -103,7 +103,7 @@ Great!  Now let's see how we work in the face of alterations to data::
     >>> browser.getControl(name='form.buttons.save').click()
     >>> browser.open(portalURL + '/@@ingestKnowledge')
     >>> browser.contents
-    '...Ingest Complete...Objects Created (2)...Objects Updated (1)...'
+    '...Ingest Complete...Objects Created (3)...Objects Updated (0)...'
     >>> len(folder.keys())
     3
     >>> keys = folder.keys()
