@@ -5,7 +5,7 @@ u'''MCL — Base classes'''
 from . import MESSAGE_FACTORY as _
 from ._utils import IngestResults, publish
 from .errors import IngestDisabled, RDFTypeMismatchError, TitlePredicateMissing, IngestError
-from .interfaces import IIngestor
+from .interfaces import IIngestor, IKnowledgeObject
 from Acquisition import aq_inner
 from five import grok
 from plone.dexterity.utils import createContentInContainer
@@ -20,13 +20,6 @@ import rdflib, plone.api, logging
 _logger = logging.getLogger(__name__)
 DC_TITLE = rdflib.URIRef(u'http://purl.org/dc/terms/title')
 
-class IKnowledgeObject(model.Schema):
-    u'''An abstract base class for content that are identified by RDF subject URIs.'''
-    subjectURI = schema.URI(
-        title=_(u'Subject URI'),
-        description=_(u"Uniform Resource Identifier that identifies the subject of this object.'"),
-        required=True,
-    )
 
 class IIngestableFolder(model.Schema):
     u'''An abstract base class for folders whose content can be created via ingestion from RDF.'''
