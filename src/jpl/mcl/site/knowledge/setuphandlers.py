@@ -71,6 +71,10 @@ def createKnowledgeFolders(setupTool):
     if 'publications' in portal['resources'].keys():
         move(portal['resources']['publications'], portal['archive'])
         rename(portal['archive']['publications'], 'Archived Publications')
+    #Remove old publications folder to create new one
+    if 'publications' in portal.keys():
+        plone.api.content.delete(obj=portal['publications'])
+
     publication = createContentInContainer(
         portal, 'jpl.mcl.site.knowledge.publicationfolder', title=u'Publications',
         description=u'Articles and other material published by the MCL Consortium.',
