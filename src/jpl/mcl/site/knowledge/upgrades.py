@@ -17,3 +17,4 @@ def movePublications(context):
     portal = plone.api.portal.get()
     if 'publications' in portal['resources'].keys():
         move(portal['resources']['publications'], portal)
+

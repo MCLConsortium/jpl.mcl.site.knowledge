@@ -76,7 +76,7 @@ def createKnowledgeFolders(setupTool):
         plone.api.content.delete(obj=portal['publications'])
 
     publication = createContentInContainer(
-        portal, 'jpl.mcl.site.knowledge.publicationfolder', title=u'Publications',
+        portal, 'jpl.mcl.site.knowledge.publicationfolder', title=u'Publications', id='publications',
         description=u'Articles and other material published by the MCL Consortium.',
         url=_rdfBaseURL + u'publication', ingestEnabled=True
     )
