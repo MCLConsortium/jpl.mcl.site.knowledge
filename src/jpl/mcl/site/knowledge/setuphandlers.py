@@ -86,6 +86,8 @@ def createKnowledgeFolders(setupTool):
     # [kelly/2017-05-01] THIS IS SO WEIRD
     if 'working-groups' in portal.keys():
         hideTab(portal['working-groups'])
+    if 'working-groups-new' in portal.keys():
+        plone.api.content.delete(obj=portal['working-groups-new'])
     workingGroup = createContentInContainer(
         portal, 'jpl.mcl.site.knowledge.groupfolder', title=u'Working Groups', id='working-groups-new',
         description=u'Committees and other expert groups appointed to study and report on a particular areas and make recommendations to MCL based on findings.',
