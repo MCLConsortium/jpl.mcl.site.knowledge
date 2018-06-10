@@ -16,5 +16,8 @@ def movePublications(context):
     u'''Install jpl.mcl.site.knowledge.'''
     portal = plone.api.portal.get()
     if 'publications' in portal['resources'].keys():
-        move(portal['resources']['publications'], portal)
+        if 'publications' in portal.keys():
+            plone.api.content.delete(obj=portal['resources']['publications'])
+        else:
+            move(portal['resources']['publications'], portal)
 

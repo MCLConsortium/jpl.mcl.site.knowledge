@@ -52,36 +52,46 @@ def createKnowledgeFolders(setupTool):
             description=u'Other Lists for MCL.'
         )
     if 'protocols' in portal['resources'].keys():
-        move(portal['resources']['protocols'], portal['archive'])
-        rename(portal['archive']['protocols'], 'Archived Protocols')
+        if 'protocols' in portal['archive'].keys() or 'archived-protocols' in portal['archive'].keys():
+            plone.api.content.delete(obj=portal['resources']['protocols'])
+        else:
+            move(portal['resources']['protocols'], portal['archive'])
+            rename(portal['archive']['protocols'], 'Archived Protocols')
     createContentInContainer(
-        portal['resources'], 'jpl.mcl.site.knowledge.protocolfolder', title=u'Protocols',
+        portal['resources'], 'jpl.mcl.site.knowledge.protocolfolder', title=u'Protocols', id=u'protocols',
         description=u'MCL Consortium studies',
         url=_rdfBaseURL + u'protocol', ingestEnabled=True
     )
     #members archived
     if 'members' in portal.keys():
-        move(portal['members'], portal['archive'])
-        rename(portal['archive']['members'], 'Archived Members')
+        if 'members' in portal['archive'].keys() or 'archived-members' in portal['archive'].keys():
+            plone.api.content.delete(obj=portal['members'])
+        else:
+            move(portal['members'], portal['archive'])
+            rename(portal['archive']['members'], 'Archived Members')
     createContentInContainer(
-        portal, 'jpl.mcl.site.knowledge.participatingsitefolder', title=u'Members',
+        portal, 'jpl.mcl.site.knowledge.participatingsitefolder', title=u'Members', id=u'members',
         description=u'Hospitals, universities, and other institutions participating with MCL.',
         url=_rdfBaseURL + u'fundedsite', ingestEnabled=True
     )
     if 'publications' in portal['resources'].keys():
-        move(portal['resources']['publications'], portal['archive'])
-        rename(portal['archive']['publications'], 'Archived Publications')
+        if 'publications' in portal['archive'].keys() or 'archived-publications' in portal['archive'].keys():
+            plone.api.content.delete(obj=portal['resources']['publications'])
+        else:
+            move(portal['resources']['publications'], portal['archive'])
+            rename(portal['archive']['publications'], 'Archived Publications')
     #Remove old publications folder to create new one
     if 'publications' in portal.keys():
         plone.api.content.delete(obj=portal['publications'])
-
     publication = createContentInContainer(
         portal, 'jpl.mcl.site.knowledge.publicationfolder', title=u'Publications', id='publications',
         description=u'Articles and other material published by the MCL Consortium.',
         url=_rdfBaseURL + u'publication', ingestEnabled=True
     )
+    if 'institutions' in portal['archive']['other-lists'].keys():
+        plone.api.content.delete(obj=portal['archive']['other-lists']['institutions'])
     createContentInContainer(
-        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.institutionfolder', title=u'Institutions',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.institutionfolder', title=u'Institutions', id=u'institutions',
         description=u'Universities, hospitals, and other institutions working with the consortium.',
         url=_rdfBaseURL + u'institution', ingestEnabled=True
     )
@@ -97,36 +107,51 @@ def createKnowledgeFolders(setupTool):
         description=u'Committees and other expert groups appointed to study and report on a particular areas and make recommendations to MCL based on findings.',
         url=_rdfBaseURL + u'group', ingestEnabled=True
     )
+
+    if 'organs' in portal['archive']['other-lists'].keys():
+        plone.api.content.delete(obj=portal['archive']['other-lists']['organs'])
     createContentInContainer(
-        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.organfolder', title=u'Organs',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.organfolder', title=u'Organs',id='organs',
         description=u'Organs are collections of tissues joined in structural unit to serve a common function.',
         url=_rdfBaseURL + u'organ', ingestEnabled=True
     )
+    if 'people' in portal['resources'].keys():
+        plone.api.content.delete(obj=portal['resources']['people'])
     createContentInContainer(
-        portal['resources'], 'jpl.mcl.site.knowledge.personfolder', title=u'People',
+        portal['resources'], 'jpl.mcl.site.knowledge.personfolder', title=u'People',id='people',
         description=u'Individuals working with and comprising the consortium.',
         url=_rdfBaseURL + u'person', ingestEnabled=True
     )
+    if 'degrees' in portal['archive']['other-lists'].keys():
+        plone.api.content.delete(obj=portal['archive']['other-lists']['degrees'])
     createContentInContainer(
-        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.degreefolder', title=u'Degrees',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.degreefolder', title=u'Degrees',id='degrees',
         description=u'Academic degrees are qualifications awarded on successful completion of courses of study.',
         url=_rdfBaseURL + u'degree', ingestEnabled=True
     )
+    if 'specimen-types' in portal['archive']['other-lists'].keys():
+        plone.api.content.delete(obj=portal['archive']['other-lists']['specimen-types'])
     createContentInContainer(
-        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.specimentypefolder', title=u'Specimen Types',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.specimentypefolder', title=u'Specimen Types', id=u'specimen-types',
         description=u'Specimen Types being studied in MCL.',
         url=_rdfBaseURL + u'specimentype', ingestEnabled=True
     )
+    if 'species' in portal['archive']['other-lists'].keys():
+        plone.api.content.delete(obj=portal['archive']['other-lists']['species'])
     createContentInContainer(
-        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.speciesfolder', title=u'Species',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.speciesfolder', title=u'Species',id=u'species',
         description=u'Species being studied in MCL.',
         url=_rdfBaseURL + u'species', ingestEnabled=True
     )
+    if 'disciplines' in portal['archive']['other-lists'].keys():
+        plone.api.content.delete(obj=portal['archive']['other-lists']['disciplines'])
     createContentInContainer(
-        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.disciplinefolder', title=u'Disciplines',
+        portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.disciplinefolder', title=u'Disciplines', id=u'disciplines',
         description=u'Disciplines being studied in MCL.',
         url=_rdfBaseURL + u'discipline', ingestEnabled=True
     )
+    if 'diseases' in portal['archive']['other-lists'].keys():
+        plone.api.content.delete(obj=portal['archive']['other-lists']['diseases'])
     createContentInContainer(
         portal['archive']['other-lists'], 'jpl.mcl.site.knowledge.diseasefolder', title=u'Diseases',
         description=u'Diseases being studied in MCL.',
