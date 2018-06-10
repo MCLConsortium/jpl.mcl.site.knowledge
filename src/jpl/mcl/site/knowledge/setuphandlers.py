@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 
 # There has to be a better way of doing this:
 # MCL ID is currently 39 in KSDB
-if socket.gethostname() == 'tumor.jpl.nasa.gov' or socket.gethostname().endswith('.local'):
+if socket.gethostname() == 'tumor.jpl.nasa.gov' or socket.gethostname().endswith('.local')  or socket.gethostname() == 'mcl-dev.jpl.nasa.gov':
     _logger.warn(u'Using development KSDB on edrn-dev.jpl.nasa.gov instead of production')
     _rdfBaseURL = u'https://edrn-dev.jpl.nasa.gov/ksdb/publishrdf/?filterby=program&filterval=1&rdftype='
 else:
