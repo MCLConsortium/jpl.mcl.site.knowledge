@@ -62,7 +62,9 @@
                                     </a>
                                 </td>
                                 <td tal:content='publication/pmid'>
-                                    description
+                                    <a href='#' tal:attributes='href python:"https://www.ncbi.nlm.nih.gov/pubmed/?term="+row.getURL()' tal:content='row/Title'>
+                                        Pubmed ID 1234
+                                    </a>
                                 </td>
                                 <td tal:content='publication/journal'>
                                     journal

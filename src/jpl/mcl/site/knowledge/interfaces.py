@@ -22,7 +22,7 @@ class IKnowledgeObject(model.Schema):
     subjectURI = schema.URI(
         title=_(u'Subject URI'),
         description=_(u"Uniform Resource Identifier that identifies the subject of this object.'"),
-        required=True,
+        required=True
     )
 
 class ISettings(Interface):
