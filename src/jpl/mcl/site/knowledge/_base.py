@@ -180,7 +180,7 @@ class Ingestor(grok.Adapter):
                 newValues = [i.toPython() for i in newValues]                                # Literals to Python types
                 if isRef:                                                                    # Is this a reference?
                     rvs = fieldBinding.get(obj)                                              # Get the RelationValues
-                    paths = [i.to_path for i in rvs]
+                    paths = [i.to_path for i in rvs if i.to_path is not None]
                     matches = catalog(path={'query': paths, 'depth': 0})
                     currentRefs = [i['subjectURI'].decode('utf-8') for i in matches]
                     currentRefs.sort()                                                       # Sort 'em
