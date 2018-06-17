@@ -37,8 +37,10 @@
                     <label for='form-widgets-pmid' i18n:translate='label_pmid' class='horizontal'>
                         Pubmed ID
                     </label>
-                    <div id='form-widgets-pmid' class='text-widget textline-field' tal:content='context/pmid'>
-                        12345
+                    <div id='form-widgets-pmid' class='text-widget textline-field'>
+                        <a href='#' tal:attributes='href python:"https://www.ncbi.nlm.nih.gov/pubmed/?term="+context.pmid' tal:content='context/pmid'>
+                             Pubmed ID 1234
+                       </a>
                     </div>
                 </div>
                 <div class='field' id='formfield-form-widgets-journal'>
