@@ -45,11 +45,11 @@
                 <table class='listing' summary='Listing of Publications' i18n:attributes='summary'>
                     <thead>
                         <tr>
-                            <th i18n:translate='publicationName'>Name</th>
+                            <th i18n:translate='publicationName'>Title</th>
                             <th i18n:translate='publicationpubmedid'>Pubmed ID</th>
                             <th i18n:translate='publicationjournal'>Journal</th>
                             <th i18n:translate='publicationyear'>Year</th>
-                            <th i18n:translate='publicationpi'>PI</th>
+                            <th i18n:translate='publicationpi'>MCL Authors</th>
                         </tr>
                     </thead>
                     <tbody>
