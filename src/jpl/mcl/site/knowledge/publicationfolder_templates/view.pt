@@ -45,9 +45,9 @@
                 <table class='listing' summary='Listing of Publications' i18n:attributes='summary'>
                     <thead>
                         <tr>
-                            <th i18n:translate='publicationName'>Title</th>
+                            <th i18n:translate='publicationName' style="width: 50%;">Title</th>
                             <th i18n:translate='publicationpubmedid'>Pubmed ID</th>
-                            <th i18n:translate='publicationjournal'>Journal</th>
+                            <th i18n:translate='publicationjournal' style="width: 15%;">Journal</th>
                             <th i18n:translate='publicationyear'>Year</th>
                             <th i18n:translate='publicationpi'>MCL Authors</th>
                         </tr>
