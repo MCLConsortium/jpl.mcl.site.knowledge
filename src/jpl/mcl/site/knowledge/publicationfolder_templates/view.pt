@@ -57,7 +57,7 @@
                             <tr class='odd' tal:define='odd repeat/row/odd; publication row/getObject'
                                 tal:attributes='class python:u"odd" if odd else u"even"'>
                                 <td>
-                                    <a href='#' tal:attributes='href python:"https://www.ncbi.nlm.nih.gov/pubmed/?term="+publication.pmid' tal:content='row/Title'>
+                                    <a href='#' tal:attributes='href row/getURL' tal:content='row/Title'>
                                         Some Publication
                                     </a>
                                 </td>
