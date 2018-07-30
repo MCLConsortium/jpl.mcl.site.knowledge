@@ -4,22 +4,32 @@ Changelog
 The following describes the changes between releases.
 
 
+0.0.7 — Another Aborted Release
+-------------------------------
+
+Thank you, PyPI, for being so damned anal retentive.
+
+
 0.0.6 — Our Great Institutions
 ------------------------------
 
 • CA-1546: Add Personnels Institution Affiliation to MCL Portal
 • CA-1553: Separate interfaces into interface class for better decoupling
 
+
 0.0.5 — Ready for Prime Time
 ----------------------------
 
 • CA-1529: Change staff label in participating sites to Additional Investigators and Staff
 
+
 0.0.4 — Skipped version due to Pypi push error
 ----------------------------------------------
 
+
 0.0.3 — Skipped version due to Pypi push error
 ----------------------------------------------
+
 
 0.0.2 — Blobs! Blobs Everywhere!
 --------------------------------
