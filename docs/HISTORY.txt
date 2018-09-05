@@ -3,6 +3,8 @@ Changelog
 
 The following describes the changes between releases.
 
+0.0.8 — No Changes But Dan Wanted a Release
+-------------------------------------------
 
 0.0.7 — Another Aborted Release
 -------------------------------
