@@ -31,6 +31,20 @@ Currently this package supports the following languages:
 • English (US American)
 
 
+Developers
+----------
+
+Try this to avoid annoying buildout loops::
+
+    virtualenv pyenv
+    cd pyenv
+    bin/pip install setuptools==38.5.1
+    cd ..
+    pyenv/bin/python bootstrap.py --setuptools-version=38.5.1
+    bin/buildout
+    bin/test
+
+
 To Contribute
 -------------
 
