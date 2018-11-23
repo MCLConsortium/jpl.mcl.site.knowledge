@@ -30,6 +30,7 @@ _requirements = [
     'setuptools',
     'plone.api',
     'plone.app.dexterity [grok, relations]',
+    'plone.app.imaging',
     'plone.app.registry',
     'plone.app.relationfield',
     'plone.behavior',
@@ -38,7 +39,6 @@ _requirements = [
     'Products.CMFPlone',
     'rdflib',
     'z3c.relationfield',
-    'eea.facetednavigation'
 ]
 _classifiers = [
     'Development Status :: 2 - Pre-Alpha',
